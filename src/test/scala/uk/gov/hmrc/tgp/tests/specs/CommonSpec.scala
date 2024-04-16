@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.api.specs
+package uk.gov.hmrc.tgp.tests.specs
 
-import org.scalatest.featurespec.AnyFeatureSpec
-import org.scalatest.matchers.should.Matchers
-import org.scalatest.GivenWhenThen
-
-trait BaseSpec extends AnyFeatureSpec with GivenWhenThen with Matchers {}
+trait CommonSpec extends BaseSpec {}
