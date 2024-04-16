@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.api.client
+package uk.gov.hmrc.tgp.tests.client
 
 import akka.actor.ActorSystem
 import play.api.libs.ws.DefaultBodyWritables._

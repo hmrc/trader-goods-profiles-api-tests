@@ -1,8 +1,8 @@
-**This is the template README. Please update this with project specific content.**
+
 
 # trader-goods-profiles-api-tests
 
-<SERVICE_NAME> API tests.
+Trader goods profile API tests.
 
 ## Pre-requisites
 
@@ -17,7 +17,7 @@ docker run --rm -d -p 27017:27017 --name mongo percona/percona-server-mongodb:5.
 Start `<SERVICE_MANAGER_PROFILE>` services as follows:
 
 ```bash
-sm2 --start <SERVICE_MANAGER_PROFILE>
+sm2 --start TGP_API
 ```
 
 ## Tests
@@ -27,7 +27,7 @@ Run tests as follows:
 * Argument `<environment>` must be `local`, `dev`, `qa` or `staging`.
 
 ```bash
-./run-tests.sh <environment>
+./run-tests.sh local
 ```
 
 ## Scalafmt
