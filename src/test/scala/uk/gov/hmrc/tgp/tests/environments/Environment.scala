@@ -6,22 +6,18 @@ import io.restassured.http.Cookies
 
 import uk.gov.hmrc.tgp.tests.common.EnvironmentHelpers
 
-
 import scala.collection.JavaConverters._
 import scala.util.Try
 import scala.util.control.NonFatal
 
-
 object Environment {
 
   val environments: Map[String, Environment] = Map[String, Environment](
-    "local" -> Local,
+    "local"       -> Local,
     "development" -> Development,
-    "qa" -> QA,
-    "staging" -> Staging,
-
+    "qa"          -> QA,
+    "staging"     -> Staging
   )
-
 
 }
 
@@ -29,15 +25,13 @@ sealed trait Environment extends EnvironmentHelpers {
 
   def baseUrl: String
 
-
 }
 
 case object Local extends Environment {
-  override val baseUrl: String = "http://localhost:10902"
-  private val authUrl: String = "http://localhost:9949/auth-login-stub/gg-sign-in"
+  override val baseUrl: String        = "http://localhost:10902"
+  private val authUrl: String         = "http://localhost:9949/auth-login-stub/gg-sign-in"
   private val authRedirectUrl: String = "http://localhost:9949/auth-login-stub/session"
-  private val bearerTokenPattern = raw".*>(.*Bearer .+)</code>.*".r
-
+  private val bearerTokenPattern      = raw".*>(.*Bearer .+)</code>.*".r
 
   private def generateToken(identifier: String): Either[AuthenticationFailure, String] =
     Try {
@@ -45,27 +39,27 @@ case object Local extends Environment {
       val enrolments = Map(
         "enrolments" -> Seq(
           Map(
-            "key" -> "HMRC-CUS-ORG",
+            "key"         -> "HMRC-CUS-ORG",
             "identifiers" -> Seq(
               Map(
-                "key" -> "tgpFakeIdentifier",
+                "key"   -> "tgpFakeIdentifier",
                 "value" -> identifier
               )
             ),
-            "state" -> "Activated"
+            "state"       -> "Activated"
           )
         )
       )
 
       val authBody = (Map(
-        "authorityId" -> "",
-        "redirectionUrl" -> authRedirectUrl,
-        "credentialStrength" -> "strong",
-        "confidenceLevel" -> "50",
-        "affinityGroup" -> "Individual",
-        "email" -> "user@test.com",
-        "credentialRole" -> "User",
-        "affinityGroup" -> "Individual",
+        "authorityId"                  -> "",
+        "redirectionUrl"               -> authRedirectUrl,
+        "credentialStrength"           -> "strong",
+        "confidenceLevel"              -> "50",
+        "affinityGroup"                -> "Individual",
+        "email"                        -> "user@test.com",
+        "credentialRole"               -> "User",
+        "affinityGroup"                -> "Individual",
         "additionalInfo.emailVerified" -> "N/A"
       ) ++ enrolments).asJava
 
@@ -84,8 +78,8 @@ case object Local extends Environment {
         .get(authRedirectUrl)
         .thenExtractToken(bearerTokenPattern)
     }.toEither
-      .leftMap {
-        case NonFatal(x) => AuthenticationFailure("Failed to authenticate", Some(x))
+      .leftMap { case NonFatal(x) =>
+        AuthenticationFailure("Failed to authenticate", Some(x))
       }
       .flatMap(_.toRight(AuthenticationFailure("Failed to extract bearer token", None)))
 
@@ -97,36 +91,39 @@ sealed trait RemoteEnvironment extends Environment {
 
   def apiAuthUrl: String
 
-
   private lazy val authHeader = Map("Content-Type" -> "application/json").asJava
 
-  private def authId(identifier: String,clientId: String, additionalEntries: Map[String, String]): Either[AuthenticationFailure, (String, Cookies)] = {
-    val enrolments = Map(
+  private def authId(
+    identifier: String,
+    clientId: String,
+    additionalEntries: Map[String, String]
+  ): Either[AuthenticationFailure, (String, Cookies)] = {
+    val enrolments      = Map(
       "enrolments" -> Seq(
         Map(
-          "key" -> "HMRC-CUS-ORG",
+          "key"         -> "HMRC-CUS-ORG",
           "identifiers" -> Seq(
             Map(
-              "key" -> "",
+              "key"   -> "",
               "value" -> identifier
             )
           ),
-          "state" -> "Activated"
+          "state"       -> "Activated"
         )
       )
     )
-    val authIdPattern = raw".*auth_id=([0-9a-f]+).*".r
+    val authIdPattern   = raw".*auth_id=([0-9a-f]+).*".r
     val authRedirectUrl = ""
-    val authBody = (Map(
-      "authorityId" -> "ABCD",
-      "redirectionUrl" -> authRedirectUrl,
-      "credentialStrength" -> "strong",
-      "confidenceLevel" -> "200",
-      "affinityGroup" -> "Individual",
-      "nino" -> "AA000000A",
-      "email" -> "user@test.com",
-      "credentialRole" -> "User",
-      "affinityGroup" -> "Individual",
+    val authBody        = (Map(
+      "authorityId"                  -> "ABCD",
+      "redirectionUrl"               -> authRedirectUrl,
+      "credentialStrength"           -> "strong",
+      "confidenceLevel"              -> "200",
+      "affinityGroup"                -> "Individual",
+      "nino"                         -> "AA000000A",
+      "email"                        -> "user@test.com",
+      "credentialRole"               -> "User",
+      "affinityGroup"                -> "Individual",
       "additionalInfo.emailVerified" -> "N/A"
     ) ++ enrolments).asJava
 
@@ -194,36 +191,28 @@ sealed trait RemoteEnvironment extends Environment {
       .post(apiAuthUrl)
       .jsonPath()
       .getOption[String]("access_token")
-      .map(
-        accessCodeJson => AuthenticationDetails(s"Bearer $accessCodeJson")
-      )
+      .map(accessCodeJson => AuthenticationDetails(s"Bearer $accessCodeJson"))
       .toRight(AuthenticationFailure("Failed to obtain access token", None))
-
 
 }
 
 case object Development extends RemoteEnvironment {
   override val apiAuthUrl: String = "https://api.development.tax.service.gov.uk/oauth/token"
-  override val authUrl: String = "https://www.development.tax.service.gov.uk"
-  override val baseUrl: String = ""
-
+  override val authUrl: String    = "https://www.development.tax.service.gov.uk"
+  override val baseUrl: String    = ""
 
 }
 
 case object QA extends RemoteEnvironment {
   override val apiAuthUrl: String = "https://api.qa.tax.service.gov.uk/oauth/token"
-  override val baseUrl: String = ""
-  override val authUrl: String = "https://www.qa.tax.service.gov.uk"
-
+  override val baseUrl: String    = ""
+  override val authUrl: String    = "https://www.qa.tax.service.gov.uk"
 
 }
 
 case object Staging extends RemoteEnvironment {
   override val apiAuthUrl: String = "https://api.staging.tax.service.gov.uk/oauth/token"
-  override val baseUrl: String = ""
-  override val authUrl: String = "https://www.staging.tax.service.gov.uk"
-
+  override val baseUrl: String    = ""
+  override val authUrl: String    = "https://www.staging.tax.service.gov.uk"
 
 }
-
-

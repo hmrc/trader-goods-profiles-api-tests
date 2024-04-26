@@ -11,7 +11,11 @@ case class AuthenticationResult(value: Either[AuthenticationFailure, Authenticat
     else throw value.left.get.exception
 }
 
-case class AuthenticationDetails(userBearerToken: String, clientId: Option[ClientId] = None, boxId: Option[BoxId] = None)
+case class AuthenticationDetails(
+  userBearerToken: String,
+  clientId: Option[ClientId] = None,
+  boxId: Option[BoxId] = None
+)
 
 case class AuthenticationFailure(message: String, cause: Option[Throwable]) {
 

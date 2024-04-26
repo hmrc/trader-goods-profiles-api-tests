@@ -9,7 +9,7 @@ object TestEnvironment {
   lazy val environment: Environment =
     sys.props.get("environment").map(_.toLowerCase).map(Environment.environments).getOrElse(Local)
 
-  lazy val isLocal: Boolean = environment == Local
-  lazy val isDevelopment: Boolean  = environment == Development
+  lazy val isLocal: Boolean       = environment == Local
+  lazy val isDevelopment: Boolean = environment == Development
 
 }

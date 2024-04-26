@@ -31,8 +31,8 @@ trait EnvironmentHelpers {
         .asInputStream()
         .asSource()
         .getLines()
-        .collectFirst {
-          case pattern(x) => x
+        .collectFirst { case pattern(x) =>
+          x
         }
 
   }
