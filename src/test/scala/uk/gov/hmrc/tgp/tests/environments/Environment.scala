@@ -33,15 +33,29 @@ sealed trait Environment extends EnvironmentHelpers {
 }
 
 case object Local extends Environment {
-  override val baseUrl: String = ""
+  override val baseUrl: String = "http://localhost:10902"
   private val authUrl: String = "http://localhost:9949/auth-login-stub/gg-sign-in"
   private val authRedirectUrl: String = "http://localhost:9949/auth-login-stub/session"
   private val bearerTokenPattern = raw".*>(.*Bearer .+)</code>.*".r
 
 
-  private def generateToken(additionalEntries: Map[String, String]): Either[AuthenticationFailure, String] =
+  private def generateToken(identifier: String): Either[AuthenticationFailure, String] =
     Try {
-      val authHeader = Map("Content-Type" -> "application/x-www-form-urlencoded").asJava
+      val authHeader = Map("Content-Type" -> "application/json").asJava
+      val enrolments = Map(
+        "enrolments" -> Seq(
+          Map(
+            "key" -> "HMRC-CUS-ORG",
+            "identifiers" -> Seq(
+              Map(
+                "key" -> "tgpFakeIdentifier",
+                "value" -> identifier
+              )
+            ),
+            "state" -> "Activated"
+          )
+        )
+      )
 
       val authBody = (Map(
         "authorityId" -> "",
@@ -53,7 +67,7 @@ case object Local extends Environment {
         "credentialRole" -> "User",
         "affinityGroup" -> "Individual",
         "additionalInfo.emailVerified" -> "N/A"
-      ) ++ additionalEntries).asJava
+      ) ++ enrolments).asJava
 
       val authResponse = given()
         .headers(authHeader)
@@ -84,12 +98,23 @@ sealed trait RemoteEnvironment extends Environment {
   def apiAuthUrl: String
 
 
+  private lazy val authHeader = Map("Content-Type" -> "application/json").asJava
 
-
-  private lazy val authHeader = Map("Content-Type" -> "application/x-www-form-urlencoded").asJava
-
-  private def authId(clientId: String, additionalEntries: Map[String, String]): Either[AuthenticationFailure, (String, Cookies)] = {
-
+  private def authId(identifier: String,clientId: String, additionalEntries: Map[String, String]): Either[AuthenticationFailure, (String, Cookies)] = {
+    val enrolments = Map(
+      "enrolments" -> Seq(
+        Map(
+          "key" -> "HMRC-CUS-ORG",
+          "identifiers" -> Seq(
+            Map(
+              "key" -> "",
+              "value" -> identifier
+            )
+          ),
+          "state" -> "Activated"
+        )
+      )
+    )
     val authIdPattern = raw".*auth_id=([0-9a-f]+).*".r
     val authRedirectUrl = ""
     val authBody = (Map(
@@ -103,7 +128,7 @@ sealed trait RemoteEnvironment extends Environment {
       "credentialRole" -> "User",
       "affinityGroup" -> "Individual",
       "additionalInfo.emailVerified" -> "N/A"
-    ) ++ additionalEntries).asJava
+    ) ++ enrolments).asJava
 
     val firstResponse = given()
       .headers(authHeader)
