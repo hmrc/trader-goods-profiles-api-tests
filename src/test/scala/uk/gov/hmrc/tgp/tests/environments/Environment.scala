@@ -104,7 +104,7 @@ sealed trait RemoteEnvironment extends Environment {
           "key"         -> "HMRC-CUS-ORG",
           "identifiers" -> Seq(
             Map(
-              "key"   -> "",
+              "key"   -> "tgpFakeIdentifier",
               "value" -> identifier
             )
           ),
