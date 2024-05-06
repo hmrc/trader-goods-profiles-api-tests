@@ -1,0 +1,5 @@
+{
+  "timestamp": "2024-05-06T21:57:52.473580Z",
+  "code": "UNAUTHORIZED",
+  "message": "The details signed in do not have a Trader Goods Profile"
+}
