@@ -78,7 +78,7 @@ class GetTradersGoodProfile
         .header("Authorization", s"Bearer $randomToken") // Pass the random token in the Authorization header
         .when()
         .get(
-          s"${TestEnvironment.environment.baseUrl}/$enrollmentEORINumber/records"
+          s"${TestEnvironment.environment.baseUrl}/$enrollmentEORINumber/records?lastUpdatedDate=2024-11-18T23:20:19Z"
         )
       sut
         .`then`()
