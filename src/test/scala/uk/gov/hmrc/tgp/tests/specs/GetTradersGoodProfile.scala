@@ -51,7 +51,7 @@ class GetTradersGoodProfile
 
   override lazy val authToken: AuthenticationResult = TestEnvironment.environment.authenticateWithRandomEori()
   "*FEATURE* -Confirm EORI and TGP Enrollment" - {
-    "GET - status expected is 200" in {
+    "GET - Validate success response 200 for GET TGP record API " in {
       val enrollmentEORINumber = authToken.eori
       val expectedResponse     = Source.fromResource("Json.intermediateResponse/Scenario_Get_200.text").mkString
       val sut                  = given()
@@ -70,7 +70,7 @@ class GetTradersGoodProfile
 
     val randomToken = Random.alphanumeric.take(20).mkString
 
-    "GET - status expected is 401" in {
+    "GET -Validate the status code 401 with invalid bearer token" in {
       val enrollmentEORINumber = authToken.eori
       val expectedResponse     = Source.fromResource("Json.intermediateResponse/Scenario_Get_401.json").mkString
 
@@ -87,7 +87,7 @@ class GetTradersGoodProfile
       assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
     }
 
-    "GET -  status expected is 403" in {
+    "GET -Validate the status code 403 with invalid EORI number" in {
       val expectedResponse = Source.fromResource("Json.intermediateResponse/Scenario_Get_403.json").mkString
       val sut              = given()
         .withVersionOneHeaders()
