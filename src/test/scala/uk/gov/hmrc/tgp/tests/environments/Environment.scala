@@ -117,7 +117,6 @@ case object Local extends Environment {
         "affinityGroup"                -> "Individual",
         "email"                        -> "user@test.com",
         "credentialRole"               -> "User",
-        "affinityGroup"                -> "Individual",
         "additionalInfo.emailVerified" -> "N/A"
       ) ++ additionalEntries).asJava
 
