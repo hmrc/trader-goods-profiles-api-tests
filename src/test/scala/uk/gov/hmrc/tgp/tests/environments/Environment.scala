@@ -1,22 +1,49 @@
+/*
+ * Copyright 2024 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package uk.gov.hmrc.tgp.tests.environments
 
 import cats.syntax.all._
+
 import io.restassured.RestAssured.`given`
 import io.restassured.http.Cookies
 
 import uk.gov.hmrc.tgp.tests.common.EnvironmentHelpers
+import uk.gov.hmrc.tgp.tests.common.InputData
 
+import java.net.URLEncoder
 import scala.collection.JavaConverters._
-import scala.util.Try
+import scala.util.{Random, Try}
 import scala.util.control.NonFatal
 
 object Environment {
 
   val environments: Map[String, Environment] = Map[String, Environment](
-    "local"       -> Local,
-    "development" -> Development,
-    "qa"          -> QA,
-    "staging"     -> Staging
+    "local"        -> Local,
+    "development"  -> Development,
+    "qa"           -> QA,
+    "staging"      -> Staging,
+    "externaltest" -> ExternalTest
+  )
+
+  def modernEnrolment(eori: String): Map[String, String] = Map(
+    "enrolment[0].state"                  -> "Activated",
+    "enrolment[0].name"                   -> "HMRC-CUS-ORG",
+    "enrolment[0].taxIdentifier[0].name"  -> "tgpFakeIdentifier",
+    "enrolment[0].taxIdentifier[0].value" -> eori
   )
 
 }
@@ -25,31 +52,62 @@ sealed trait Environment extends EnvironmentHelpers {
 
   def baseUrl: String
 
+  def testSupportUrl: Option[String]
+
+  def supportsObjectStore: Boolean
+
+  final lazy val hasTestSupport = testSupportUrl.isDefined
+
+  def authenticationResult: AuthenticationResult
+
+  def authenticateWithRandomEori(): AuthenticationResult
+
+  def authenticateWithEori(eori: String): AuthenticationResult
+
 }
 
 case object Local extends Environment {
-  override val baseUrl: String        = "http://localhost:10902"
+  override val baseUrl: String = "http://localhost:10902"
+
+  override val testSupportUrl: Option[String] = Some("http://localhost:9497")
+
+  override val supportsObjectStore = true
+
   private val authUrl: String         = "http://localhost:9949/auth-login-stub/gg-sign-in"
   private val authRedirectUrl: String = "http://localhost:9949/auth-login-stub/session"
-  private val bearerTokenPattern      = raw".*>(.*Bearer .+)</code>.*".r
 
-  private def generateToken(identifier: String): Either[AuthenticationFailure, String] =
+  private val bearerTokenPattern = raw".*>(.*Bearer .+)</code>.*".r
+
+  lazy val authenticationResult: AuthenticationResult =
+    generateAuthenticationDetails(Environment.modernEnrolment(InputData.eori), InputData.eori)
+
+  def authenticateWithRandomEori(): AuthenticationResult = {
+    val random10DigitNumber = Random.nextInt(1000000000).toString.reverse.padTo(10, '0').reverse
+    val eori                = s"GB$random10DigitNumber"
+    print(eori)
+    generateAuthenticationDetails(Environment.modernEnrolment(eori), eori)
+  }
+
+  def authenticateWithEori(eori: String): AuthenticationResult =
+    generateAuthenticationDetails(Environment.modernEnrolment(eori), eori)
+
+  private def generateAuthenticationDetails(
+    additionalEntries: Map[String, String],
+    eori: String
+  ): AuthenticationResult = {
+
+    val details = for {
+      bearerToken <- generateToken(additionalEntries)
+
+    } yield AuthenticationDetails(bearerToken, None, None)
+
+    AuthenticationResult(details, eori)
+
+  }
+
+  private def generateToken(additionalEntries: Map[String, String]): Either[AuthenticationFailure, String] =
     Try {
-      val authHeader = Map("Content-Type" -> "application/json").asJava
-      val enrolments = Map(
-        "enrolments" -> Seq(
-          Map(
-            "key"         -> "HMRC-CUS-ORG",
-            "identifiers" -> Seq(
-              Map(
-                "key"   -> "tgpFakeIdentifier",
-                "value" -> identifier
-              )
-            ),
-            "state"       -> "Activated"
-          )
-        )
-      )
+      val authHeader = Map("Content-Type" -> "application/x-www-form-urlencoded").asJava
 
       val authBody = (Map(
         "authorityId"                  -> "",
@@ -59,9 +117,8 @@ case object Local extends Environment {
         "affinityGroup"                -> "Individual",
         "email"                        -> "user@test.com",
         "credentialRole"               -> "User",
-        "affinityGroup"                -> "Individual",
         "additionalInfo.emailVerified" -> "N/A"
-      ) ++ enrolments).asJava
+      ) ++ additionalEntries).asJava
 
       val authResponse = given()
         .headers(authHeader)
@@ -71,12 +128,16 @@ case object Local extends Environment {
         .when()
         .post(authUrl)
 
-      `given`()
+      val bearerToken = `given`()
         .headers(authHeader)
         .cookies(authResponse.cookies())
         .when()
         .get(authRedirectUrl)
         .thenExtractToken(bearerTokenPattern)
+
+      println(s"Bearer Token: $bearerToken") // Print bearer token to console
+
+      bearerToken
     }.toEither
       .leftMap { case NonFatal(x) =>
         AuthenticationFailure("Failed to authenticate", Some(x))
@@ -91,29 +152,47 @@ sealed trait RemoteEnvironment extends Environment {
 
   def apiAuthUrl: String
 
-  private lazy val authHeader = Map("Content-Type" -> "application/json").asJava
+  def scopes: Seq[String]
+
+  override val supportsObjectStore = true
+  private lazy val joinedScoped    = URLEncoder.encode(scopes.mkString(" "), "UTF-8")
+
+  lazy val authenticationResult: AuthenticationResult =
+    authenticate(
+      sys.props("clientId"),
+      sys.props("clientSecret"),
+      Environment.modernEnrolment(InputData.eori),
+      InputData.eori
+    )
+
+  def authenticateWithRandomEori(): AuthenticationResult = {
+    val eori = Random.alphanumeric.take(17).mkString
+    authenticate(
+      sys.props("clientId"),
+      sys.props("clientSecret"),
+      Environment.modernEnrolment(eori),
+      eori
+    )
+  }
+
+  def authenticateWithEori(eori: String): AuthenticationResult =
+    authenticate(
+      sys.props("clientId"),
+      sys.props("clientSecret"),
+      Environment.modernEnrolment(eori),
+      eori
+    )
+
+  private lazy val authHeader = Map("Content-Type" -> "application/x-www-form-urlencoded").asJava
 
   private def authId(
-    identifier: String,
     clientId: String,
     additionalEntries: Map[String, String]
   ): Either[AuthenticationFailure, (String, Cookies)] = {
-    val enrolments      = Map(
-      "enrolments" -> Seq(
-        Map(
-          "key"         -> "HMRC-CUS-ORG",
-          "identifiers" -> Seq(
-            Map(
-              "key"   -> "tgpFakeIdentifier",
-              "value" -> identifier
-            )
-          ),
-          "state"       -> "Activated"
-        )
-      )
-    )
+
     val authIdPattern   = raw".*auth_id=([0-9a-f]+).*".r
-    val authRedirectUrl = ""
+    val authRedirectUrl =
+      s"$authUrl/oauth/authorize?client_id=$clientId&redirect_uri=urn:ietf:wg:oauth:2.0:oob&scope=$joinedScoped&response_type=code"
     val authBody        = (Map(
       "authorityId"                  -> "ABCD",
       "redirectionUrl"               -> authRedirectUrl,
@@ -125,7 +204,7 @@ sealed trait RemoteEnvironment extends Environment {
       "credentialRole"               -> "User",
       "affinityGroup"                -> "Individual",
       "additionalInfo.emailVerified" -> "N/A"
-    ) ++ enrolments).asJava
+    ) ++ additionalEntries).asJava
 
     val firstResponse = given()
       .headers(authHeader)
@@ -194,25 +273,60 @@ sealed trait RemoteEnvironment extends Environment {
       .map(accessCodeJson => AuthenticationDetails(s"Bearer $accessCodeJson"))
       .toRight(AuthenticationFailure("Failed to obtain access token", None))
 
+  protected def authenticate(
+    clientId: String,
+    clientSecret: String,
+    additionalEntries: Map[String, String],
+    eori: String
+  ): AuthenticationResult =
+    Try {
+      for {
+        auth      <- authId(clientId, additionalEntries)
+        csrfToken <- grantScope(auth._2, auth._1)
+        token     <- successToken(csrfToken._2, auth._1, csrfToken._1)
+        code      <- accessCode(token, clientId, clientSecret)
+      } yield code
+    }.recover { case NonFatal(x) =>
+      Left(AuthenticationFailure("Failed to authenticate", Some(x)))
+    }.map(x => AuthenticationResult(x, eori))
+      .get
+
 }
 
 case object Development extends RemoteEnvironment {
-  override val apiAuthUrl: String = "https://api.development.tax.service.gov.uk/oauth/token"
-  override val authUrl: String    = "https://www.development.tax.service.gov.uk"
-  override val baseUrl: String    = ""
+  override val apiAuthUrl: String             = "https://api.development.tax.service.gov.uk/oauth/token"
+  override val authUrl: String                = "https://www.development.tax.service.gov.uk"
+  override val testSupportUrl: Option[String] = None
+  override val baseUrl: String                =
+    "https://api.development.tax.service.gov.uk/customs/traders/goods-profiles/EORI/records"
+  override val supportsObjectStore            = false
 
+  override val scopes: Seq[String] = Seq(
+    ""
+  )
 }
 
 case object QA extends RemoteEnvironment {
-  override val apiAuthUrl: String = "https://api.qa.tax.service.gov.uk/oauth/token"
-  override val baseUrl: String    = ""
-  override val authUrl: String    = "https://www.qa.tax.service.gov.uk"
-
+  override val apiAuthUrl: String             = "https://api.qa.tax.service.gov.uk/oauth/token"
+  override val baseUrl: String                = "https://api.qa.tax.service.gov.uk/customs/traders/goods-profiles/EORI/records"
+  override val authUrl: String                = "https://www.qa.tax.service.gov.uk"
+  override val scopes: Seq[String]            = Seq("")
+  override val testSupportUrl: Option[String] = None
 }
 
 case object Staging extends RemoteEnvironment {
-  override val apiAuthUrl: String = "https://api.staging.tax.service.gov.uk/oauth/token"
-  override val baseUrl: String    = ""
-  override val authUrl: String    = "https://www.staging.tax.service.gov.uk"
+  override val apiAuthUrl: String             = "https://api.staging.tax.service.gov.uk/oauth/token"
+  override val baseUrl: String                = "https://api.staging.tax.service.gov.uk/customs/traders/goods-profiles/EORI/records"
+  override val testSupportUrl: Option[String] = None
+  override val authUrl: String                = "https://www.staging.tax.service.gov.uk"
+  override val scopes: Seq[String]            =
+    Seq("")
+}
 
+case object ExternalTest extends RemoteEnvironment {
+  override val apiAuthUrl: String             = "https://test-api.service.hmrc.gov.uk/oauth/token"
+  override val baseUrl: String                = "https://test-api.service.hmrc.gov.uk/customs/traders/goods-profiles/EORI/records"
+  override val testSupportUrl: Option[String] = None
+  override val authUrl: String                = "https://test-www.tax.service.gov.uk"
+  override val scopes: Seq[String]            = Seq("")
 }
