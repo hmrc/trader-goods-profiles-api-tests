@@ -49,7 +49,12 @@ Format all project files as follows:
 ```bash
 sbt scalafmtAll
 ```
+## Running ZAP specs - on a developer machine
 
+```bash
+./run-local-zap-tests.sh
+``` 
+Results of your ZAP run will be placed in `dast-config-manager/target/dast-reports/index.html` file
 ## License
 
 This code is open source software licensed under the [Apache 2.0 License]("http://www.apache.org/licenses/LICENSE-2.0.html").
