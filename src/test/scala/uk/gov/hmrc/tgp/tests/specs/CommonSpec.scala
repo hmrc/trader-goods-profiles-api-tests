@@ -16,11 +16,10 @@
 
 package uk.gov.hmrc.tgp.tests.specs
 
+import play.api.libs.json.{JsObject, Json}
 import io.restassured.response.Response
 import io.restassured.specification.RequestSpecification
 import uk.gov.hmrc.tgp.tests.client.{HttpClient, RestAssured}
-
-import scala.collection.JavaConverters.mapAsJavaMap
 
 trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
   val requestSpecification: RequestSpecification = getRequestSpec
@@ -46,4 +45,22 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .get(url + s"$identifier/records/8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f")
       .andReturn()
   }
+
+  def compareJson(json1: String, json2: String): Boolean = {
+    // Parse the JSON strings
+    val parsedJson1 = Json.parse(json1)
+    val parsedJson2 = Json.parse(json2)
+
+    // Remove the timestamp field from both JSON objects
+    val jsonWithoutTimestamp1 = parsedJson1.as[JsObject] - "timestamp"
+    val jsonWithoutTimestamp2 = parsedJson2.as[JsObject] - "timestamp"
+
+    // Serialize the modified JSON objects back to strings for comparison
+    val modifiedJson1 = Json.stringify(jsonWithoutTimestamp1)
+    val modifiedJson2 = Json.stringify(jsonWithoutTimestamp2)
+
+    // Compare the modified JSON strings
+    modifiedJson1 == modifiedJson2
+  }
+
 }

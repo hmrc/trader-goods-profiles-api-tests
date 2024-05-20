@@ -16,7 +16,4 @@
 
 package uk.gov.hmrc.tgp.tests.utils
 
-import scala.collection.mutable
-import scala.util.Random
-
 object RandomUtils {}

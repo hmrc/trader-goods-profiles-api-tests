@@ -16,24 +16,25 @@
 
 package uk.gov.hmrc.tgp.tests.specs
 
-import org.junit.Assert.assertEquals
 import org.scalatest.Tag
 import uk.gov.hmrc.tgp.tests.client.HttpClient
+import uk.gov.hmrc.tgp.tests.utils.JsonUtils.getResponseJsonFileAsString
 
 class TradersGoodProfileGetRecordsSpec extends BaseSpec with CommonSpec with HttpClient {
 
   object GET extends Tag("uk.gov.hmrc.tgp.tests.specs.GetTradersGoodProfileSpec")
   val identifier = "GB123456789001"
   Feature("Traders Good Profile Confirm EORI and TGP Enrollment API functionality") {
-    Scenario("GET - Validate success response 200 for GET TGP record API") {
-      val token        = givenGetToken(isValid = true, identifier)
+    Scenario("GET TGP SINGLE RECORD - Validate success response 200 for GET TGP record API") {
+      val token      = givenGetToken(isValid = true, identifier)
       println(token)
-      val response     = getTgpRecord(token, identifier)
-      val responseBody = response.getBody.asString
-      val statusCode   = response.getStatusCode
+      val response   = getTgpRecord(token, identifier)
+      val statusCode = response.getStatusCode
       System.out.println("Status code: " + statusCode)
-      System.out.println("Response body: " + responseBody)
       statusCode.shouldBe(200)
+      val actualResponse   = response.getBody.asString()
+      val expectedResponse = getResponseJsonFileAsString("Scenario_Get_200")
+      assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
 
     }
   }

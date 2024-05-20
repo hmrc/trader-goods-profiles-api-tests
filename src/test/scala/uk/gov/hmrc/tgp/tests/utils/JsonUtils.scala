@@ -16,4 +16,11 @@
 
 package uk.gov.hmrc.tgp.tests.utils
 
-object JsonUtils {}
+import scala.io.Source
+
+object JsonUtils {
+
+  def getResponseJsonFileAsString(fileName: String): String =
+    Source.fromResource(s"Json.intermediateResponse/$fileName.json").mkString
+
+}

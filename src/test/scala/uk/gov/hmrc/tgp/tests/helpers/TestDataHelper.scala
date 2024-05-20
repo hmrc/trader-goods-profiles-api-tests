@@ -40,7 +40,4 @@ class TestDataHelper {
     matchId
   }
 
-  def getExpectedResponseCode(filename: String): String =
-    filename.substring(filename.length - 3)
-
 }

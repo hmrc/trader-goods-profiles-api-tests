@@ -16,6 +16,4 @@
 
 package uk.gov.hmrc.tgp.tests.utils
 
-import play.api.libs.json._
-
-object RemoveJsonElement {}
+object DateUtils {}

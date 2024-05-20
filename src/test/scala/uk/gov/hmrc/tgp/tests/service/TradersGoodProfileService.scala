@@ -16,42 +16,13 @@
 
 package uk.gov.hmrc.tgp.tests.service
 
-import play.api.libs.ws.StandaloneWSRequest
 import uk.gov.hmrc.tgp.tests.client.HttpClient
 import uk.gov.hmrc.tgp.tests.conf.TestConfiguration
 
-import scala.concurrent.Await
-import scala.concurrent.duration._
-
 class TradersGoodProfileService extends HttpClient {
 
-  val host: String                           = TestConfiguration.url("tgp-api")
-  val exciseMovementControlSystemURL: String = s"$host/" + TestConfiguration.getConfigValue("tgp-api-uri")
-  val uri: String                            = TestConfiguration.getConfigValue("tgp-api-uri")
+  val host: String                        = TestConfiguration.url("tgp-api")
+  val tradersGoodProfileSystemURL: String = s"$host/" + TestConfiguration.getConfigValue("tgp-api-uri")
+  val uri: String                         = TestConfiguration.getConfigValue("tgp-api-uri")
 
-  def postPayload(authToken: String, payload: String): StandaloneWSRequest#Self#Response =
-    Await.result(
-      post(
-        exciseMovementControlSystemURL,
-        payload,
-        ("Content-Type", "application/xml"),
-        ("Authorization", authToken),
-        ("Accept", "application/vnd.hmrc.1.0+xml")
-      ),
-      10.seconds
-    )
-
-  def postPayload(authToken: String, payload: String, lrn: String): StandaloneWSRequest#Self#Response = {
-    val finalApiUrl = s"$exciseMovementControlSystemURL/$lrn/messages"
-    Await.result(
-      post(
-        finalApiUrl,
-        payload,
-        ("Content-Type", "application/xml"),
-        ("Authorization", authToken),
-        ("Accept", "application/vnd.hmrc.1.0+xml")
-      ),
-      10.seconds
-    )
-  }
 }

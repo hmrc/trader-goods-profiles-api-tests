@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.tgp.tests.helpers
 
-import play.api.libs.ws.StandaloneWSRequest
 import uk.gov.hmrc.tgp.tests.service.TradersGoodProfileService
 
 class TradersGoodProfileHelper {
