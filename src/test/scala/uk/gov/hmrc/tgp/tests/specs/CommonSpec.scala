@@ -16,4 +16,34 @@
 
 package uk.gov.hmrc.tgp.tests.specs
 
-trait CommonSpec extends BaseSpec {}
+import io.restassured.response.Response
+import io.restassured.specification.RequestSpecification
+import uk.gov.hmrc.tgp.tests.client.{HttpClient, RestAssured}
+
+import scala.collection.JavaConverters.mapAsJavaMap
+
+trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
+  val requestSpecification: RequestSpecification = getRequestSpec
+
+  def givenGetToken(isValid: Boolean, identifier: String = ""): String = {
+    Given(s"I receive a token $isValid")
+    if (isValid) {
+      authHelper.getAuthBearerToken(identifier)
+    } else {
+      identifier
+    }
+  }
+
+  def getTgpRecord(token: String, identifier: String): Response = {
+    When(s"I get Get Tgp Records request without query params and receive a response")
+    println(s"uri : " + url + s"/$identifier/records/8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f")
+    requestSpecification
+      .header("Authorization", token)
+      .header("X-Client-Id", "1234")
+      .header("Content-Type", "application/json")
+      .header("Accept", "application/vnd.hmrc.1.0+json")
+      .when()
+      .get(url + s"$identifier/records/8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f")
+      .andReturn()
+  }
+}
