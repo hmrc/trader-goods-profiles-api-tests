@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.tgp.tests.environments.models
+package uk.gov.hmrc.tgp.tests.utils
 
-case class ClientId(value: String) extends AnyVal
+object DateUtils {}

@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.tgp.tests.environments.models
+package uk.gov.hmrc.tgp.tests.models
 
-import play.api.libs.json.{Format, Json}
+import play.api.libs.json.{Json, OFormat}
 
-object BoxId {
-  implicit val format: Format[BoxId] = Json.valueFormat[BoxId]
+case class User(firstName: String, lastName: String, nino: String, dateOfBirth: String)
+
+object User {
+  implicit val userJsonFormat: OFormat[User] = Json.format[User]
+  val ninoUser: User                         = User("Luke", "Wood", "EG724113D", "1960-04-06")
 }
-
-case class BoxId(value: String) extends AnyVal
