@@ -16,4 +16,17 @@
 
 package uk.gov.hmrc.tgp.tests.utils
 
-object TextUtils {}
+import scala.util.Random
+
+object TokenGenerator {
+
+  private val characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+
+  def generateRandomBearerToken(length: Int = 128): String = {
+    val token = new StringBuilder(length)
+    for (_ <- 1 to length)
+      token.append(characters.charAt(Random.nextInt(characters.length)))
+    token.toString()
+  }
+
+}

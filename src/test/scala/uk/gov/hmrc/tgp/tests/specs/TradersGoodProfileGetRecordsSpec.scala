@@ -19,22 +19,59 @@ package uk.gov.hmrc.tgp.tests.specs
 import org.scalatest.Tag
 import uk.gov.hmrc.tgp.tests.client.HttpClient
 import uk.gov.hmrc.tgp.tests.utils.JsonUtils.getResponseJsonFileAsString
+import uk.gov.hmrc.tgp.tests.utils.TokenGenerator.generateRandomBearerToken
 
 class TradersGoodProfileGetRecordsSpec extends BaseSpec with CommonSpec with HttpClient {
 
-  object GET extends Tag("uk.gov.hmrc.tgp.tests.specs.GetTradersGoodProfileSpec")
-  val identifier = "GB123456789001"
-  Feature("Traders Good Profile Confirm EORI and TGP Enrollment API functionality") {
-    Scenario("GET TGP SINGLE RECORD - Validate success response 200 for GET TGP record API") {
-      val token      = givenGetToken(isValid = true, identifier)
-      println(token)
-      val response   = getTgpRecord(token, identifier)
+  object GetApiRecord extends Tag("uk.gov.hmrc.tgp.tests.specs.GetTradersGoodProfileSpec")
+
+  Feature("Traders Good Profile Confirm EORI and TGP Enrollment API functionality for GET API call") {
+    val scenarios = List(
+      ("GB123456789001", 200, "Scenario_Get_200", "Validate success response 200 for GET TGP record API"),
+      ("GB123456789002", 404, "Scenario_Get_404", "Validate record not found response 404 for GET TGP record API"),
+      (
+        "GB123456789003",
+        400,
+        "Scenario_Get_400",
+        "Validate invalid recordID format response 400 for GET TGP record API"
+      ),
+      ("GB123456789004", 404, "Scenario_Get_404", "Validate invalid URL response 404 for GET TGP record API"),
+      ("GB123456789005", 405, "Scenario_Get_405", "Validate method not allowed response 405 for GET TGP record API"),
+      ("GB123456789006", 500, "Scenario_Get_500", "Validate internal server error response 500 for GET TGP record API")
+    )
+
+    scenarios.foreach { case (identifier, expectedStatusCode, expectedResponseFile, scenarioDescription) =>
+      Scenario(s"GET TGP SINGLE RECORD - $scenarioDescription") {
+        val token      = givenGetToken(isValid = true, identifier)
+        println(token)
+        val response   = getTgpRecord(token, identifier)
+        val statusCode = response.getStatusCode
+        System.out.println("Status code: " + statusCode)
+        statusCode.shouldBe(expectedStatusCode)
+
+        if (expectedStatusCode == 200) {
+          val actualResponse   = response.getBody.asString()
+          val expectedResponse = getResponseJsonFileAsString(expectedResponseFile)
+          assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
+        }
+      }
+    }
+
+    Scenario(s"GET TGP SINGLE RECORD -Validate invalid token bearer response 401 for GET TGP record API") {
+      val token      = generateRandomBearerToken()
+      val response   = getTgpRecord(token, "GB123456789001")
       val statusCode = response.getStatusCode
       System.out.println("Status code: " + statusCode)
-      statusCode.shouldBe(200)
-      val actualResponse   = response.getBody.asString()
-      val expectedResponse = getResponseJsonFileAsString("Scenario_Get_200")
-      assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
+      statusCode.shouldBe(401)
+
+    }
+
+    Scenario(s"GET TGP SINGLE RECORD -Validate invalid EORI no response 403 for GET TGP record API") {
+      val token      = givenGetToken(isValid = true, "GB123456789001")
+      val response   = getTgpRecord(token, "GB123456789002")
+      val statusCode = response.getStatusCode
+      System.out.println("Status code: " + statusCode)
+      statusCode.shouldBe(403)
 
     }
   }
