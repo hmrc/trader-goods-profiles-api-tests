@@ -20,9 +20,7 @@ import scala.util.Random
 
 object TokenGenerator {
 
-
   private val characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
-
 
   def generateRandomBearerToken(length: Int = 128): String = {
     val token = new StringBuilder(length)
