@@ -3,13 +3,13 @@
   "recordId": "8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f",
   "traderRef": "BAN001001",
   "comcode": "104101000",
-  "accreditationStatus": "Not requested",
+  "accreditationStatus": "Not Requested",
   "goodsDescription": "Organic bananas",
   "countryOfOrigin": "EC",
   "category": 3,
   "assessments": [
     {
-      "assessmentId": "abc123",
+      "assessmentId": "8ce911dcd4911c785a4d886919c74485",
       "primaryCategory": 1,
       "condition": {
         "type": "abc123",
