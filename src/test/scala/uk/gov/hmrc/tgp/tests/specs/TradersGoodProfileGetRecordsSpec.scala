@@ -48,12 +48,10 @@ class TradersGoodProfileGetRecordsSpec extends BaseSpec with CommonSpec with Htt
         val statusCode = response.getStatusCode
         System.out.println("Status code: " + statusCode)
         statusCode.shouldBe(expectedStatusCode)
+        val actualResponse   = response.getBody.asString()
+        val expectedResponse = getResponseJsonFileAsString(expectedResponseFile)
+        assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
 
-        if (expectedStatusCode == 200) {
-          val actualResponse   = response.getBody.asString()
-          val expectedResponse = getResponseJsonFileAsString(expectedResponseFile)
-          assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
-        }
       }
     }
 
@@ -63,6 +61,9 @@ class TradersGoodProfileGetRecordsSpec extends BaseSpec with CommonSpec with Htt
       val statusCode = response.getStatusCode
       System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(401)
+      val actualResponse   = response.getBody.asString()
+      val expectedResponse = getResponseJsonFileAsString("Scenario_Get_401")
+      assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
 
     }
 
@@ -72,6 +73,9 @@ class TradersGoodProfileGetRecordsSpec extends BaseSpec with CommonSpec with Htt
       val statusCode = response.getStatusCode
       System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(403)
+      val actualResponse   = response.getBody.asString()
+      val expectedResponse = getResponseJsonFileAsString("Scenario_Get_403")
+      assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
 
     }
   }

@@ -1,5 +1,4 @@
-{
-  "timestamp": "2024-05-06T22:06:38.394828Z",
+{"correlationId":"5dc26c2c-d7d2-4339-86f0-d74621b86fb9",
   "code": "FORBIDDEN",
-  "message": "This EORI number is incorrect"
+  "message": "EORI number is incorrect"
 }

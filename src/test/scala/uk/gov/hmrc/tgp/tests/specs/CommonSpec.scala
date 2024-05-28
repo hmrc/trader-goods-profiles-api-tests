@@ -65,13 +65,13 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     val parsedJson1 = Json.parse(json1)
     val parsedJson2 = Json.parse(json2)
 
-    // Remove the timestamp field from both JSON objects
-    val jsonWithoutTimestamp1 = parsedJson1.as[JsObject] - "timestamp"
-    val jsonWithoutTimestamp2 = parsedJson2.as[JsObject] - "timestamp"
+    // Remove the correlationId field from both JSON objects
+    val jsonWithoutCorrelationId1 = parsedJson1.as[JsObject] - "correlationId"
+    val jsonWithoutCorrelationId2 = parsedJson2.as[JsObject] - "correlationId"
 
     // Serialize the modified JSON objects back to strings for comparison
-    val modifiedJson1 = Json.stringify(jsonWithoutTimestamp1)
-    val modifiedJson2 = Json.stringify(jsonWithoutTimestamp2)
+    val modifiedJson1 = Json.stringify(jsonWithoutCorrelationId1)
+    val modifiedJson2 = Json.stringify(jsonWithoutCorrelationId2)
 
     // Compare the modified JSON strings
     modifiedJson1 == modifiedJson2

@@ -27,7 +27,7 @@ Run tests as follows:
 * Argument `<environment>` must be `local`, `dev`, `qa` or `staging`.
 
 ```bash
-./run-local-api-tests local
+./run-local-api-tests.sh local
 ```
 
 ## Scalafmt

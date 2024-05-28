@@ -1,5 +1,4 @@
-{
-  "timestamp": "2024-05-06T21:57:52.473580Z",
+{"correlationId": "5dc26c2c-d7d2-4339-86f0-d74621b86fb9",
   "code": "UNAUTHORIZED",
   "message": "The details signed in do not have a Trader Goods Profile"
 }
