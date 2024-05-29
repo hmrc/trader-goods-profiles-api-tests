@@ -27,7 +27,7 @@ class TradersGoodProfileRemoveRecordsSpec extends BaseSpec with CommonSpec with 
 
   Feature("Traders Good Profile API functionality for Remove Record API call") {
 
-    val scenarios                = List(
+    val scenarios        = List(
       (
         "GB123456789002",
         400,
@@ -50,14 +50,14 @@ class TradersGoodProfileRemoveRecordsSpec extends BaseSpec with CommonSpec with 
       ("GB123456789006", 404, "Not Found", "Validate method not found 404 for Remove record API"),
       ("GB123456789007", 405, "Method Not Allowed", "Validate method not allowed response 405 for Remove record API")
     )
-    val ValidPayload = "RemoveWithValidActorId"
-    val validRequestBody              = getRequestJsonFileAsString(ValidPayload)
+    val ValidPayload     = "RemoveWithValidActorId"
+    val validRequestBody = getRequestJsonFileAsString(ValidPayload)
 
-    val EmptyPayload = "RemoveWithNoActorId"
-    val emptyRequestBody            = getRequestJsonFileAsString(EmptyPayload)
+    val EmptyPayload     = "RemoveWithNoActorId"
+    val emptyRequestBody = getRequestJsonFileAsString(EmptyPayload)
 
-    val InvalidPayload = "RemoveWithInValidActorId"
-    val invalidRequestBody              = getRequestJsonFileAsString(InvalidPayload)
+    val InvalidPayload     = "RemoveWithInValidActorId"
+    val invalidRequestBody = getRequestJsonFileAsString(InvalidPayload)
 
     scenarios.foreach { case (identifier, expectedStatusCode, expectedErrorMessage, scenarioDescription) =>
       Scenario(s"REMOVE TGP SINGLE RECORD - $scenarioDescription") {
