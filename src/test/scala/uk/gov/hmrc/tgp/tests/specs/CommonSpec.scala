@@ -46,6 +46,20 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .andReturn()
   }
 
+  def removeTgpRecord(token: String, identifier: String, request: String): Response = {
+    When(s"I remove Tgp Records request and receive a response")
+    println(s"uri : " + url + s"/$identifier/records/8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f")
+    requestSpecification
+      .header("Authorization", token)
+      .header("X-Client-Id", "1234")
+      .header("Content-Type", "application/json")
+      .header("Accept", "application/vnd.hmrc.1.0+json")
+      .when()
+      .body(request)
+      .put(url + s"$identifier/records/8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f")
+      .andReturn()
+  }
+
   def compareJson(json1: String, json2: String): Boolean = {
     // Parse the JSON strings
     val parsedJson1 = Json.parse(json1)
@@ -61,6 +75,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
     // Compare the modified JSON strings
     modifiedJson1 == modifiedJson2
+
   }
 
 }

@@ -23,4 +23,6 @@ object JsonUtils {
   def getResponseJsonFileAsString(fileName: String): String =
     Source.fromResource(s"Json.intermediateResponse/$fileName.json").mkString
 
+  def getRequestJsonFileAsString(fileName: String): String =
+    Source.fromResource(s"Json.request/All/RemoveAPI/$fileName.json").mkString
 }

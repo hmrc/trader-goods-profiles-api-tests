@@ -1,4 +1,5 @@
-{"eori": "GB123456789001",
+{
+  "eori": "GB123456789001",
   "actorId": "GB1234567890",
   "recordId": "8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f",
   "traderRef": "BAN001001",
@@ -26,13 +27,12 @@
   "version": 1,
   "active": true,
   "toReview": false,
-  "reviewReason": null,
+  "reviewReason": "Commodity code change",
   "declarable": "IMMI declarable",
   "ukimsNumber": "XIUKIM47699357400020231115081800",
   "nirmsNumber": "RMS-GB-123456",
   "niphlNumber": "6 S12345",
   "locked": false,
-  "srcSystemName": "CDAP",
   "createdDateTime": "2024-11-18T23:20:19Z",
   "updatedDateTime": "2024-11-18T23:20:19Z"
 }
