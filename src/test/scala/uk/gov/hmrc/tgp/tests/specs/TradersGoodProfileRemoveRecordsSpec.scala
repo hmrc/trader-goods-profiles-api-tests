@@ -50,20 +50,20 @@ class TradersGoodProfileRemoveRecordsSpec extends BaseSpec with CommonSpec with 
       ("GB123456789006", 404, "Not Found", "Validate method not found 404 for Remove record API"),
       ("GB123456789007", 405, "Method Not Allowed", "Validate method not allowed response 405 for Remove record API")
     )
-    val scenario572_ValidPayload = "RemoveWithValidActorId"
-    val requestBody              = getRequestJsonFileAsString(scenario572_ValidPayload)
+    val ValidPayload = "RemoveWithValidActorId"
+    val validRequestBody              = getRequestJsonFileAsString(ValidPayload)
 
-    val scenario572_EmptyPayload = "RemoveWithNoActorId"
-    val requestBody1             = getRequestJsonFileAsString(scenario572_EmptyPayload)
+    val EmptyPayload = "RemoveWithNoActorId"
+    val emptyRequestBody            = getRequestJsonFileAsString(EmptyPayload)
 
-    val scenario572_InvalidPayload = "RemoveWithInValidActorId"
-    val requestBody2               = getRequestJsonFileAsString(scenario572_InvalidPayload)
+    val InvalidPayload = "RemoveWithInValidActorId"
+    val invalidRequestBody              = getRequestJsonFileAsString(InvalidPayload)
 
     scenarios.foreach { case (identifier, expectedStatusCode, expectedErrorMessage, scenarioDescription) =>
       Scenario(s"REMOVE TGP SINGLE RECORD - $scenarioDescription") {
         val token      = givenGetToken(isValid = true, identifier)
         println(token)
-        val response   = removeTgpRecord(token, identifier, requestBody)
+        val response   = removeTgpRecord(token, identifier, validRequestBody)
         val statusCode = response.getStatusCode
         statusCode.shouldBe(expectedStatusCode)
         val actualResponse = response.getBody.asString()
@@ -73,7 +73,7 @@ class TradersGoodProfileRemoveRecordsSpec extends BaseSpec with CommonSpec with 
 
     Scenario(s"REMOVE TGP RECORD - Validate success 200 for Remove TGP record API") {
       val token      = givenGetToken(isValid = true, "GB123456789001")
-      val response   = removeTgpRecord(token, "GB123456789001", requestBody)
+      val response   = removeTgpRecord(token, "GB123456789001", validRequestBody)
       val statusCode = response.getStatusCode
       System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(200)
@@ -82,7 +82,7 @@ class TradersGoodProfileRemoveRecordsSpec extends BaseSpec with CommonSpec with 
 
     Scenario(s"REMOVE TGP RECORD -Validate invalid response 400 with no payload for Remove TGP record API") {
       val token      = givenGetToken(isValid = true, "GB123456789001")
-      val response   = removeTgpRecord(token, "GB123456789002", requestBody1)
+      val response   = removeTgpRecord(token, "GB123456789002", emptyRequestBody)
       val statusCode = response.getStatusCode
       System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(400)
@@ -91,7 +91,7 @@ class TradersGoodProfileRemoveRecordsSpec extends BaseSpec with CommonSpec with 
 
     Scenario(s"REMOVE TGP RECORD - Validate invalid response 403 with invalid token for Remove TGP record API") {
       val token      = givenGetToken(isValid = true, "GB123456789001")
-      val response   = removeTgpRecord(token, "GB123456789002", requestBody)
+      val response   = removeTgpRecord(token, "GB123456789002", validRequestBody)
       val statusCode = response.getStatusCode
       System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(403)
@@ -100,7 +100,7 @@ class TradersGoodProfileRemoveRecordsSpec extends BaseSpec with CommonSpec with 
 
     Scenario(s"REMOVE TGP RECORD - Validate invalid response 400 with invalid payload for Remove TGP record API") {
       val token      = givenGetToken(isValid = true, "GB123456789001")
-      val response   = removeTgpRecord(token, "GB123456789001", requestBody2)
+      val response   = removeTgpRecord(token, "GB123456789001", invalidRequestBody)
       val statusCode = response.getStatusCode
       System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(400)
