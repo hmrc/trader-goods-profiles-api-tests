@@ -44,7 +44,7 @@ class TradersGoodProfileGetMultipleApiRecordsSpec extends BaseSpec with CommonSp
       "GB123456789001/records?page=1",
       "GB123456789001/records?size=5",
       "GB123456789001/records?lastUpdatedDate=2024-03-26T16:14:52Z",
-      "GB123456789001/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=1&size=5",
+      "GB123456789001/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=1&size=13",
       "GB123456789001/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=1",
       "GB123456789001/records?lastUpdatedDate=2024-03-26T16:14:52Z&size=5"
     )
@@ -62,15 +62,6 @@ class TradersGoodProfileGetMultipleApiRecordsSpec extends BaseSpec with CommonSp
             System.out.println("Status code: " + statusCode)
             statusCode.shouldBe(expectedStatusCode)
 
-            // Validate JSON response only for specific URL
-            if (url == "GB123456789001/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=1&size=13") {
-              val actualResponse   = response.getBody.asString()
-              val expectedResponse = getResponseJsonFileAsString(expectedResponseFile)
-              assert(
-                compareJson(actualResponse, expectedResponse),
-                "JSON response doesn't match the expected response."
-              )
-            }
           }
         }
       } else {
