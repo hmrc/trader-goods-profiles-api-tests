@@ -23,7 +23,7 @@ import uk.gov.hmrc.tgp.tests.utils.JsonUtils.getRequestJsonFileAsString
 
 class TradersGoodProfileRemoveRecordsSpec extends BaseSpec with CommonSpec with HttpClient {
 
-  object GetApiRecord extends Tag("uk.gov.hmrc.tgp.tests.specs.GetTradersGoodProfileSpec")
+  object RemoveApiRecord extends Tag("uk.gov.hmrc.tgp.tests.specs.GetTradersGoodProfileSpec")
 
   Feature("Traders Good Profile API functionality for Remove Record API call") {
 
