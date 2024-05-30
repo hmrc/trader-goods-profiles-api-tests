@@ -82,7 +82,7 @@ class TradersGoodProfileGetMultipleApiRecordsSpec extends BaseSpec with CommonSp
       }
     }
 
-    Scenario(s"GET TGP SINGLE RECORD - Validate invalid token bearer response 401 for GET TGP record API") {
+    Scenario(s"GET TGP MULTIPLE RECORDS - Validate invalid token bearer response 401 for GET TGP record API") {
       val token      = generateRandomBearerToken()
       val response   = getMultipleTgpRecord(token, s"GB123456789001$baseUrlForErrors")
       val statusCode = response.getStatusCode
@@ -93,7 +93,7 @@ class TradersGoodProfileGetMultipleApiRecordsSpec extends BaseSpec with CommonSp
       assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
     }
 
-    Scenario(s"GET TGP SINGLE RECORD - Validate invalid EORI no response 403 for GET TGP record API") {
+    Scenario(s"GET TGP MULTIPLE RECORDS - Validate invalid EORI no response 403 for GET TGP record API") {
       val token      = givenGetToken(isValid = true, "GB123456789001")
       val response   = getMultipleTgpRecord(token, s"GB123456789002$baseUrlForErrors")
       val statusCode = response.getStatusCode
