@@ -71,7 +71,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
   }
 
   def createTgpRecord(token: String, identifier: String, request: String): Response = {
-    When(s"I remove Tgp Records request and receive a response")
+    When(s"I create Tgp Records request and receive a response")
     println(s"uri : " + url + s"$identifier/records")
     setHeaders(requestSpecification)
       .header("Authorization", token)
