@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.tgp.tests.specs
 
-import org.scalatest.Tag
 import uk.gov.hmrc.tgp.tests.client.HttpClient
 
 import uk.gov.hmrc.tgp.tests.utils.JsonUtils.getRequestJsonFileAsString

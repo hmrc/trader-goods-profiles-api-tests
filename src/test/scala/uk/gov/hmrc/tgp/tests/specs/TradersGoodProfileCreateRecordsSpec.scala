@@ -36,7 +36,7 @@ class TradersGoodProfileCreateRecordsSpec extends BaseSpec with CommonSpec with 
     val FolderName = "CreateAPI"
 
     var ValidPayload = "Scenario_Create_201"
-    ValidPayload = getRequestJsonFileAsString(FolderName,ValidPayload)
+    ValidPayload = getRequestJsonFileAsString(FolderName, ValidPayload)
 
     var MandatoryPayload = "Scenario_Create_201_OnlyMandatory"
     MandatoryPayload = getRequestJsonFileAsString(FolderName, MandatoryPayload)
