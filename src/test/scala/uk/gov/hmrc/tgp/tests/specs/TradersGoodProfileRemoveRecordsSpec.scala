@@ -17,10 +17,12 @@
 package uk.gov.hmrc.tgp.tests.specs
 
 import uk.gov.hmrc.tgp.tests.client.HttpClient
-
+import org.scalatest.Tag
 import uk.gov.hmrc.tgp.tests.utils.JsonUtils.getRequestJsonFileAsString
 
 class TradersGoodProfileRemoveRecordsSpec extends BaseSpec with CommonSpec with HttpClient {
+
+  object RemoveApiRecord extends Tag("uk.gov.hmrc.tgp.tests.specs.TradersGoodProfileRemoveRecordsSpec")
 
   Feature("Traders Good Profile API functionality for Remove Record API call") {
 

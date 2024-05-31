@@ -23,7 +23,7 @@ import uk.gov.hmrc.tgp.tests.utils.JsonUtils.getResponseJsonFileAsString
 
 class TradersGoodProfileCreateRecordsSpec extends BaseSpec with CommonSpec with HttpClient {
 
-  object GetApiRecord extends Tag("uk.gov.hmrc.tgp.tests.specs.CreateTradersGoodProfileSpec")
+  object CreateApiRecord extends Tag("uk.gov.hmrc.tgp.tests.specs.TradersGoodProfileCreateRecordsSpec")
 
   Feature("Traders Good Profile API functionality for Create Record API call") {
 
