@@ -21,13 +21,13 @@ import uk.gov.hmrc.tgp.tests.client.HttpClient
 import uk.gov.hmrc.tgp.tests.utils.JsonUtils.getResponseJsonFileAsString
 import uk.gov.hmrc.tgp.tests.utils.TokenGenerator.generateRandomBearerToken
 
-class TradersGoodProfileGetRecordsSpec extends BaseSpec with CommonSpec with HttpClient {
+class TradersGoodProfileGetSingleApiRecordsSpec extends BaseSpec with CommonSpec with HttpClient {
 
-  object GetApiRecord extends Tag("uk.gov.hmrc.tgp.tests.specs.GetTradersGoodProfileSpec")
+  object GetSingleApiRecord extends Tag("uk.gov.hmrc.tgp.tests.specs.GetTradersGoodProfileSpec")
 
   Feature("Traders Good Profile Confirm EORI and TGP Enrollment API functionality for GET API call") {
     val scenarios = List(
-      ("GB123456789001", 200, "Scenario_Get_200", "Validate success response 200 for GET TGP record API"),
+      ("GB123456789001", 200, "Scenario_Get_Single_200", "Validate success response 200 for GET TGP record API"),
       ("GB123456789002", 404, "Scenario_Get_404", "Validate record not found response 404 for GET TGP record API"),
       (
         "GB123456789003",

@@ -33,27 +33,37 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     }
   }
 
-  def getTgpRecord(token: String, identifier: String): Response = {
-    When(s"I get Get Tgp Records request without query params and receive a response")
-    println(s"uri : " + url + s"/$identifier/records/8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f")
-    requestSpecification
-      .header("Authorization", token)
+  def setHeaders(request: RequestSpecification): RequestSpecification =
+    request
       .header("X-Client-Id", "1234")
       .header("Content-Type", "application/json")
       .header("Accept", "application/vnd.hmrc.1.0+json")
+
+  def getTgpRecord(token: String, identifier: String): Response = {
+    When(s"I get Get Tgp Records request without query params and receive a response")
+    println(s"uri : " + url + s"$identifier/records/8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f")
+    setHeaders(requestSpecification)
+      .header("Authorization", token)
       .when()
       .get(url + s"$identifier/records/8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f")
       .andReturn()
   }
 
+  def getMultipleTgpRecord(token: String, uri: String): Response = {
+    When(s"I get Get Tgp Records request without query params and receive a response")
+    println(s"uri : " + url + uri)
+    setHeaders(requestSpecification)
+      .header("Authorization", token)
+      .when()
+      .get(url + uri)
+      .andReturn()
+  }
+
   def removeTgpRecord(token: String, identifier: String, request: String): Response = {
     When(s"I remove Tgp Records request and receive a response")
-    println(s"uri : " + url + s"/$identifier/records/8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f")
-    requestSpecification
+    println(s"uri : " + url + s"$identifier/records/8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f")
+    setHeaders(requestSpecification)
       .header("Authorization", token)
-      .header("X-Client-Id", "1234")
-      .header("Content-Type", "application/json")
-      .header("Accept", "application/vnd.hmrc.1.0+json")
       .when()
       .body(request)
       .put(url + s"$identifier/records/8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f")
@@ -75,7 +85,5 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
     // Compare the modified JSON strings
     modifiedJson1 == modifiedJson2
-
   }
-
 }
