@@ -1,0 +1,24 @@
+{
+  "actorId": "GB987654321098",
+  "traderRef": "SKU123456",
+  "comcode": "123456",
+  "goodsDescription": "Bananas",
+  "countryOfOrigin": "GB",
+  "category": 2,
+  "assessments": [
+    {
+      "assessmentId": "a06846e9a5f61fa4ecf2c4e3b23631fc",
+      "primaryCategory": 1,
+      "condition": {
+        "type": "certificate",
+        "conditionId": "Y923",
+        "conditionDescription": "Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not c",
+        "conditionTraderText": "Products"
+      }
+    }
+  ],
+  "supplementaryUnit": -2147483647,
+  "measurementUnit": "Products not considered as waste according to Regulation (EC) No 1013/2006 as retaine",
+  "comcodeEffectiveFromDate": "2023-01-01T00:00:00Z",
+  "comcodeEffectiveToDate": "2023-01-01T00:00:00Z"
+}

@@ -40,6 +40,8 @@ class TradersGoodProfileGetSingleApiRecordsSpec extends BaseSpec with CommonSpec
       ("GB123456789006", 500, "Scenario_Get_500", "Validate internal server error response 500 for GET TGP record API")
     )
 
+    val FolderName = "GetAPI"
+
     scenarios.foreach { case (identifier, expectedStatusCode, expectedResponseFile, scenarioDescription) =>
       Scenario(s"GET TGP SINGLE RECORD - $scenarioDescription") {
         val token      = givenGetToken(isValid = true, identifier)
@@ -49,7 +51,7 @@ class TradersGoodProfileGetSingleApiRecordsSpec extends BaseSpec with CommonSpec
         System.out.println("Status code: " + statusCode)
         statusCode.shouldBe(expectedStatusCode)
         val actualResponse   = response.getBody.asString()
-        val expectedResponse = getResponseJsonFileAsString(expectedResponseFile)
+        val expectedResponse = getResponseJsonFileAsString(FolderName, expectedResponseFile)
         assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
 
       }
@@ -62,7 +64,7 @@ class TradersGoodProfileGetSingleApiRecordsSpec extends BaseSpec with CommonSpec
       System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(401)
       val actualResponse   = response.getBody.asString()
-      val expectedResponse = getResponseJsonFileAsString("Scenario_Get_401")
+      val expectedResponse = getResponseJsonFileAsString(FolderName, "Scenario_Get_401")
       assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
 
     }
@@ -74,7 +76,7 @@ class TradersGoodProfileGetSingleApiRecordsSpec extends BaseSpec with CommonSpec
       System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(403)
       val actualResponse   = response.getBody.asString()
-      val expectedResponse = getResponseJsonFileAsString("Scenario_Get_403")
+      val expectedResponse = getResponseJsonFileAsString(FolderName, "Scenario_Get_403")
       assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
 
     }

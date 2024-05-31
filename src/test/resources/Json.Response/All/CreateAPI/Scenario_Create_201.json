@@ -1,0 +1,37 @@
+{
+  "eori": "GB123456789001",
+  "actorId": "GB987654321098",
+  "recordId": "b2fa315b-2d31-4629-90fc-a7b1a5119873",
+  "traderRef": "SKU123456",
+  "comcode": "123456",
+  "accreditationStatus": "Not Requested",
+  "goodsDescription": "Bananas",
+  "countryOfOrigin": "GB",
+  "category": 2,
+  "assessments": [
+    {
+      "assessmentId": "a06846e9a5f61fa4ecf2c4e3b23631fc",
+      "primaryCategory": 1,
+      "condition": {
+        "type": "certificate",
+        "conditionId": "Y923",
+        "conditionDescription": "Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not c",
+        "conditionTraderText": "Products"
+      }
+    }
+  ],
+  "supplementaryUnit": -2147483647,
+  "measurementUnit": "Products not considered as waste according to Regulation (EC) No 1013/2006 as retaine",
+  "comcodeEffectiveFromDate": "2023-01-01T00:00:00Z",
+  "comcodeEffectiveToDate": "2023-01-01T00:00:00Z",
+  "version": 1,
+  "active": true,
+  "toReview": false,
+  "reviewReason": "Commodity code change",
+  "declarable": "IMMI ready",
+  "ukimsNumber": "XIUKIM47699357400020231115081800",
+  "nirmsNumber": "RMS-GB-123456",
+  "niphlNumber": "6 S12345",
+  "createdDateTime": "2024-11-18T23:20:19Z",
+  "updatedDateTime": "2024-11-18T23:20:19Z"
+}

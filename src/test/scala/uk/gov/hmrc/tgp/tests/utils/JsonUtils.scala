@@ -20,9 +20,9 @@ import scala.io.Source
 
 object JsonUtils {
 
-  def getResponseJsonFileAsString(fileName: String): String =
-    Source.fromResource(s"Json.Response/All/GetApi/$fileName.json").mkString
+  def getResponseJsonFileAsString(folderName: String, fileName: String): String =
+    Source.fromResource(s"Json.Response/All/$folderName/$fileName.json").mkString
 
-  def getRequestJsonFileAsString(fileName: String): String =
-    Source.fromResource(s"Json.request/All/RemoveAPI/$fileName.json").mkString
+  def getRequestJsonFileAsString(folderName: String, fileName: String): String =
+    Source.fromResource(s"Json.Request/All/$folderName/$fileName.json").mkString
 }
