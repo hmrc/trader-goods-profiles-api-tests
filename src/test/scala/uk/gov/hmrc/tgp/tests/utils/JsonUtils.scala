@@ -24,5 +24,5 @@ object JsonUtils {
     Source.fromResource(s"Json.Response/All/$folderName/$fileName.json").mkString
 
   def getRequestJsonFileAsString(folderName: String, fileName: String): String =
-    Source.fromResource(s"Json.Request/All/$folderName/$fileName.json").mkString
+    Source.fromResource(s"Json.request/All/$folderName/$fileName.json").mkString
 }
