@@ -39,7 +39,7 @@ class TradersGoodProfileGetMultipleApiRecordsSpec extends BaseSpec with CommonSp
       ("GB123456789006", 500, "Scenario_Get_500", "Validate internal server error response 500 for GET TGP record API")
     )
 
-    val urlsFor200 = List(
+    val urlsFor200       = List(
       "GB123456789001/records?page=1&size=5",
       "GB123456789001/records?page=1",
       "GB123456789001/records?size=5",
@@ -48,7 +48,7 @@ class TradersGoodProfileGetMultipleApiRecordsSpec extends BaseSpec with CommonSp
       "GB123456789001/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=1",
       "GB123456789001/records?lastUpdatedDate=2024-03-26T16:14:52Z&size=5"
     )
-
+    val FolderName       = "GetAPI"
     val baseUrlForErrors = "/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=1&size=5"
 
     scenarios.foreach { case (identifier, expectedStatusCode, expectedResponseFile, scenarioDescription) =>
@@ -61,7 +61,6 @@ class TradersGoodProfileGetMultipleApiRecordsSpec extends BaseSpec with CommonSp
             val statusCode = response.getStatusCode
             System.out.println("Status code: " + statusCode)
             statusCode.shouldBe(expectedStatusCode)
-
           }
         }
       } else {
@@ -73,10 +72,10 @@ class TradersGoodProfileGetMultipleApiRecordsSpec extends BaseSpec with CommonSp
           val statusCode = response.getStatusCode
           System.out.println("Status code: " + statusCode)
           statusCode.shouldBe(expectedStatusCode)
-
           // Validate JSON response for error scenarios
           val actualResponse   = response.getBody.asString()
-          val expectedResponse = getResponseJsonFileAsString(expectedResponseFile)
+          // val expectedResponse = getResponseJsonFileAsString(expectedResponseFile)
+          val expectedResponse = getResponseJsonFileAsString(FolderName, expectedResponseFile)
           assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
         }
       }
@@ -89,7 +88,7 @@ class TradersGoodProfileGetMultipleApiRecordsSpec extends BaseSpec with CommonSp
       System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(401)
       val actualResponse   = response.getBody.asString()
-      val expectedResponse = getResponseJsonFileAsString("Scenario_Get_401")
+      val expectedResponse = getResponseJsonFileAsString(FolderName, "Scenario_Get_401")
       assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
     }
 
@@ -100,7 +99,7 @@ class TradersGoodProfileGetMultipleApiRecordsSpec extends BaseSpec with CommonSp
       System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(403)
       val actualResponse   = response.getBody.asString()
-      val expectedResponse = getResponseJsonFileAsString("Scenario_Get_403")
+      val expectedResponse = getResponseJsonFileAsString(FolderName, "Scenario_Get_403")
       assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
     }
   }
