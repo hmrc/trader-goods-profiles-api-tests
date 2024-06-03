@@ -1,0 +1,12 @@
+{
+  "correlationId": "627de480-05cf-40b7-b727-5bfe8aa5c12f",
+  "code": "BAD_REQUEST",
+  "message": "Bad Request",
+  "errors": [
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "There is an ongoing accreditation request and the record can not be updated",
+      "errorNumber": 27
+    }
+  ]
+}

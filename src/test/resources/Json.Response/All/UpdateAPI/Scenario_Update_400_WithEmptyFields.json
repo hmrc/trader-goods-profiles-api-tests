@@ -1,0 +1,32 @@
+{
+  "correlationId": "255b7797-0f8b-46c6-bfed-85b9a39b20eb",
+  "code": "BAD_REQUEST",
+  "message": "Bad Request",
+  "errors": [
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Mandatory field actorId was missing from body or is in the wrong format",
+      "errorNumber": 8
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Mandatory field traderRef was missing from body or is in the wrong format",
+      "errorNumber": 9
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Mandatory field comcode was missing from body or is in the wrong format",
+      "errorNumber": 11
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Mandatory field goodsDescription was missing from body or is in the wrong format",
+      "errorNumber": 12
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Mandatory field countryOfOrigin was missing from body or is in the wrong format",
+      "errorNumber": 13
+    }
+  ]
+}

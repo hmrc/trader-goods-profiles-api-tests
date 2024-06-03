@@ -1,0 +1,37 @@
+{
+  "correlationId": "487c9609-bdcb-4047-8505-7295fcbbbb15",
+  "code": "BAD_REQUEST",
+  "message": "Bad Request",
+  "errors": [
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Optional field type is in the wrong format",
+      "errorNumber": 17
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Optional field conditionTraderText is in the wrong format",
+      "errorNumber": 20
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Optional field assessmentId is in the wrong format",
+      "errorNumber": 15
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Optional field conditionDescription is in the wrong format",
+      "errorNumber": 19
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Optional field measurementUnit is in the wrong format",
+      "errorNumber": 22
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Optional field conditionId is in the wrong format",
+      "errorNumber": 18
+    }
+  ]
+}

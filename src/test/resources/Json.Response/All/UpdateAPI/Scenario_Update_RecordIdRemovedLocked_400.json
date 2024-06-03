@@ -1,0 +1,12 @@
+{
+  "correlationId": "20b99a19-e179-4d40-9ac6-843bfe34928e",
+  "code": "BAD_REQUEST",
+  "message": "Bad Request",
+  "errors": [
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "This record has been removed and cannot be updated",
+      "errorNumber": 31
+    }
+  ]
+}
