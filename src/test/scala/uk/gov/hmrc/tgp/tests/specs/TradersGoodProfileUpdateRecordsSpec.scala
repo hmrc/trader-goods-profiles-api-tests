@@ -112,7 +112,7 @@ class TradersGoodProfileUpdateRecordsSpec extends BaseSpec with CommonSpec with 
       "Scenario_Update_400_WithEmptyFields",
       400,
       payloads("EmptyPayloadValidation"),
-      "Validate error message 400 for Create TGP record API with empty values"
+      "Validate error message 400 for Update TGP record API with empty values"
     )
 
   }
