@@ -1,0 +1,24 @@
+{
+  "actorId": "GB9876543210983",
+  "traderRef": "Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Produc",
+  "comcode": "1234566788",
+  "goodsDescription": "Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as re",
+  "countryOfOrigin": "GB",
+  "category": 2,
+  "assessments": [
+    {
+      "assessmentId": "a06846e9a5f61fa4ecf2c4e3b23631fcw3ed",
+      "primaryCategory": 1000,
+      "condition": {
+        "type": "a06846e9a5f61fa4ecf2c4e3b23631fcw3ed",
+        "conditionId": "Y9232WE4R53",
+        "conditionDescription": "Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK lawProducts not according wastee",
+        "conditionTraderText": "Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK lawProducts not according wastee"
+      }
+    }
+  ],
+  "supplementaryUnit": 2147483647,
+  "measurementUnit": "Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation notee",
+  "comcodeEffectiveFromDate": "2023-01-01T00:00:00Z",
+  "comcodeEffectiveToDate": "2023-01-01T00:00:00Z"
+}

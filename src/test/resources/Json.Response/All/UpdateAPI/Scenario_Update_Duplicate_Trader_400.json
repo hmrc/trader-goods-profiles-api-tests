@@ -1,0 +1,12 @@
+{
+  "correlationId": "9a737b78-d027-4c6a-bfcd-2b6aa377d69e",
+  "code": "BAD_REQUEST",
+  "message": "Bad Request",
+  "errors": [
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Trying to create or update a record with a duplicate traderRef",
+      "errorNumber": 10
+    }
+  ]
+}

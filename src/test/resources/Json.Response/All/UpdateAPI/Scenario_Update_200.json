@@ -1,0 +1,37 @@
+{
+  "eori": "GB123456789001",
+  "actorId": "GB098765432117",
+  "recordId": "8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f",
+  "traderRef": "BAN001001",
+  "comcode": "12345678",
+  "accreditationStatus": "Not Requested",
+  "goodsDescription": "Organic bananas",
+  "countryOfOrigin": "EC",
+  "category": 1,
+  "assessments": [
+    {
+      "assessmentId": "abc123",
+      "primaryCategory": 1,
+      "condition": {
+        "type": "abc123",
+        "conditionId": "Y923",
+        "conditionDescription": "Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law",
+        "conditionTraderText": "Excluded product"
+      }
+    }
+  ],
+  "supplementaryUnit": 500,
+  "measurementUnit": "Square metre (m2)",
+  "comcodeEffectiveFromDate": "2024-11-18T23:20:19Z",
+  "comcodeEffectiveToDate": "2024-12-21T23:20:19Z",
+  "version": 1,
+  "active": true,
+  "toReview": false,
+  "reviewReason": "Commodity code change",
+  "declarable": "SPIMM",
+  "ukimsNumber": "XIUKIM47699357400020231115081800",
+  "nirmsNumber": "RMS-GB-123456",
+  "niphlNumber": "6 S12345",
+  "createdDateTime": "2024-11-18T23:20:19Z",
+  "updatedDateTime": "2024-11-18T23:20:19Z"
+}
