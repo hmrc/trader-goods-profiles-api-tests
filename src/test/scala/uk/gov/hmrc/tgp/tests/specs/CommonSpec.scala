@@ -92,6 +92,17 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .andReturn()
   }
 
+  def requestAccreditation(token: String, identifier: String, request: String): Response = {
+    When(s"I Request accreditationAPI Tgp Records and receive a response")
+    println(s"uri : " + url + s"$identifier/records/8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f/accreditations")
+    setHeaders(requestSpecification)
+      .header("Authorization", token)
+      .when()
+      .body(request)
+      .post(url + s"$identifier/records/8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f/accreditations")
+      .andReturn()
+  }
+
   def compareJson(json1: String, json2: String): Boolean = {
     // Parse the JSON strings
     val parsedJson1 = Json.parse(json1)
