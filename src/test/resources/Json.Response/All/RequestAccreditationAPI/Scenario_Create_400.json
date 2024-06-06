@@ -1,0 +1,17 @@
+{
+  "correlationId": "f46425e3-1fe8-4744-81dc-037f3e19fc84",
+  "code": "BAD_REQUEST",
+  "message": "Bad Request",
+  "errors": [
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Mandatory field RequestorName was missing from body or is in the wrong format",
+      "errorNumber": 1008
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Mandatory field RequestorEmail was missing from body or is in the wrong format",
+      "errorNumber": 1009
+    }
+  ]
+}
