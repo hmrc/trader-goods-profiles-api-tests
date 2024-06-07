@@ -1,0 +1,27 @@
+{
+  "correlationId": "9f9e1c4f-7266-4e38-8f94-a8f727a3a361",
+  "code": "BAD_REQUEST",
+  "message": "Bad Request",
+  "errors": [
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Optional field niphlNumber is in the wrong format",
+      "errorNumber": 35
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Optional field nirmsNumber is in the wrong format",
+      "errorNumber": 34
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Mandatory field ukimsNumber was missing from body or is in the wrong format",
+      "errorNumber": 33
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Mandatory field actorId was missing from body or is in the wrong format",
+      "errorNumber": 8
+    }
+  ]
+}

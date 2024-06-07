@@ -103,6 +103,17 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .andReturn()
   }
 
+  def maintainRecord(token: String, identifier: String, request: String): Response = {
+    When(s"I Maintain API Tgp Records and receive a response")
+    println(s"uri : " + url + s"$identifier")
+    setHeaders(requestSpecification)
+      .header("Authorization", token)
+      .when()
+      .body(request)
+      .put(url + s"$identifier")
+      .andReturn()
+  }
+
   def compareJson(json1: String, json2: String): Boolean = {
     // Parse the JSON strings
     val parsedJson1 = Json.parse(json1)

@@ -23,7 +23,7 @@ import uk.gov.hmrc.tgp.tests.utils.TokenGenerator.generateRandomBearerToken
 
 class TradersGoodProfileGetMultipleApiRecordsSpec extends BaseSpec with CommonSpec with HttpClient {
 
-  object GetMultipleApiRecord extends Tag("uk.gov.hmrc.tgp.tests.specs.GetTradersGoodProfileSpec")
+  object GetMultipleApiRecord extends Tag("uk.gov.hmrc.tgp.tests.specs.GetTradersGoodProfileGetMultipleApiRecordsSpec")
 
   Feature("Traders Good Profile Confirm EORI and TGP Enrollment API functionality for GET Multiple API Records call") {
     val scenarios = List(
