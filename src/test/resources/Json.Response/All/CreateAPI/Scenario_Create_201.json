@@ -4,7 +4,7 @@
   "recordId": "b2fa315b-2d31-4629-90fc-a7b1a5119873",
   "traderRef": "SKU123456",
   "comcode": "123456",
-  "accreditationStatus": "Not Requested",
+  "adviceStatus": "Not Requested",
   "goodsDescription": "Bananas",
   "countryOfOrigin": "GB",
   "category": 2,
