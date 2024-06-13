@@ -41,11 +41,11 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
   def getTgpRecord(token: String, identifier: String): Response = {
     When(s"I get Get Tgp Records request without query params and receive a response")
-    println(s"uri : " + url + s"$identifier/records/8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f")
+    println(s"uri : " + url + s"$identifier/records/b2fa3b-2d1-462-90c-a7b1a511987")
     setHeaders(requestSpecification)
       .header("Authorization", token)
       .when()
-      .get(url + s"$identifier/records/8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f")
+      .get(url + s"$identifier/records/b2fa3b-2d1-462-90c-a7b1a511987")
       .andReturn()
   }
 
