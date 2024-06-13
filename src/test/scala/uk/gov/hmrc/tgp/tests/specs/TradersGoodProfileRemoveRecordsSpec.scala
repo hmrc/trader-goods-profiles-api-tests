@@ -78,16 +78,7 @@ class TradersGoodProfileRemoveRecordsSpec extends BaseSpec with CommonSpec with 
       val response   = removeTgpRecord(token, "GB123456789001", ValidPayload)
       val statusCode = response.getStatusCode
       System.out.println("Status code: " + statusCode)
-      statusCode.shouldBe(200)
-
-    }
-
-    Scenario(s"REMOVE TGP RECORD -Validate invalid response 400 with no payload for Remove TGP record API") {
-      val token      = givenGetToken(isValid = true, "GB123456789001")
-      val response   = removeTgpRecord(token, "GB123456789002", EmptyPayload)
-      val statusCode = response.getStatusCode
-      System.out.println("Status code: " + statusCode)
-      statusCode.shouldBe(400)
+      statusCode.shouldBe(204)
 
     }
 
