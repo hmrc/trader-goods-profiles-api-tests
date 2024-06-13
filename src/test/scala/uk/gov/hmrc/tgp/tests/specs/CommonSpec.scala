@@ -61,12 +61,12 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
   def removeTgpRecord(token: String, identifier: String, request: String): Response = {
     When(s"I remove Tgp Records request and receive a response")
-    println(s"uri : " + url + s"$identifier/records/8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f")
+    println(s"uri : " + url + s"$identifier/records/8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f?actorId=GB123456789001")
     setHeaders(requestSpecification)
       .header("Authorization", token)
       .when()
       .body(request)
-      .put(url + s"$identifier/records/8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f")
+      .delete(url + s"$identifier/records/8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f?actorId=GB123456789001")
       .andReturn()
   }
 
