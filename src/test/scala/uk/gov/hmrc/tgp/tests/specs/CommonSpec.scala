@@ -45,7 +45,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     setHeaders(requestSpecification)
       .header("Authorization", token)
       .when()
-      .get(url + s"$identifier/records/b2fa3b-2d1-462-90c-a7b1a511987")
+      .get(url + s"$identifier/records/b2fa315b-2d31-4629-90fc-a7b1a5119873")
       .andReturn()
   }
 
