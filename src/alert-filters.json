@@ -17,17 +17,9 @@
       "newLevel": 0
     },
     {
-      "reason": "X-Content-Type-Options Header Missing",
-      "contextId": 1,
-      "url": "http:\/\/localhost:10902\/GB123456789001.*",
-      "ruleId": 10021,
-      "urlIsRegex": "true",
-      "newLevel": 0
-    },
-    {
       "reason": "Information Disclosure - Debug Error Messages",
       "contextId": 1,
-      "url": "http:\/\/localhost:10902\/GB123456789001.*",
+      "url": "http://localhost:10902/GB123456789001.*",
       "ruleId": 10023,
       "urlIsRegex": "true",
       "newLevel": 0
