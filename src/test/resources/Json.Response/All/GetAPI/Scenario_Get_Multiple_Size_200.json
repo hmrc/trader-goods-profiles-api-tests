@@ -1,0 +1,201 @@
+{
+  "records": [
+    {
+      "eori": "GB123456789001",
+      "actorId": "GB098765432112",
+      "recordId": "8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f",
+      "traderRef": "BAN001001",
+      "comcode": "11063010",
+      "adviceStatus": "Not requested",
+      "goodsDescription": "Organic bananas",
+      "countryOfOrigin": "EC",
+      "category": 1,
+      "assessments": [
+        {
+          "assessmentId": "abc123",
+          "primaryCategory": 1,
+          "condition": {
+            "type": "abc123",
+            "conditionId": "Y923",
+            "conditionDescription": "Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law",
+            "conditionTraderText": "Excluded product"
+          }
+        }
+      ],
+      "supplementaryUnit": 500,
+      "measurementUnit": "square meters(m^2)",
+      "comcodeEffectiveFromDate": "2024-10-12T16:12:34Z",
+      "comcodeEffectiveToDate": "2024-10-12T16:12:34Z",
+      "version": 1,
+      "active": true,
+      "toReview": false,
+      "reviewReason": "no reason",
+      "declarable": "IMMI ready",
+      "ukimsNumber": "XIUKIM47699357400020231115081800",
+      "nirmsNumber": "RMS-GB-123456",
+      "niphlNumber": "6 S12345",
+      "locked": false,
+      "createdDateTime": "2024-10-12T16:12:34Z",
+      "updatedDateTime": "2024-10-12T16:12:34Z"
+    },
+    {
+      "eori": "GB123456789001",
+      "actorId": "GB098765432112",
+      "recordId": "8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f",
+      "traderRef": "LAP001001",
+      "comcode": "8471300000",
+      "adviceStatus": "Requested",
+      "goodsDescription": "Laptop",
+      "countryOfOrigin": "EC",
+      "category": 2,
+      "assessments": [
+        {
+          "assessmentId": "abc123",
+          "primaryCategory": 1,
+          "condition": {
+            "type": "abc123",
+            "conditionId": "Y923",
+            "conditionDescription": "Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law",
+            "conditionTraderText": "Excluded product"
+          }
+        }
+      ],
+      "supplementaryUnit": 500,
+      "measurementUnit": "square meters(m^2)",
+      "comcodeEffectiveFromDate": "2024-10-12T16:12:34Z",
+      "comcodeEffectiveToDate": "2024-10-12T16:12:34Z",
+      "version": 1,
+      "active": true,
+      "toReview": true,
+      "reviewReason": "The commodity code has expired. You'll need to change the commodity code and categorise the goods.",
+      "declarable": "Not ready for IMMI",
+      "ukimsNumber": "XIUKIM47699357400020231115081800",
+      "nirmsNumber": "RMS-GB-123456",
+      "niphlNumber": "6 S12345",
+      "locked": true,
+      "createdDateTime": "2024-10-12T16:12:34Z",
+      "updatedDateTime": "2024-10-12T16:12:34Z"
+    },
+    {
+      "eori": "GB123456789001",
+      "actorId": "GB098765432112",
+      "recordId": "8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f",
+      "traderRef": "APP001001",
+      "comcode": "0813300000",
+      "adviceStatus": "In progress",
+      "goodsDescription": "Apples",
+      "countryOfOrigin": "EC",
+      "category": 3,
+      "assessments": [
+        {
+          "assessmentId": "abc123",
+          "primaryCategory": 1,
+          "condition": {
+            "type": "abc123",
+            "conditionId": "Y923",
+            "conditionDescription": "Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law",
+            "conditionTraderText": "Excluded product"
+          }
+        }
+      ],
+      "supplementaryUnit": 500,
+      "measurementUnit": "square meters(m^2)",
+      "comcodeEffectiveFromDate": "2024-10-12T16:12:34Z",
+      "comcodeEffectiveToDate": "2024-10-12T16:12:34Z",
+      "version": 1,
+      "active": true,
+      "toReview": true,
+      "reviewReason": "The restrictions have changed or there may be new restrictions. You need to categorise the record.",
+      "declarable": "Not ready for use",
+      "ukimsNumber": "XIUKIM47699357400020231115081800",
+      "nirmsNumber": "RMS-GB-123456",
+      "niphlNumber": "6 S12345",
+      "locked": true,
+      "createdDateTime": "2024-10-12T16:12:34Z",
+      "updatedDateTime": "2024-10-12T16:12:34Z"
+    },
+    {
+      "eori": "GB123456789001",
+      "actorId": "GB098765432112",
+      "recordId": "8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f",
+      "traderRef": "TOM001001",
+      "comcode": "0702000099",
+      "adviceStatus": "Information requested",
+      "goodsDescription": "Tomatoes, fresh or chilled",
+      "countryOfOrigin": "EC",
+      "category": 1,
+      "assessments": [
+        {
+          "assessmentId": "abc123",
+          "primaryCategory": 1,
+          "condition": {
+            "type": "abc123",
+            "conditionId": "Y923",
+            "conditionDescription": "Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law",
+            "conditionTraderText": "Excluded product"
+          }
+        }
+      ],
+      "supplementaryUnit": 500,
+      "measurementUnit": "square meters(m^2)",
+      "comcodeEffectiveFromDate": "2024-10-12T16:12:34Z",
+      "comcodeEffectiveToDate": "2024-10-12T16:12:34Z",
+      "version": 1,
+      "active": true,
+      "toReview": false,
+      "reviewReason": "no reason",
+      "declarable": "IMMI ready",
+      "ukimsNumber": "XIUKIM47699357400020231115081800",
+      "nirmsNumber": "RMS-GB-123456",
+      "niphlNumber": "6 S12345",
+      "locked": true,
+      "createdDateTime": "2024-10-12T16:12:34Z",
+      "updatedDateTime": "2024-10-12T16:12:34Z"
+    },
+    {
+      "eori": "GB123456789001",
+      "actorId": "GB098765432112",
+      "recordId": "8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f",
+      "traderRef": "ENV001001",
+      "comcode": "4817100000",
+      "adviceStatus": "Advice request withdrawn",
+      "goodsDescription": "Envelopes",
+      "countryOfOrigin": "EC",
+      "category": 2,
+      "assessments": [
+        {
+          "assessmentId": "abc123",
+          "primaryCategory": 1,
+          "condition": {
+            "type": "abc123",
+            "conditionId": "Y923",
+            "conditionDescription": "Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law",
+            "conditionTraderText": "Excluded product"
+          }
+        }
+      ],
+      "supplementaryUnit": 500,
+      "measurementUnit": "square meters(m^2)",
+      "comcodeEffectiveFromDate": "2024-10-12T16:12:34Z",
+      "comcodeEffectiveToDate": "2024-10-12T16:12:34Z",
+      "version": 1,
+      "active": true,
+      "toReview": false,
+      "reviewReason": "no reason",
+      "declarable": "Not ready for IMM",
+      "ukimsNumber": "XIUKIM47699357400020231115081800",
+      "nirmsNumber": "RMS-GB-123456",
+      "niphlNumber": "6 S12345",
+      "locked": false,
+      "createdDateTime": "2024-10-12T16:12:34Z",
+      "updatedDateTime": "2024-10-12T16:12:34Z"
+    }
+  ],
+  "pagination": {
+    "totalRecords": 15,
+    "currentPage": 1,
+    "totalPages": 2,
+    "nextPage": 0,
+    "prevPage": 0
+  }
+}

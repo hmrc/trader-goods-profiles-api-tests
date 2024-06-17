@@ -16,9 +16,9 @@
 
 package uk.gov.hmrc.tgp.tests.specs
 
-import uk.gov.hmrc.tgp.tests.client.HttpClient
 import org.scalatest.Tag
-import uk.gov.hmrc.tgp.tests.utils.JsonUtils.getRequestJsonFileAsString
+import uk.gov.hmrc.tgp.tests.client.HttpClient
+import uk.gov.hmrc.tgp.tests.utils.JsonUtils
 
 class TradersGoodProfileRemoveRecordsSpec extends BaseSpec with CommonSpec with HttpClient {
 
@@ -26,78 +26,101 @@ class TradersGoodProfileRemoveRecordsSpec extends BaseSpec with CommonSpec with 
 
   Feature("Traders Good Profile API functionality for Remove Record API call") {
 
+    val FolderName = "RemoveAPI"
+
+    def validateScenario(
+      scenarioDescription: String,
+      identifier: String,
+      expectedStatusCode: Int,
+      payloadFileName: String,
+      expectedErrorMessage: String = ""
+    ): Unit =
+      Scenario(s"REMOVE TGP SINGLE RECORD - $scenarioDescription") {
+        val token      = givenGetToken(isValid = true, identifier)
+        val payload    = JsonUtils.getRequestJsonFileAsString(FolderName, payloadFileName)
+        val response   = removeTgpRecord(token, identifier, payload)
+        val statusCode = response.getStatusCode
+        System.out.println("Status code: " + statusCode)
+        statusCode.shouldBe(expectedStatusCode)
+        if (expectedErrorMessage.nonEmpty) {
+          val actualResponse = response.getBody.asString()
+          assert(actualResponse.contains(expectedErrorMessage))
+        }
+      }
+
     val scenarios = List(
       (
         "GB123456789002",
         400,
+        "RemoveWithValidActorId",
         "Mandatory field eori was missing from body or is in the wrong format",
         "Validate Invalid request parameter (Mandatory field eori) response 400 for Remove TGP record API"
       ),
       (
         "GB123456789003",
         400,
+        "RemoveWithInValidActorId",
         "The recordId has been provided in the wrong format",
         "Validate Invalid request parameter (recordId) response 400 for Remove TGP record API"
       ),
       (
         "GB123456789004",
         400,
+        "RemoveWithNoActorId",
         "Mandatory field actorId was missing from body or is in the wrong format",
         "Validate Invalid request parameter (actorId) response 400 for Remove TGP record API"
       ),
-      ("GB123456789005", 500, "Unauthorized", "Validate internal server error response 500 for Remove record API"),
-      ("GB123456789006", 404, "Not Found", "Validate method not found 404 for Remove record API"),
-      ("GB123456789007", 405, "Method Not Allowed", "Validate method not allowed response 405 for Remove record API")
+      (
+        "GB123456789005",
+        500,
+        "RemoveWithValidActorId",
+        "Unauthorized",
+        "Validate internal server error response 500 for Remove record API"
+      ),
+      (
+        "GB123456789006",
+        404,
+        "RemoveWithValidActorId",
+        "Not Found",
+        "Validate method not found 404 for Remove record API"
+      ),
+      (
+        "GB123456789007",
+        405,
+        "RemoveWithValidActorId",
+        "Method Not Allowed",
+        "Validate method not allowed response 405 for Remove record API"
+      )
     )
 
-    val FolderName = "RemoveAPI"
-
-    var ValidPayload = "RemoveWithValidActorId"
-    ValidPayload = getRequestJsonFileAsString(FolderName, ValidPayload)
-
-    var EmptyPayload = "RemoveWithNoActorId"
-    EmptyPayload = getRequestJsonFileAsString(FolderName, EmptyPayload)
-
-    var InvalidPayload = "RemoveWithInValidActorId"
-    InvalidPayload = getRequestJsonFileAsString(FolderName, InvalidPayload)
-
-    scenarios.foreach { case (identifier, expectedStatusCode, expectedErrorMessage, scenarioDescription) =>
-      Scenario(s"REMOVE TGP SINGLE RECORD - $scenarioDescription") {
-        val token      = givenGetToken(isValid = true, identifier)
-        println(token)
-        val response   = removeTgpRecord(token, identifier, ValidPayload)
-        val statusCode = response.getStatusCode
-        statusCode.shouldBe(expectedStatusCode)
-        val actualResponse = response.getBody.asString()
-        assert(actualResponse.contains(expectedErrorMessage))
-      }
+    scenarios.foreach { case (identifier, expectedStatusCode, payloadFileName, _, scenarioDescription) =>
+      validateScenario(scenarioDescription, identifier, expectedStatusCode, payloadFileName)
     }
 
-    Scenario(s"REMOVE TGP RECORD - Validate success 200 for Remove TGP record API") {
-      val token      = givenGetToken(isValid = true, "GB123456789001")
-      val response   = removeTgpRecord(token, "GB123456789001", ValidPayload)
-      val statusCode = response.getStatusCode
-      System.out.println("Status code: " + statusCode)
-      statusCode.shouldBe(204)
-
-    }
+    validateScenario("Validate success 204 for Remove TGP record API", "GB123456789001", 204, "RemoveWithValidActorId")
 
     Scenario(s"REMOVE TGP RECORD - Validate invalid response 403 with invalid token for Remove TGP record API") {
       val token      = givenGetToken(isValid = true, "GB123456789001")
-      val response   = removeTgpRecord(token, "GB123456789002", ValidPayload)
+      val response   = removeTgpRecord(
+        token,
+        "GB123456789002",
+        JsonUtils.getRequestJsonFileAsString(FolderName, "RemoveWithValidActorId")
+      )
       val statusCode = response.getStatusCode
       System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(403)
-
     }
 
     Scenario(s"REMOVE TGP RECORD - Validate invalid response 400 with invalid payload for Remove TGP record API") {
       val token      = givenGetToken(isValid = true, "GB123456789001")
-      val response   = removeTgpRecord(token, "GB123456789001", InvalidPayload)
+      val response   = removeTgpRecord(
+        token,
+        "GB123456789001",
+        JsonUtils.getRequestJsonFileAsString(FolderName, "RemoveWithInValidActorId")
+      )
       val statusCode = response.getStatusCode
       System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(400)
-
     }
 
   }
