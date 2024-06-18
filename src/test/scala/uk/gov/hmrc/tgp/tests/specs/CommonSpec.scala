@@ -24,6 +24,10 @@ import uk.gov.hmrc.tgp.tests.client.{HttpClient, RestAssured}
 trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
   val requestSpecification: RequestSpecification = getRequestSpec
 
+  val recordId1 = "b2fa315b-2d31-4629-90fc-a7b1a5119873"
+  val recordId2 = "8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f"
+  val actorId   = "GB123456789001"
+
   def givenGetToken(isValid: Boolean, identifier: String = ""): String = {
     Given(s"I receive a token $isValid")
     if (isValid) {
@@ -41,11 +45,11 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
   def getTgpRecord(token: String, identifier: String): Response = {
     When(s"I get Get Tgp Records request without query params and receive a response")
-    println(s"uri : " + url + s"$identifier/records/b2fa315b-2d31-4629-90fc-a7b1a5119873")
+    println(s"uri : " + url + s"$identifier/records/$recordId1")
     setHeaders(requestSpecification)
       .header("Authorization", token)
       .when()
-      .get(url + s"$identifier/records/b2fa315b-2d31-4629-90fc-a7b1a5119873")
+      .get(url + s"$identifier/records/$recordId1")
       .andReturn()
   }
 
@@ -61,12 +65,12 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
   def removeTgpRecord(token: String, identifier: String, request: String): Response = {
     When(s"I remove Tgp Records request and receive a response")
-    println(s"uri : " + url + s"$identifier/records/8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f?actorId=GB123456789001")
+    println(s"uri : " + url + s"$identifier/records/$recordId2?actorId=$actorId")
     setHeaders(requestSpecification)
       .header("Authorization", token)
       .when()
       .body(request)
-      .delete(url + s"$identifier/records/8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f?actorId=GB123456789001")
+      .delete(url + s"$identifier/records/$recordId2?actorId=$actorId")
       .andReturn()
   }
 
@@ -83,23 +87,23 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
   def updateTgpRecord(token: String, identifier: String, request: String): Response = {
     When(s"I Update Tgp Records request without query params and receive a response")
-    println(s"uri : " + url + s"$identifier/records/8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f")
+    println(s"uri : " + url + s"$identifier/records/$recordId2")
     setHeaders(requestSpecification)
       .header("Authorization", token)
       .when()
       .body(request)
-      .patch(url + s"$identifier/records/8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f")
+      .patch(url + s"$identifier/records/$recordId2")
       .andReturn()
   }
 
   def requestAdvice(token: String, identifier: String, request: String): Response = {
     When(s"I Request Advice API Tgp Records and receive a response")
-    println(s"uri : " + url + s"$identifier/records/8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f/advice")
+    println(s"uri : " + url + s"$identifier/records/$recordId2/advice")
     setHeaders(requestSpecification)
       .header("Authorization", token)
       .when()
       .body(request)
-      .post(url + s"$identifier/records/8ebb6b04-6ab0-4fe2-ad62-e6389a8a204f/advice")
+      .post(url + s"$identifier/records/$recordId2/advice")
       .andReturn()
   }
 
@@ -130,4 +134,5 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     // Compare the modified JSON strings
     modifiedJson1 == modifiedJson2
   }
+
 }

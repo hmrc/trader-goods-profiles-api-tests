@@ -14,19 +14,22 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.tgp.tests.specs
+package uk.gov.hmrc.tgp.tests.specs.RemoveRecords
 
 import org.scalatest.Tag
 import uk.gov.hmrc.tgp.tests.client.HttpClient
+import uk.gov.hmrc.tgp.tests.specs.{BaseSpec, CommonSpec}
 import uk.gov.hmrc.tgp.tests.utils.JsonUtils
 
-class TradersGoodProfileRemoveRecordsSpec extends BaseSpec with CommonSpec with HttpClient {
+class TradersGoodProfileInvalidRemoveRecordsSpec extends BaseSpec with CommonSpec with HttpClient {
 
-  object RemoveApiRecord extends Tag("uk.gov.hmrc.tgp.tests.specs.TradersGoodProfileRemoveRecordsSpec")
+  object RemoveApiRecord extends Tag("uk.gov.hmrc.tgp.tests.specs.TradersGoodProfileInvalidRemoveRecordsSpec")
 
-  Feature("Traders Good Profile API functionality for Remove Record API call") {
+  Feature("Traders Good Profile API functionality for Invalid Remove Record API call") {
 
-    val FolderName = "RemoveAPI"
+    val FolderName  = "RemoveAPI"
+    val ValidEori   = "GB123456789001"
+    val InvalidEori = "GB123456789002"
 
     def validateScenario(
       scenarioDescription: String,
@@ -97,13 +100,11 @@ class TradersGoodProfileRemoveRecordsSpec extends BaseSpec with CommonSpec with 
       validateScenario(scenarioDescription, identifier, expectedStatusCode, payloadFileName)
     }
 
-    validateScenario("Validate success 204 for Remove TGP record API", "GB123456789001", 204, "RemoveWithValidActorId")
-
     Scenario(s"REMOVE TGP RECORD - Validate invalid response 403 with invalid token for Remove TGP record API") {
-      val token      = givenGetToken(isValid = true, "GB123456789001")
+      val token      = givenGetToken(isValid = true, ValidEori)
       val response   = removeTgpRecord(
         token,
-        "GB123456789002",
+        InvalidEori,
         JsonUtils.getRequestJsonFileAsString(FolderName, "RemoveWithValidActorId")
       )
       val statusCode = response.getStatusCode
@@ -112,10 +113,10 @@ class TradersGoodProfileRemoveRecordsSpec extends BaseSpec with CommonSpec with 
     }
 
     Scenario(s"REMOVE TGP RECORD - Validate invalid response 400 with invalid payload for Remove TGP record API") {
-      val token      = givenGetToken(isValid = true, "GB123456789001")
+      val token      = givenGetToken(isValid = true, ValidEori)
       val response   = removeTgpRecord(
         token,
-        "GB123456789001",
+        ValidEori,
         JsonUtils.getRequestJsonFileAsString(FolderName, "RemoveWithInValidActorId")
       )
       val statusCode = response.getStatusCode

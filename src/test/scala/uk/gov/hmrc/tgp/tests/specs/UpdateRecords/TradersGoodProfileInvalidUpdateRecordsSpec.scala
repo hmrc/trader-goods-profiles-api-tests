@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.tgp.tests.specs
+package uk.gov.hmrc.tgp.tests.specs.UpdateRecords
 
 import org.scalatest.Tag
 import uk.gov.hmrc.tgp.tests.client.HttpClient
+import uk.gov.hmrc.tgp.tests.specs.{BaseSpec, CommonSpec}
 import uk.gov.hmrc.tgp.tests.utils.JsonUtils.{getRequestJsonFileAsString, getResponseJsonFileAsString}
 
-class TradersGoodProfileUpdateRecordsSpec extends BaseSpec with CommonSpec with HttpClient {
+class TradersGoodProfileInvalidUpdateRecordsSpec extends BaseSpec with CommonSpec with HttpClient {
 
-  object UpdateApiRecord extends Tag("uk.gov.hmrc.tgp.tests.specs.TradersGoodProfileUpdateRecordsSpec")
+  object UpdateApiRecord extends Tag("uk.gov.hmrc.tgp.tests.specs.TradersGoodProfileInvalidUpdateRecordsSpec")
 
-  Feature("Traders Good Profile API functionality for Update Record API call") {
-
+  Feature("Traders Good Profile API functionality for Invalid Update Record API call") {
+    val ValidEori = "GB123456789001"
     val scenarios = List(
       (
         "GB123456789002",
@@ -51,8 +52,6 @@ class TradersGoodProfileUpdateRecordsSpec extends BaseSpec with CommonSpec with 
 
     val payloads = Map(
       "ValidPayload"              -> getRequestJsonFileAsString(FolderName, "Scenario_Update_200"),
-      "MandatoryPayload"          -> getRequestJsonFileAsString(FolderName, "Scenario_Update_200_OnlyMandatory"),
-      "PayloadWithMaxFieldValues" -> getRequestJsonFileAsString(FolderName, "Scenario_Update_200_WithAllMaxLength"),
       "OptionalPayloadValidation" -> getRequestJsonFileAsString(FolderName, "Scenario_Update_400_OptionalFields"),
       "EmptyPayloadValidation"    -> getRequestJsonFileAsString(FolderName, "Scenario_Update_400_WithEmptyFields")
     )
@@ -80,35 +79,14 @@ class TradersGoodProfileUpdateRecordsSpec extends BaseSpec with CommonSpec with 
     }
 
     runScenario(
-      "GB123456789001",
-      "Scenario_Update_200",
-      200,
-      payloads("ValidPayload"),
-      "Validate success 200 for Update TGP record API"
-    )
-    runScenario(
-      "GB123456789001",
-      "Scenario_Update_200_OnlyMandatory",
-      200,
-      payloads("MandatoryPayload"),
-      "Validate success 200 for Update TGP record API with only Mandatory values"
-    )
-    runScenario(
-      "GB123456789001",
-      "Scenario_Update_200_WithAllMaxLength",
-      200,
-      payloads("PayloadWithMaxFieldValues"),
-      "Validate success 200 for Update TGP record API with all max values"
-    )
-    runScenario(
-      "GB123456789001",
+      ValidEori,
       "Scenario_Update_400_OptionalFields",
       400,
       payloads("OptionalPayloadValidation"),
       "Validate error message 400 for Update TGP record API Optional values"
     )
     runScenario(
-      "GB123456789001",
+      ValidEori,
       "Scenario_Update_400_WithEmptyFields",
       400,
       payloads("EmptyPayloadValidation"),

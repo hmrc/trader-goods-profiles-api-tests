@@ -18,8 +18,6 @@ package uk.gov.hmrc.tgp.tests.utils
 
 import play.api.libs.json.{JsObject, Json}
 
-import scala.io.Source
-
 object ResponseUtils {
 
   def validateToReviewAndReviewReason(records: List[JsObject]): Boolean =

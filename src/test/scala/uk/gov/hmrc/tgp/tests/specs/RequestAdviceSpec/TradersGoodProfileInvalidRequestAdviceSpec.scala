@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.tgp.tests.specs
+package uk.gov.hmrc.tgp.tests.specs.RequestAdviceSpec
 
 import org.scalatest.Tag
 import uk.gov.hmrc.tgp.tests.client.HttpClient
-import uk.gov.hmrc.tgp.tests.utils.JsonUtils.getRequestJsonFileAsString
-import uk.gov.hmrc.tgp.tests.utils.JsonUtils.getResponseJsonFileAsString
+import uk.gov.hmrc.tgp.tests.specs.{BaseSpec, CommonSpec}
+import uk.gov.hmrc.tgp.tests.utils.JsonUtils.{getRequestJsonFileAsString, getResponseJsonFileAsString}
 
-class TradersGoodProfileRequestAdviceSpec extends BaseSpec with CommonSpec with HttpClient {
+class TradersGoodProfileInvalidRequestAdviceSpec extends BaseSpec with CommonSpec with HttpClient {
 
-  object RequestAdviceAPI extends Tag("uk.gov.hmrc.tgp.tests.specs.TradersGoodProfileRequestAdviceSpec")
+  object RequestAdviceAPI extends Tag("uk.gov.hmrc.tgp.tests.specs.TradersGoodProfileInvalidRequestAdviceSpec")
 
-  Feature("Traders Good Profile API functionality to Request Advice API call") {
-
+  Feature("Traders Good Profile API functionality to Invalid Request Advice API call") {
+    val Eori1     = "GB123456789011"
+    val Eori2     = "GB123456789012"
     val scenarios = List(
-      ("GB123456789011", 201, "201", "Validate success response 201 for Request Advice API call"),
       (
         "GB123456789013",
         500,
@@ -79,8 +79,8 @@ class TradersGoodProfileRequestAdviceSpec extends BaseSpec with CommonSpec with 
     Scenario(
       s"Request Advice API - Validate Invalid request parameter (actorId) response 400 for Request Advice API"
     ) {
-      val token      = givenGetToken(isValid = true, "GB123456789011")
-      val response   = requestAdvice(token, "GB123456789011", PayloadWithoutActorId)
+      val token      = givenGetToken(isValid = true, Eori1)
+      val response   = requestAdvice(token, Eori1, PayloadWithoutActorId)
       val statusCode = response.getStatusCode
       System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(400)
@@ -90,7 +90,7 @@ class TradersGoodProfileRequestAdviceSpec extends BaseSpec with CommonSpec with 
     }
 
     Scenario(s"Request Advice API - Validate Forbidden response 403 for Request Advice API") {
-      val token      = givenGetToken(isValid = true, "GB123456789011")
+      val token      = givenGetToken(isValid = true, Eori1)
       val response   = requestAdvice(token, "GB123456789001", ValidPayload)
       val statusCode = response.getStatusCode
       System.out.println("Status code: " + statusCode)
@@ -102,8 +102,8 @@ class TradersGoodProfileRequestAdviceSpec extends BaseSpec with CommonSpec with 
     Scenario(
       s"Request Advice API - Validate response 400 with multiple error message for Request Advice API"
     ) {
-      val token      = givenGetToken(isValid = true, "GB123456789012")
-      val response   = requestAdvice(token, "GB123456789012", ValidPayload)
+      val token      = givenGetToken(isValid = true, Eori2)
+      val response   = requestAdvice(token, Eori2, ValidPayload)
       val statusCode = response.getStatusCode
       System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(400)
