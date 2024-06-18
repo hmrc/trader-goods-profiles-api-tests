@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.tgp.tests.specs.RequestAdviceSpec
+package uk.gov.hmrc.tgp.tests.specs.RequestAdviceRecords
 
 import org.scalatest.Tag
 import uk.gov.hmrc.tgp.tests.client.HttpClient
