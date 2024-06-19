@@ -27,16 +27,11 @@ class TradersGoodProfileValidRemoveRecordsSpec extends BaseSpec with CommonSpec 
 
   Feature("Traders Good Profile API functionality for Valid Remove Record API call") {
 
-    val FolderName = "RemoveAPI"
-    val ValidEori  = "GB123456789001"
+    val ValidEori = "GB123456789001"
 
     Scenario(s"REMOVE TGP RECORD - Validate valid response 204 with valid token for Remove TGP record API") {
       val token      = givenGetToken(isValid = true, ValidEori)
-      val response   = removeTgpRecord(
-        token,
-        ValidEori,
-        JsonUtils.getRequestJsonFileAsString(FolderName, "RemoveWithValidActorId")
-      )
+      val response   = removeTgpRecord(token, ValidEori)
       val statusCode = response.getStatusCode
       System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(204)

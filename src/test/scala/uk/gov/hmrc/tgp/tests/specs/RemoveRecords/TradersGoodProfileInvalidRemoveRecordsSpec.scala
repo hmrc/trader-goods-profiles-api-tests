@@ -27,21 +27,61 @@ class TradersGoodProfileInvalidRemoveRecordsSpec extends BaseSpec with CommonSpe
 
   Feature("Traders Good Profile API functionality for Invalid Remove Record API call") {
 
-    val FolderName  = "RemoveAPI"
     val ValidEori   = "GB123456789001"
     val InvalidEori = "GB123456789002"
+
+    val scenarios = List(
+      (
+        "GB123456789002",
+        400,
+        "Mandatory field eori was missing from body or is in the wrong format",
+        "Validate Invalid request parameter (Mandatory field eori) response 400 for Remove TGP record API"
+      ),
+      (
+        "GB123456789003",
+        400,
+        "The recordId has been provided in the wrong format",
+        "Validate Invalid request parameter (recordId) response 400 for Remove TGP record API"
+      ),
+      (
+        "GB123456789004",
+        400,
+        "Mandatory field actorId was missing from body or is in the wrong format",
+        "Validate Invalid request parameter (actorId) response 400 for Remove TGP record API"
+      ),
+      (
+        "GB123456789005",
+        500,
+        "Unauthorized",
+        "Validate internal server error response 500 for Remove record API"
+      ),
+      (
+        "GB123456789006",
+        404,
+        "Not Found",
+        "Validate method not found 404 for Remove record API"
+      ),
+      (
+        "GB123456789007",
+        405,
+        "Method Not Allowed",
+        "Validate method not allowed response 405 for Remove record API"
+      )
+    )
+
+    scenarios.foreach { case (identifier, expectedStatusCode, expectedErrorMessage, scenarioDescription) =>
+      validateScenario(scenarioDescription, identifier, expectedStatusCode, expectedErrorMessage)
+    }
 
     def validateScenario(
       scenarioDescription: String,
       identifier: String,
       expectedStatusCode: Int,
-      payloadFileName: String,
       expectedErrorMessage: String = ""
     ): Unit =
       Scenario(s"REMOVE TGP SINGLE RECORD - $scenarioDescription") {
         val token      = givenGetToken(isValid = true, identifier)
-        val payload    = JsonUtils.getRequestJsonFileAsString(FolderName, payloadFileName)
-        val response   = removeTgpRecord(token, identifier, payload)
+        val response   = removeTgpRecord(token, identifier)
         val statusCode = response.getStatusCode
         System.out.println("Status code: " + statusCode)
         statusCode.shouldBe(expectedStatusCode)
@@ -51,77 +91,15 @@ class TradersGoodProfileInvalidRemoveRecordsSpec extends BaseSpec with CommonSpe
         }
       }
 
-    val scenarios = List(
-      (
-        "GB123456789002",
-        400,
-        "RemoveWithValidActorId",
-        "Mandatory field eori was missing from body or is in the wrong format",
-        "Validate Invalid request parameter (Mandatory field eori) response 400 for Remove TGP record API"
-      ),
-      (
-        "GB123456789003",
-        400,
-        "RemoveWithInValidActorId",
-        "The recordId has been provided in the wrong format",
-        "Validate Invalid request parameter (recordId) response 400 for Remove TGP record API"
-      ),
-      (
-        "GB123456789004",
-        400,
-        "RemoveWithNoActorId",
-        "Mandatory field actorId was missing from body or is in the wrong format",
-        "Validate Invalid request parameter (actorId) response 400 for Remove TGP record API"
-      ),
-      (
-        "GB123456789005",
-        500,
-        "RemoveWithValidActorId",
-        "Unauthorized",
-        "Validate internal server error response 500 for Remove record API"
-      ),
-      (
-        "GB123456789006",
-        404,
-        "RemoveWithValidActorId",
-        "Not Found",
-        "Validate method not found 404 for Remove record API"
-      ),
-      (
-        "GB123456789007",
-        405,
-        "RemoveWithValidActorId",
-        "Method Not Allowed",
-        "Validate method not allowed response 405 for Remove record API"
-      )
-    )
-
-    scenarios.foreach { case (identifier, expectedStatusCode, payloadFileName, _, scenarioDescription) =>
-      validateScenario(scenarioDescription, identifier, expectedStatusCode, payloadFileName)
-    }
-
     Scenario(s"REMOVE TGP RECORD - Validate invalid response 403 with invalid token for Remove TGP record API") {
       val token      = givenGetToken(isValid = true, ValidEori)
       val response   = removeTgpRecord(
         token,
-        InvalidEori,
-        JsonUtils.getRequestJsonFileAsString(FolderName, "RemoveWithValidActorId")
+        InvalidEori
       )
       val statusCode = response.getStatusCode
       System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(403)
-    }
-
-    Scenario(s"REMOVE TGP RECORD - Validate invalid response 400 with invalid payload for Remove TGP record API") {
-      val token      = givenGetToken(isValid = true, ValidEori)
-      val response   = removeTgpRecord(
-        token,
-        ValidEori,
-        JsonUtils.getRequestJsonFileAsString(FolderName, "RemoveWithInValidActorId")
-      )
-      val statusCode = response.getStatusCode
-      System.out.println("Status code: " + statusCode)
-      statusCode.shouldBe(400)
     }
 
   }
