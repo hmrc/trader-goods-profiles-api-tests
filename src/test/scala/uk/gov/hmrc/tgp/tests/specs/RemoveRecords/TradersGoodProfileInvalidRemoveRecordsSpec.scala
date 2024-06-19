@@ -27,7 +27,6 @@ class TradersGoodProfileInvalidRemoveRecordsSpec extends BaseSpec with CommonSpe
 
   Feature("Traders Good Profile API functionality for Invalid Remove Record API call") {
 
-    val FolderName  = "RemoveAPI"
     val ValidEori   = "GB123456789001"
     val InvalidEori = "GB123456789002"
 
@@ -40,8 +39,7 @@ class TradersGoodProfileInvalidRemoveRecordsSpec extends BaseSpec with CommonSpe
     ): Unit =
       Scenario(s"REMOVE TGP SINGLE RECORD - $scenarioDescription") {
         val token      = givenGetToken(isValid = true, identifier)
-        val payload    = JsonUtils.getRequestJsonFileAsString(FolderName, payloadFileName)
-        val response   = removeTgpRecord(token, identifier, payload)
+        val response   = removeTgpRecord(token, identifier)
         val statusCode = response.getStatusCode
         System.out.println("Status code: " + statusCode)
         statusCode.shouldBe(expectedStatusCode)
@@ -104,24 +102,11 @@ class TradersGoodProfileInvalidRemoveRecordsSpec extends BaseSpec with CommonSpe
       val token      = givenGetToken(isValid = true, ValidEori)
       val response   = removeTgpRecord(
         token,
-        InvalidEori,
-        JsonUtils.getRequestJsonFileAsString(FolderName, "RemoveWithValidActorId")
+        InvalidEori
       )
       val statusCode = response.getStatusCode
       System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(403)
-    }
-
-    Scenario(s"REMOVE TGP RECORD - Validate invalid response 400 with invalid payload for Remove TGP record API") {
-      val token      = givenGetToken(isValid = true, ValidEori)
-      val response   = removeTgpRecord(
-        token,
-        ValidEori,
-        JsonUtils.getRequestJsonFileAsString(FolderName, "RemoveWithInValidActorId")
-      )
-      val statusCode = response.getStatusCode
-      System.out.println("Status code: " + statusCode)
-      statusCode.shouldBe(400)
     }
 
   }

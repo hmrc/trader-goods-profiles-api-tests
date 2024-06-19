@@ -62,13 +62,12 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .andReturn()
   }
 
-  def removeTgpRecord(token: String, identifier: String, request: String): Response = {
+  def removeTgpRecord(token: String, identifier: String): Response = {
     When(s"I remove Tgp Records request and receive a response")
     println(s"uri : " + url + s"$identifier/records/$recordId?actorId=$actorId")
     setHeaders(requestSpecification)
       .header("Authorization", token)
       .when()
-      .body(request)
       .delete(url + s"$identifier/records/$recordId?actorId=$actorId")
       .andReturn()
   }
