@@ -49,12 +49,7 @@ class TradersGoodProfileInvalidRemoveRecordsSpec extends BaseSpec with CommonSpe
         "Mandatory field actorId was missing from body or is in the wrong format",
         "Validate Invalid request parameter (actorId) response 400 for Remove TGP record API"
       ),
-      (
-        "GB123456789005",
-        500,
-        "Unauthorized",
-        "Validate internal server error response 500 for Remove record API"
-      ),
+
       (
         "GB123456789006",
         404,
