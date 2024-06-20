@@ -26,9 +26,10 @@ class TradersGoodProfileInvalidRequestAdviceSpec extends BaseSpec with CommonSpe
   object RequestAdviceAPI extends Tag("uk.gov.hmrc.tgp.tests.specs.TradersGoodProfileInvalidRequestAdviceSpec")
 
   Feature("Traders Good Profile API functionality to Invalid Request Advice API call") {
-    val Eori1     = "GB123456789011"
-    val Eori2     = "GB123456789012"
-    val scenarios = List(
+    val validEORI      = "GB123456789011"
+    val invalidEORI    = "GB123456789012"
+    val inprogressEORI = "GB123456789007"
+    val scenarios      = List(
       (
         "GB123456789013",
         500,
@@ -79,8 +80,8 @@ class TradersGoodProfileInvalidRequestAdviceSpec extends BaseSpec with CommonSpe
     Scenario(
       s"Request Advice API - Validate Invalid request parameter (actorId) response 400 for Request Advice API"
     ) {
-      val token      = givenGetToken(isValid = true, Eori1)
-      val response   = requestAdvice(token, Eori1, PayloadWithoutActorId)
+      val token      = givenGetToken(isValid = true, validEORI)
+      val response   = requestAdvice(token, validEORI, PayloadWithoutActorId)
       val statusCode = response.getStatusCode
       System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(400)
@@ -90,8 +91,8 @@ class TradersGoodProfileInvalidRequestAdviceSpec extends BaseSpec with CommonSpe
     }
 
     Scenario(s"Request Advice API - Validate Forbidden response 403 for Request Advice API") {
-      val token      = givenGetToken(isValid = true, Eori1)
-      val response   = requestAdvice(token, "GB123456789001", ValidPayload)
+      val token      = givenGetToken(isValid = true, validEORI)
+      val response   = requestAdvice(token, invalidEORI, ValidPayload)
       val statusCode = response.getStatusCode
       System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(403)
@@ -99,11 +100,21 @@ class TradersGoodProfileInvalidRequestAdviceSpec extends BaseSpec with CommonSpe
       assert(actualResponse.contains("EORI number is incorrect"))
     }
 
+    Scenario(s"Request Advice API - Validate response 409 for Request Advice API") {
+      val token      = givenGetToken(isValid = true, inprogressEORI)
+      val response   = requestAdvice(token, inprogressEORI, ValidPayload)
+      val statusCode = response.getStatusCode
+      System.out.println("Status code: " + statusCode)
+      statusCode.shouldBe(409)
+      val actualResponse = response.getBody.asString()
+      assert(actualResponse.contains("There is an ongoing advice request and a new request cannot be requested"))
+    }
+
     Scenario(
       s"Request Advice API - Validate response 400 with multiple error message for Request Advice API"
     ) {
-      val token      = givenGetToken(isValid = true, Eori2)
-      val response   = requestAdvice(token, Eori2, ValidPayload)
+      val token      = givenGetToken(isValid = true, invalidEORI)
+      val response   = requestAdvice(token, invalidEORI, ValidPayload)
       val statusCode = response.getStatusCode
       System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(400)
