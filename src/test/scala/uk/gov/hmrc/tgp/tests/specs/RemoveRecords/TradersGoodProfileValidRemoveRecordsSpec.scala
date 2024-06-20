@@ -19,7 +19,6 @@ package uk.gov.hmrc.tgp.tests.specs.RemoveRecords
 import org.scalatest.Tag
 import uk.gov.hmrc.tgp.tests.client.HttpClient
 import uk.gov.hmrc.tgp.tests.specs.{BaseSpec, CommonSpec}
-import uk.gov.hmrc.tgp.tests.utils.JsonUtils
 
 class TradersGoodProfileValidRemoveRecordsSpec extends BaseSpec with CommonSpec with HttpClient {
 

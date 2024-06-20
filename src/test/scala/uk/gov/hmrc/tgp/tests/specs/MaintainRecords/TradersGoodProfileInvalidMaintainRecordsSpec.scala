@@ -56,7 +56,6 @@ class TradersGoodProfileInvalidMaintainRecordsSpec extends BaseSpec with CommonS
       "Scenario_Maintain_200",
       "Validate the error 'Not Found' 404 for Maintain Records API call"
     ),
-
     (
       "GB123456789005",
       405,
@@ -64,7 +63,6 @@ class TradersGoodProfileInvalidMaintainRecordsSpec extends BaseSpec with CommonS
       "Scenario_Maintain_200",
       "Validate the error 'Method Not Allowed' 405 for Maintain Records API call"
     )
-
   )
 
   scenarios.foreach { case (identifier, expectedStatusCode, expectedResponseFile, payloadFile, scenarioDescription) =>

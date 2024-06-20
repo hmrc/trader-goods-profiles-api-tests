@@ -59,7 +59,7 @@ class TradersGoodProfileInvalidGetMultipleApiRecordsSpec extends BaseSpec with C
 
     val scenarios = List(
       ("GB123456789007", 404, "Scenario_Get_404", "Validate record not found response 404 for GET TGP record API"),
-      ("GB123456789008", 405, "Scenario_Get_405", "Validate method not allowed response 405 for GET TGP record API"),
+      ("GB123456789008", 405, "Scenario_Get_405", "Validate method not allowed response 405 for GET TGP record API")
     )
 
     scenarios.foreach { case (identifier, expectedStatusCode, expectedResponseFile, scenarioDescription) =>

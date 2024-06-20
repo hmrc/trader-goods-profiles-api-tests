@@ -19,7 +19,6 @@ package uk.gov.hmrc.tgp.tests.specs.RemoveRecords
 import org.scalatest.Tag
 import uk.gov.hmrc.tgp.tests.client.HttpClient
 import uk.gov.hmrc.tgp.tests.specs.{BaseSpec, CommonSpec}
-import uk.gov.hmrc.tgp.tests.utils.JsonUtils
 
 class TradersGoodProfileInvalidRemoveRecordsSpec extends BaseSpec with CommonSpec with HttpClient {
 
@@ -49,7 +48,6 @@ class TradersGoodProfileInvalidRemoveRecordsSpec extends BaseSpec with CommonSpe
         "Mandatory field actorId was missing from body or is in the wrong format",
         "Validate Invalid request parameter (actorId) response 400 for Remove TGP record API"
       ),
-
       (
         "GB123456789006",
         404,

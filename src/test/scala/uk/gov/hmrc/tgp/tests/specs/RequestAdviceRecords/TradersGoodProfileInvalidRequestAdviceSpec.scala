@@ -26,8 +26,8 @@ class TradersGoodProfileInvalidRequestAdviceSpec extends BaseSpec with CommonSpe
   object RequestAdviceAPI extends Tag("uk.gov.hmrc.tgp.tests.specs.TradersGoodProfileInvalidRequestAdviceSpec")
 
   Feature("Traders Good Profile API functionality to Invalid Request Advice API call") {
-    val Eori1     = "GB123456789011"
-    val Eori2     = "GB123456789012"
+    val Eori1 = "GB123456789011"
+    val Eori2 = "GB123456789012"
 
     val FolderName = "RequestAdviceAPI"
 
@@ -36,8 +36,6 @@ class TradersGoodProfileInvalidRequestAdviceSpec extends BaseSpec with CommonSpe
 
     var PayloadWithoutActorId = "Scenario_Create_400"
     PayloadWithoutActorId = getRequestJsonFileAsString(FolderName, PayloadWithoutActorId)
-
-
 
     Scenario(
       s"Request Advice API - Validate Invalid request parameter (actorId) response 400 for Request Advice API"
