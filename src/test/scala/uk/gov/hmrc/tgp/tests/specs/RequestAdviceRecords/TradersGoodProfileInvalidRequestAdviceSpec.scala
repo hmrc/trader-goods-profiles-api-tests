@@ -77,18 +77,18 @@ class TradersGoodProfileInvalidRequestAdviceSpec extends BaseSpec with CommonSpe
       }
     }
 
-//    Scenario(
-//      s"Request Advice API - Validate Invalid request parameter (actorId) response 400 for Request Advice API"
-//    ) {
-//      val token      = givenGetToken(isValid = true, validEORI)
-//      val response   = requestAdvice(token, validEORI, PayloadWithoutActorId)
-//      val statusCode = response.getStatusCode
-//      System.out.println("Status code: " + statusCode)
-//      statusCode.shouldBe(400)
-//      val actualResponse = response.getBody.asString()
-//      assert(actualResponse.contains("Mandatory field actorId was missing from body or is in the wrong format"))
-//
-//    }
+    //    Scenario(
+    //      s"Request Advice API - Validate Invalid request parameter (actorId) response 400 for Request Advice API"
+    //    ) {
+    //      val token      = givenGetToken(isValid = true, validEORI)
+    //      val response   = requestAdvice(token, validEORI, PayloadWithoutActorId)
+    //      val statusCode = response.getStatusCode
+    //      System.out.println("Status code: " + statusCode)
+    //      statusCode.shouldBe(400)
+    //      val actualResponse = response.getBody.asString()
+    //      assert(actualResponse.contains("Mandatory field actorId was missing from body or is in the wrong format"))
+    //
+    //    }
 
     Scenario(s"Request Advice API - Validate Forbidden response 403 for Request Advice API") {
       val token      = givenGetToken(isValid = true, validEORI)

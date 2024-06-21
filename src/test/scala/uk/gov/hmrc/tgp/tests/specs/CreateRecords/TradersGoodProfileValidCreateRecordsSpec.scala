@@ -51,6 +51,7 @@ class TradersGoodProfileValidCreateRecordsSpec extends BaseSpec with CommonSpec 
   private val ValidPayload              = "Scenario_Create_201"
   private val MandatoryPayload          = "Scenario_Create_201_OnlyMandatory"
   private val PayloadWithMaxFieldValues = "Scenario_Create_201_WithAllMaxLength"
+  private val PayloadWithMinFieldValues = "Scenario_Create_201_WithAllMinLength"
 
   // Execute success 201 scenarios
   validateSuccess201(ValidEori, ValidPayload, "Scenario_Create_201", "Validate success 201 for Create TGP record API")
@@ -65,6 +66,12 @@ class TradersGoodProfileValidCreateRecordsSpec extends BaseSpec with CommonSpec 
     PayloadWithMaxFieldValues,
     "Scenario_Create_201_WithAllMaxLength",
     "Validate success 201 for Create TGP record API with all max values"
+  )
+  validateSuccess201(
+    ValidEori,
+    PayloadWithMinFieldValues,
+    "Scenario_Create_201_WithAllMinLength",
+    "Validate success 201 for Create TGP record API with all min values"
   )
 
 }

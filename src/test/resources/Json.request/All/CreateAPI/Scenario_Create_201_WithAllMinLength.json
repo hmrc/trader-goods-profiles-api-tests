@@ -1,0 +1,24 @@
+{
+  "actorId": "GB987654321097",
+  "traderRef": "P",
+  "comcode": "123456",
+  "goodsDescription": "P",
+  "countryOfOrigin": "GB",
+  "category": 2,
+  "assessments": [
+    {
+      "assessmentId": "a",
+      "primaryCategory": 1000,
+      "condition": {
+        "type": "a",
+        "conditionId": "Y",
+        "conditionDescription": "P",
+        "conditionTraderText": "P"
+      }
+    }
+  ],
+  "supplementaryUnit": 2147483647,
+  "measurementUnit": "P",
+  "comcodeEffectiveFromDate": "2023-01-01T00:00:00Z",
+  "comcodeEffectiveToDate": "2023-01-01T00:00:00Z"
+}
