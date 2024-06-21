@@ -128,7 +128,6 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     // Serialize the modified JSON objects back to strings for comparison
     val modifiedJson1 = Json.stringify(jsonWithoutCorrelationId1)
     val modifiedJson2 = Json.stringify(jsonWithoutCorrelationId2)
-
     // Compare the modified JSON strings
     modifiedJson1 == modifiedJson2
   }

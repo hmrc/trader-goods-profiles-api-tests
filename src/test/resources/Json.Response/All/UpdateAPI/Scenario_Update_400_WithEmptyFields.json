@@ -1,22 +1,17 @@
 {
-  "correlationId": "b921294e-e5d2-4e73-b019-41c720f70023",
+  "correlationId": "0fc204aa-dbef-47b6-91a8-16a4b29ae2c9",
   "code": "BAD_REQUEST",
   "message": "Bad Request",
   "errors": [
     {
       "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Optional field countryOfOrigin was missing from body or is in the wrong format",
+      "errorNumber": 13
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
       "message": "Mandatory field actorId was missing from body or is in the wrong format",
       "errorNumber": 8
-    },
-    {
-      "code": "INVALID_REQUEST_PARAMETER",
-      "message": "Optional field traderRef was missing from body or is in the wrong format",
-      "errorNumber": 9
-    },
-    {
-      "code": "INVALID_REQUEST_PARAMETER",
-      "message": "Optional field comcode was missing from body or is in the wrong format",
-      "errorNumber": 11
     },
     {
       "code": "INVALID_REQUEST_PARAMETER",
@@ -25,8 +20,13 @@
     },
     {
       "code": "INVALID_REQUEST_PARAMETER",
-      "message": "Optional field countryOfOrigin was missing from body or is in the wrong format",
-      "errorNumber": 13
+      "message": "Optional field comcode was missing from body or is in the wrong format",
+      "errorNumber": 11
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Optional field traderRef was missing from body or is in the wrong format",
+      "errorNumber": 9
     }
   ]
 }
