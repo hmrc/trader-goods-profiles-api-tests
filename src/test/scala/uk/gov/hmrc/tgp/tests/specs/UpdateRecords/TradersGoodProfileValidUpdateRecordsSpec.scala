@@ -33,7 +33,8 @@ class TradersGoodProfileValidUpdateRecordsSpec extends BaseSpec with CommonSpec 
     val payloads = Map(
       "ValidPayload"              -> getRequestJsonFileAsString(FolderName, "Scenario_Update_200"),
       "MandatoryPayload"          -> getRequestJsonFileAsString(FolderName, "Scenario_Update_200_OnlyMandatory"),
-      "PayloadWithMaxFieldValues" -> getRequestJsonFileAsString(FolderName, "Scenario_Update_200_WithAllMaxLength")
+      "PayloadWithMaxFieldValues" -> getRequestJsonFileAsString(FolderName, "Scenario_Update_200_WithAllMaxLength"),
+      "PayloadWithMinFieldValues" -> getRequestJsonFileAsString(FolderName, "Scenario_Update_200_WithAllMinLength")
     )
 
     def runScenario(
@@ -51,6 +52,7 @@ class TradersGoodProfileValidUpdateRecordsSpec extends BaseSpec with CommonSpec 
         statusCode.shouldBe(expectedStatusCode)
         val actualResponse   = response.getBody.asString()
         val expectedResponse = getResponseJsonFileAsString(FolderName, expectedResponseFile)
+        println(actualResponse + "is" + "this one")
         assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
       }
 
@@ -74,6 +76,13 @@ class TradersGoodProfileValidUpdateRecordsSpec extends BaseSpec with CommonSpec 
       200,
       payloads("PayloadWithMaxFieldValues"),
       "Validate success 200 for Update TGP record API with all max values"
+    )
+    runScenario(
+      ValidEori,
+      "Scenario_Update_200_WithAllMinLength",
+      200,
+      payloads("PayloadWithMinFieldValues"),
+      "Validate success 200 for Update TGP record API with all min values"
     )
 
   }

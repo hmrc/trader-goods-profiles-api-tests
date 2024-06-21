@@ -1,0 +1,37 @@
+{
+  "eori": "GB123456789001",
+  "actorId": "GB987654321097",
+  "recordId": "b2fa315b-2d31-4629-90fc-a7b1a5119873",
+  "traderRef": "P",
+  "comcode": "123456",
+  "adviceStatus": "Not Requested",
+  "goodsDescription": "P",
+  "countryOfOrigin": "GB",
+  "category": 2,
+  "assessments": [
+    {
+      "assessmentId": "a",
+      "primaryCategory": 1000,
+      "condition": {
+        "type": "a",
+        "conditionId": "Y",
+        "conditionDescription": "P",
+        "conditionTraderText": "P"
+      }
+    }
+  ],
+  "supplementaryUnit": 2147483647,
+  "measurementUnit": "P",
+  "comcodeEffectiveFromDate": "2023-01-01T00:00:00Z",
+  "comcodeEffectiveToDate": "2023-01-01T00:00:00Z",
+  "version": 1,
+  "active": true,
+  "toReview": false,
+  "reviewReason": "Commodity code change",
+  "declarable": "IMMI ready",
+  "ukimsNumber": "XIUKIM47699357400020231115081800",
+  "nirmsNumber": "RMS-GB-123456",
+  "niphlNumber": "6 S12345",
+  "createdDateTime": "2024-11-18T23:20:19Z",
+  "updatedDateTime": "2024-11-18T23:20:19Z"
+}

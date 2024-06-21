@@ -25,24 +25,29 @@ class TradersGoodProfileValidRequestAdviceSpec extends BaseSpec with CommonSpec 
 
   object RequestAdviceAPI extends Tag("uk.gov.hmrc.tgp.tests.specs.TradersGoodProfileValidRequestAdviceSpec")
 
-  private val FolderName = "RequestAdviceAPI"
+  private val FolderName         = "RequestAdviceAPI"
+  private val Identifier         = "GB123456789011"
+  private val ExpectedStatusCode = 201
 
-  private val Identifier           = "GB123456789011"
-  private val ExpectedStatusCode   = 201
-  private val PayloadFile          = "Scenario_Create_201"
-  private val ExpectedErrorMessage = "201"
-  private val ScenarioDescription  = "Validate success response 201 for Valid Request Advice API call"
-
-  private val ValidPayload = getRequestJsonFileAsString(FolderName, PayloadFile)
-
-  Scenario(s"Request Advice API - $ScenarioDescription") {
+  private def executeScenario(description: String, payloadFile: String): Unit = {
+    val payload    = getRequestJsonFileAsString(FolderName, payloadFile)
     val token      = givenGetToken(isValid = true, Identifier)
-    val response   = requestAdvice(token, Identifier, ValidPayload)
+    val response   = requestAdvice(token, Identifier, payload)
     val statusCode = response.getStatusCode
     statusCode.shouldBe(ExpectedStatusCode)
     val actualResponse = response.getBody.asString()
     println(s"Response: $actualResponse")
-    assert(actualResponse.contains(ExpectedErrorMessage))
   }
 
+  Scenario(s"Request Advice API - Validate success response 201 for Valid Request Advice API call") {
+    executeScenario("Validate success response 201 for Valid Request Advice API call", "Scenario_Create_201")
+  }
+
+  Scenario(s"Request Advice API - Validate 201 Success Response with max values") {
+    executeScenario("Validate 201 Success Response with max values", "Scenario_Create_201_MaxLength")
+  }
+
+  Scenario(s"Request Advice API - Validate 201 Success Response with min values") {
+    executeScenario("Validate 201 Success Response with min values", "Scenario_Create_201_MinLength")
+  }
 }
