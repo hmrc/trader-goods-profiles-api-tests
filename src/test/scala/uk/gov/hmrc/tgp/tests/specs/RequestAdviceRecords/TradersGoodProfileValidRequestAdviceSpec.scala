@@ -29,7 +29,7 @@ class TradersGoodProfileValidRequestAdviceSpec extends BaseSpec with CommonSpec 
   private val Identifier         = "GB123456789011787"
   private val ExpectedStatusCode = 201
 
-  private def executeScenario(description: String, payloadFile: String): Unit                = {
+  private def executeScenario(description: String, payloadFile: String): Unit = {
     val payload    = getRequestJsonFileAsString(FolderName, payloadFile)
     val token      = givenGetToken(isValid = true, Identifier)
     val response   = requestAdvice(token, Identifier, payload)
@@ -38,6 +38,7 @@ class TradersGoodProfileValidRequestAdviceSpec extends BaseSpec with CommonSpec 
     val actualResponse = response.getBody.asString()
     println(s"Response: $actualResponse")
   }
+
   private def executeMinIdentifierScenario(description: String, minIdentifier: String): Unit = {
     val payload    = getRequestJsonFileAsString(FolderName, "Scenario_Create_201")
     val token      = givenGetToken(isValid = true, minIdentifier)
@@ -47,6 +48,7 @@ class TradersGoodProfileValidRequestAdviceSpec extends BaseSpec with CommonSpec 
     val actualResponse = response.getBody.asString()
     println(s"Response: $actualResponse")
   }
+
   Scenario(s"Request Advice API - Validate success response 201 for Valid Request Advice API call") {
     executeScenario("Validate success response 201 for Valid Request Advice API call", "Scenario_Create_201")
   }

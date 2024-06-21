@@ -52,7 +52,6 @@ class TradersGoodProfileValidUpdateRecordsSpec extends BaseSpec with CommonSpec 
         statusCode.shouldBe(expectedStatusCode)
         val actualResponse   = response.getBody.asString()
         val expectedResponse = getResponseJsonFileAsString(FolderName, expectedResponseFile)
-        println(actualResponse + "is" + "this one")
         assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
       }
 
