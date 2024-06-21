@@ -1,17 +1,17 @@
 {
-  "correlationId": "1aa5f1bb-74a0-4355-b64a-8ccd5d492481",
+  "correlationId": "108f5586-65e3-4aca-b80e-a19f01dd4c21",
   "code": "BAD_REQUEST",
   "message": "Bad Request",
   "errors": [
     {
       "code": "INVALID_REQUEST_PARAMETER",
-      "message": "Mandatory field actorId was missing from body or is in the wrong format",
-      "errorNumber": 8
+      "message": "Mandatory field ukimsNumber was missing from body or is in the wrong format",
+      "errorNumber": 33
     },
     {
       "code": "INVALID_REQUEST_PARAMETER",
-      "message": "Mandatory field ukimsNumber was missing from body or is in the wrong format",
-      "errorNumber": 33
+      "message": "Mandatory field actorId was missing from body or is in the wrong format",
+      "errorNumber": 8
     }
   ]
 }
