@@ -44,6 +44,16 @@ class TradersGoodProfileValidGetSingleApiRecordsSpec extends BaseSpec with Commo
       val expectedResponse = getResponseJsonFileAsString(FolderName, expectedResponseFile)
       assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
     }
+    Scenario(
+      s"GET TGP SINGLE RECORD - Validate that the GET TGP record API returns a 200 success response when queried with a 14-digit EORI number."
+    ) {
+      val token      = givenGetToken(isValid = true, "XI12345677801287")
+      println(token)
+      val response   = getTgpRecord(token, "XI12345677801287")
+      val statusCode = response.getStatusCode
+      System.out.println("Status code: " + statusCode)
+      statusCode.shouldBe(expectedStatusCode)
 
+    }
   }
 }
