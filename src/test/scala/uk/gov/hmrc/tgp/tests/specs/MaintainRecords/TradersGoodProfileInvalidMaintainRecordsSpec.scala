@@ -107,6 +107,13 @@ class TradersGoodProfileInvalidMaintainRecordsSpec extends BaseSpec with CommonS
     validateBadRequestScenario(token, ValidEori, "Scenario_Maintain_RemovingMandatoryFields_400")
   }
 
+  Scenario(
+    s"MAINTAIN TGP RECORD - Verify 400 response for Maintain Records API with multiple error messages by Missing mandatory and incorrect format fields"
+  ) {
+    val token = givenGetToken(isValid = true, ValidEori)
+    validateBadRequestScenario(token, ValidEori, "Scenario_Maintain_MissingMandatoryAndIncorrectFormatFields_400")
+  }
+
   Scenario(s"MAINTAIN TGP RECORD - Validate error for Maintain TGP record API when invalid limit is provided") {
     val token = givenGetToken(isValid = true, ValidEori)
     validateBadRequestScenario(token, ValidEori, "Scenario_Maintain_InvalidLimit_400")
