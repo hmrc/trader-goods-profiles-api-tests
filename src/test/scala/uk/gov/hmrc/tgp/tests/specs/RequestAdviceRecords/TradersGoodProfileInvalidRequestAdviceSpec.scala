@@ -62,8 +62,11 @@ class TradersGoodProfileInvalidRequestAdviceSpec extends BaseSpec with CommonSpe
     var ValidPayload = "Scenario_Create_201"
     ValidPayload = getRequestJsonFileAsString(FolderName, ValidPayload)
 
-    var PayloadWithoutActorId = "Scenario_Create_400"
-    PayloadWithoutActorId = getRequestJsonFileAsString(FolderName, PayloadWithoutActorId)
+    var PayloadWithInvalidRequestorName = "Scenario_Create_400"
+    PayloadWithInvalidRequestorName = getRequestJsonFileAsString(FolderName, PayloadWithInvalidRequestorName)
+
+    var PayloadWithMissingAndIncorrectFormat = "Scenario_Create_400_WithMultipleErrors"
+    PayloadWithMissingAndIncorrectFormat = getRequestJsonFileAsString(FolderName, PayloadWithMissingAndIncorrectFormat)
 
     scenarios.foreach { case (identifier, expectedStatusCode, expectedErrorMessage, scenarioDescription) =>
       Scenario(s"Request Advice API - $scenarioDescription") {
@@ -77,18 +80,35 @@ class TradersGoodProfileInvalidRequestAdviceSpec extends BaseSpec with CommonSpe
       }
     }
 
-    //    Scenario(
-    //      s"Request Advice API - Validate Invalid request parameter (actorId) response 400 for Request Advice API"
-    //    ) {
-    //      val token      = givenGetToken(isValid = true, validEORI)
-    //      val response   = requestAdvice(token, validEORI, PayloadWithoutActorId)
-    //      val statusCode = response.getStatusCode
-    //      System.out.println("Status code: " + statusCode)
-    //      statusCode.shouldBe(400)
-    //      val actualResponse = response.getBody.asString()
-    //      assert(actualResponse.contains("Mandatory field actorId was missing from body or is in the wrong format"))
-    //
-    //    }
+    Scenario(
+      s"Request Advice API - Validate 400 response for Request Advice API with incorrect format fields"
+    ) {
+      val token      = givenGetToken(isValid = true, validEORI)
+      val response   = requestAdvice(token, validEORI, PayloadWithInvalidRequestorName)
+      val statusCode = response.getStatusCode
+      System.out.println("Status code: " + statusCode)
+      statusCode.shouldBe(400)
+      val actualResponse   = response.getBody.asString()
+      System.out.println("Status code: " + actualResponse)
+      val expectedResponse = getResponseJsonFileAsString(FolderName, "Scenario_Create_400")
+      assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
+
+    }
+
+    Scenario(
+      s"Request Advice API - Validate 400 response for Request Advice API with multiple error messages by Missing mandatory and incorrect format fields"
+    ) {
+      val token      = givenGetToken(isValid = true, validEORI)
+      val response   = requestAdvice(token, validEORI, PayloadWithMissingAndIncorrectFormat)
+      val statusCode = response.getStatusCode
+      System.out.println("Status code: " + statusCode)
+      statusCode.shouldBe(400)
+      val actualResponse   = response.getBody.asString()
+      System.out.println("Status code: " + actualResponse)
+      val expectedResponse = getResponseJsonFileAsString(FolderName, "Scenario_Create_400_WithMultipleErrors")
+      assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
+
+    }
 
     Scenario(s"Request Advice API - Validate Forbidden response 403 for Request Advice API") {
       val token      = givenGetToken(isValid = true, validEORI)
@@ -108,21 +128,6 @@ class TradersGoodProfileInvalidRequestAdviceSpec extends BaseSpec with CommonSpe
       statusCode.shouldBe(409)
       val actualResponse = response.getBody.asString()
       assert(actualResponse.contains("There is an ongoing advice request and a new request cannot be requested"))
-    }
-
-    Scenario(
-      s"Request Advice API - Validate response 400 with multiple error message for Request Advice API"
-    ) {
-      val token      = givenGetToken(isValid = true, invalidEORI)
-      val response   = requestAdvice(token, invalidEORI, ValidPayload)
-      val statusCode = response.getStatusCode
-      System.out.println("Status code: " + statusCode)
-      statusCode.shouldBe(400)
-      val actualResponse   = response.getBody.asString()
-      System.out.println("Status code: " + actualResponse)
-      val expectedResponse = getResponseJsonFileAsString(FolderName, "Scenario_Create_400")
-      assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
-
     }
 
   }

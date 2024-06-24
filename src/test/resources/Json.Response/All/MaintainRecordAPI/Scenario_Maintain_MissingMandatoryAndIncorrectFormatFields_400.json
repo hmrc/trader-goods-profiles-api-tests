@@ -1,0 +1,17 @@
+{
+  "correlationId": "284748c5-a130-4f4b-9667-d4301ba36e23",
+  "code": "BAD_REQUEST",
+  "message": "Bad Request",
+  "errors": [
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Mandatory field ukimsNumber was missing from body or is in the wrong format",
+      "errorNumber": 33
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Mandatory field actorId was missing from body or is in the wrong format",
+      "errorNumber": 8
+    }
+  ]
+}
