@@ -1,12 +1,32 @@
 {
-  "correlationId": "610b54ef-08b7-4015-9ef2-1f5ef7c66a9d",
+  "correlationId": "d0b28d90-3b98-4007-b4a0-e15d7d31528c",
   "code": "BAD_REQUEST",
   "message": "Bad Request",
   "errors": [
     {
       "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Optional field primaryCategory is in the wrong format",
+      "errorNumber": 16
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
       "message": "Optional field comcodeEffectiveToDate is in the wrong format",
       "errorNumber": 24
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Mandatory field comcode was missing from body or is in the wrong format",
+      "errorNumber": 11
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Optional field type is in the wrong format",
+      "errorNumber": 17
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Mandatory field comcodeEffectiveFromDate was missing from body or is in the wrong format",
+      "errorNumber": 23
     },
     {
       "code": "INVALID_REQUEST_PARAMETER",
@@ -30,28 +50,23 @@
     },
     {
       "code": "INVALID_REQUEST_PARAMETER",
-      "message": "Mandatory field goodsDescription was missing from body or is in the wrong format",
-      "errorNumber": 12
-    },
-    {
-      "code": "INVALID_REQUEST_PARAMETER",
-      "message": "Mandatory field comcode was missing from body or is in the wrong format",
-      "errorNumber": 11
-    },
-    {
-      "code": "INVALID_REQUEST_PARAMETER",
-      "message": "Mandatory field traderRef was missing from body or is in the wrong format",
-      "errorNumber": 9
-    },
-    {
-      "code": "INVALID_REQUEST_PARAMETER",
-      "message": "Mandatory field countryOfOrigin was missing from body or is in the wrong format",
-      "errorNumber": 13
+      "message": "Optional field conditionDescription is in the wrong format",
+      "errorNumber": 19
     },
     {
       "code": "INVALID_REQUEST_PARAMETER",
       "message": "Optional field conditionId is in the wrong format",
       "errorNumber": 18
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Optional field measurementUnit is in the wrong format",
+      "errorNumber": 22
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Mandatory field countryOfOrigin was missing from body or is in the wrong format",
+      "errorNumber": 13
     }
   ]
 }

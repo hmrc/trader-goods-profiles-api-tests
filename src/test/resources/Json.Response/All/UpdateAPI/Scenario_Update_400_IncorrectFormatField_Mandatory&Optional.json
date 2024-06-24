@@ -1,0 +1,42 @@
+{
+  "correlationId": "b5a829b0-441a-40ea-a5ee-11539a88753f",
+  "code": "BAD_REQUEST",
+  "message": "Bad Request",
+  "errors": [
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Optional field primaryCategory is in the wrong format",
+      "errorNumber": 16
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Optional field comcode was missing from body or is in the wrong format",
+      "errorNumber": 11
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Optional field type is in the wrong format",
+      "errorNumber": 17
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Optional field countryOfOrigin was missing from body or is in the wrong format",
+      "errorNumber": 13
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Optional field assessmentId is in the wrong format",
+      "errorNumber": 15
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Mandatory field actorId was missing from body or is in the wrong format",
+      "errorNumber": 8
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Optional field goodsDescription was missing from body or is in the wrong format",
+      "errorNumber": 12
+    }
+  ]
+}

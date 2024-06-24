@@ -1,0 +1,24 @@
+{
+  "actorId": "",
+  "traderRef": "SKU123456",
+  "comcode": "08101000009898989",
+  "goodsDescription": "Bananas",
+  "countryOfOrigin": 9,
+  "category": "2",
+  "assessments": [
+    {
+      "assessmentId": "a06846e9a5f61fa4ecf2c4e3b23631fc99878979878979",
+      "primaryCategory": "1",
+      "condition": {
+        "type": "certificate Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK lawProducts not according wasteh",
+        "conditionId": "Y923 Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK lawProducts not according wasteh",
+        "conditionDescription": "Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK lawProducts not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK lawProducts not according wasteh",
+        "conditionTraderText": "Excluded productProducts not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK lawProducts not according wasteh"
+      }
+    }
+  ],
+  "supplementaryUnit": 13,
+  "measurementUnit": 9,
+  "comcodeEffectiveFromDate": "2023-01-01T00:00:009898Z",
+  "comcodeEffectiveToDate": "2028-01-01T00:00:009989Z"
+}

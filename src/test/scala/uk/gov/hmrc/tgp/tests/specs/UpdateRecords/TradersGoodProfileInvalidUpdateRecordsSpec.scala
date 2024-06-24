@@ -51,9 +51,13 @@ class TradersGoodProfileInvalidUpdateRecordsSpec extends BaseSpec with CommonSpe
     val FolderName = "UpdateAPI"
 
     val payloads = Map(
-      "ValidPayload"              -> getRequestJsonFileAsString(FolderName, "Scenario_Update_200"),
-      "OptionalPayloadValidation" -> getRequestJsonFileAsString(FolderName, "Scenario_Update_400_OptionalFields"),
-      "EmptyPayloadValidation"    -> getRequestJsonFileAsString(FolderName, "Scenario_Update_400_WithEmptyFields")
+      "ValidPayload"                                  -> getRequestJsonFileAsString(FolderName, "Scenario_Update_200"),
+      "OptionalPayloadValidation"                     -> getRequestJsonFileAsString(FolderName, "Scenario_Update_400_OptionalFields"),
+      "EmptyPayloadValidation"                        -> getRequestJsonFileAsString(FolderName, "Scenario_Update_400_WithEmptyFields"),
+      "IncorrectFormatFieldPayload_MandatoryOptional" -> getRequestJsonFileAsString(
+        FolderName,
+        "Scenario_Update_400_IncorrectFormatField_Mandatory&Optional"
+      )
     )
 
     def runScenario(
@@ -91,6 +95,13 @@ class TradersGoodProfileInvalidUpdateRecordsSpec extends BaseSpec with CommonSpe
       400,
       payloads("EmptyPayloadValidation"),
       "Validate error message 400 for Update TGP record API with empty values"
+    )
+    runScenario(
+      ValidEori,
+      "Scenario_Update_400_IncorrectFormatField_Mandatory&Optional",
+      400,
+      payloads("IncorrectFormatFieldPayload_MandatoryOptional"),
+      "Validate error message 400 for Update TGP record API with incorrect values"
     )
 
   }
