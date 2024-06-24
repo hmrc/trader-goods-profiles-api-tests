@@ -7,13 +7,13 @@
   "category": 1,
   "assessments": [
     {
-      "assessmentId": "a06846e9a5f61fa4ecf2c4e3b23631fc",
+      "assessmentId": "",
       "primaryCategory": 1,
       "condition": {
         "type": "certificate",
         "conditionId": "Y923",
         "conditionDescription": "Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law",
-        "conditionTraderText": "Excluded product"
+        "conditionTraderText": ""
       }
     }
   ],

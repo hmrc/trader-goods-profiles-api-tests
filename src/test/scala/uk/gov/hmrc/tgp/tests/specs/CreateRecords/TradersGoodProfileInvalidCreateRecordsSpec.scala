@@ -64,11 +64,13 @@ class TradersGoodProfileInvalidCreateRecordsSpec extends BaseSpec with CommonSpe
     }
 
   // Define reusable payloads
-  private val ValidEori                  = "GB123456789001"
-  private val ValidPayload               = "Scenario_Create_201"
-  private val MandatoryPayloadValidation = "Scenario_Create_400_MandatoryFields"
-  private val OptionalPayloadValidation  = "Scenario_Create_400_OptionalFields"
-  private val EmptyPayloadValidation     = "Scenario_Create_400_WithEmptyFields"
+  private val ValidEori                                     = "GB123456789001"
+  private val ValidPayload                                  = "Scenario_Create_201"
+  private val MandatoryPayloadValidation                    = "Scenario_Create_400_MandatoryFields"
+  private val OptionalPayloadValidation                     = "Scenario_Create_400_OptionalFields"
+  private val EmptyPayloadValidation                        = "Scenario_Create_400_WithEmptyFields"
+  private val IncorrectFormatFieldPayload_MandatoryOptional =
+    "Scenario_Create_400_IncorrectFormatField_Mandatory&Optional"
 
   // Define scenarios
   private val errorScenarios = List(
@@ -107,6 +109,12 @@ class TradersGoodProfileInvalidCreateRecordsSpec extends BaseSpec with CommonSpe
     EmptyPayloadValidation,
     "Scenario_Create_400_WithEmptyFields",
     "Validate error message 400 for Create TGP record API with empty values"
+  )
+  validateError400Response(
+    ValidEori,
+    IncorrectFormatFieldPayload_MandatoryOptional,
+    "Scenario_Create_400_IncorrectFormatField_Mandatory&Optional",
+    "Validate error message 400 for Create TGP record API with Incorrect Values"
   )
 
 }

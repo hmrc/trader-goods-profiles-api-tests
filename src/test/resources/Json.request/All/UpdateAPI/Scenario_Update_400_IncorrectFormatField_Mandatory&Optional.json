@@ -1,0 +1,24 @@
+{
+  "actorId": "G987654321098",
+  "traderRef": "SKU123456",
+  "comcode": 7,
+  "goodsDescription": 0,
+  "countryOfOrigin": 9,
+  "category": 2,
+  "assessments": [
+    {
+      "assessmentId": "a06846e9a5f61fa4ecf2c4e3b23631fchghjgjhghjghjghjgjh",
+      "primaryCategory": "1",
+      "condition": {
+        "type": 89,
+        "conditionId": "Y923",
+        "conditionDescription": "Products not considered as waste according to Regulation (EC) No 1013/2006 as retained in UK law",
+        "conditionTraderText": "Excluded product"
+      }
+    }
+  ],
+  "supplementaryUnit": 13,
+  "measurementUnit": "Kilograms",
+  "comcodeEffectiveFromDate": "2023-01-01T00:00:00Z",
+  "comcodeEffectiveToDate": "2028-01-01T00:00:00Z"
+}

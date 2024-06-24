@@ -1,5 +1,5 @@
 {
-  "correlationId": "0fc204aa-dbef-47b6-91a8-16a4b29ae2c9",
+  "correlationId": "748321a8-76cd-4b92-82ce-a3a570ef25a5",
   "code": "BAD_REQUEST",
   "message": "Bad Request",
   "errors": [
@@ -7,6 +7,16 @@
       "code": "INVALID_REQUEST_PARAMETER",
       "message": "Optional field countryOfOrigin was missing from body or is in the wrong format",
       "errorNumber": 13
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Optional field conditionTraderText is in the wrong format",
+      "errorNumber": 20
+    },
+    {
+      "code": "INVALID_REQUEST_PARAMETER",
+      "message": "Optional field assessmentId is in the wrong format",
+      "errorNumber": 15
     },
     {
       "code": "INVALID_REQUEST_PARAMETER",
