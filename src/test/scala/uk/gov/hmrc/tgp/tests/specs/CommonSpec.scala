@@ -42,10 +42,15 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .header("Content-Type", "application/json")
       .header("Accept", "application/vnd.hmrc.1.0+json")
 
+  def setHeadersWithoutContentType(request: RequestSpecification): RequestSpecification =
+    request
+      .header("X-Client-Id", "1234")
+      .header("Accept", "application/vnd.hmrc.1.0+json")
+
   def getTgpRecord(token: String, identifier: String): Response = {
     When(s"I get Get Tgp Records request without query params and receive a response")
     println(s"uri : " + url + s"$identifier/records/$recordId")
-    setHeaders(requestSpecification)
+    setHeadersWithoutContentType(requestSpecification)
       .header("Authorization", token)
       .when()
       .get(url + s"$identifier/records/$recordId")
@@ -55,7 +60,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
   def getMultipleTgpRecord(token: String, uri: String): Response = {
     When(s"I get Get Tgp Records request without query params and receive a response")
     println(s"uri : " + url + uri)
-    setHeaders(requestSpecification)
+    setHeadersWithoutContentType(requestSpecification)
       .header("Authorization", token)
       .when()
       .get(url + uri)
@@ -65,7 +70,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
   def removeTgpRecord(token: String, identifier: String): Response = {
     When(s"I remove Tgp Records request and receive a response")
     println(s"uri : " + url + s"$identifier/records/$recordId?actorId=$actorId")
-    setHeaders(requestSpecification)
+    setHeadersWithoutContentType(requestSpecification)
       .header("Authorization", token)
       .when()
       .delete(url + s"$identifier/records/$recordId?actorId=$actorId")
