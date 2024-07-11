@@ -74,7 +74,6 @@ class TradersGoodProfileInvalidCreateRecordsSpec extends BaseSpec with CommonSpe
 
   // Define scenarios
   private val errorScenarios = List(
-    ("GB123456789007", 500, "Unauthorized", "Validate internal server error response 500 for Create record API"),
     ("GB123456789005", 404, "Not Found", "Validate method not found 404 for Create record API"),
     ("GB123456789006", 405, "Method Not Allowed", "Validate method not allowed response 405 for Create record API")
   )

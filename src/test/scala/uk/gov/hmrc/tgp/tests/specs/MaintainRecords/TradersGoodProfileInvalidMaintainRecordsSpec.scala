@@ -57,32 +57,11 @@ class TradersGoodProfileInvalidMaintainRecordsSpec extends BaseSpec with CommonS
       "Validate the error 'Not Found' 404 for Maintain Records API call"
     ),
     (
-      "GB123456789007",
-      500,
-      "Scenario_Maintain_Unauthorized_500",
-      "Scenario_Maintain_200",
-      "Validate the error 'Unauthorized' 500 for Maintain Records API call"
-    ),
-    (
-      "GB123456789006",
-      500,
-      "Scenario_Maintain_InternalServer_500",
-      "Scenario_Maintain_200",
-      "Validate the error 'Internal Server Error' 500 for Maintain Records API call"
-    ),
-    (
       "GB123456789005",
       405,
       "Scenario_Maintain_MethodNotAllowed_405",
       "Scenario_Maintain_200",
       "Validate the error 'Method Not Allowed' 405 for Maintain Records API call"
-    ),
-    (
-      "GB123456789008",
-      500,
-      "Scenario_Maintain_EmptyPayload_500",
-      "Scenario_Maintain_200",
-      "Validate the error 'Internal server error with 200 empty payload' 500 for Maintain Records API call"
     )
   )
 

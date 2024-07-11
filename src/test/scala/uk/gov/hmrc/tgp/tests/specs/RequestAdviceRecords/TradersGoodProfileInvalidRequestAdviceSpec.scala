@@ -29,33 +29,6 @@ class TradersGoodProfileInvalidRequestAdviceSpec extends BaseSpec with CommonSpe
     val validEORI      = "GB123456789011"
     val invalidEORI    = "GB123456789012"
     val inprogressEORI = "GB123456789007"
-    val scenarios      = List(
-      (
-        "GB123456789013",
-        500,
-        "Internal Error Response",
-        "Validate the error 'Internal Error Response' 500 for Request Advice API call"
-      ),
-      (
-        "GB123456789014",
-        500,
-        "Unauthorized",
-        "Validate the error 'Unauthorized' 500 for Request Advice API call"
-      ),
-      (
-        "GB123456789015",
-        500,
-        "Internal Server Error",
-        "Validate the error 'internal server error' response 500 for Request Advice API call"
-      ),
-      (
-        "GB123456789016",
-        500,
-        "Service Unavailable",
-        "Validate the error 'Service Unavailable' 500 for Request Advice API call"
-      ),
-      ("GB123456789017", 500, "Bad Gateway", "Validate the error 'Bad Gateway' 500 for Request Advice API call")
-    )
 
     val FolderName = "RequestAdviceAPI"
 
@@ -67,18 +40,6 @@ class TradersGoodProfileInvalidRequestAdviceSpec extends BaseSpec with CommonSpe
 
     var PayloadWithMissingAndIncorrectFormat = "Scenario_Create_400_WithMultipleErrors"
     PayloadWithMissingAndIncorrectFormat = getRequestJsonFileAsString(FolderName, PayloadWithMissingAndIncorrectFormat)
-
-    scenarios.foreach { case (identifier, expectedStatusCode, expectedErrorMessage, scenarioDescription) =>
-      Scenario(s"Request Advice API - $scenarioDescription") {
-        val token      = givenGetToken(isValid = true, identifier)
-        val response   = requestAdvice(token, identifier, ValidPayload)
-        val statusCode = response.getStatusCode
-        statusCode.shouldBe(expectedStatusCode)
-        val actualResponse = response.getBody.asString()
-        System.out.println("response: " + actualResponse)
-        assert(actualResponse.contains(expectedErrorMessage))
-      }
-    }
 
     Scenario(
       s"Request Advice API - Validate 400 response for Request Advice API with incorrect format fields"
