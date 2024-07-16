@@ -29,7 +29,7 @@ class TradersGoodProfileValidGetMultipleApiRecordsSpec extends BaseSpec with Com
       extends Tag("uk.gov.hmrc.tgp.tests.specs.ValidGetTradersGoodProfileGetMultipleApiRecordsSpec")
 
   // private val FolderName       = "GetAPI"
-  private val baseUrlForErrors = "/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=1&size=5"
+  private val baseUrlForErrors = "/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=0&size=5"
   val ValidEori                = "GB123456789001"
 
   private def runScenario(
@@ -70,7 +70,7 @@ class TradersGoodProfileValidGetMultipleApiRecordsSpec extends BaseSpec with Com
   private def runStatusScenario(adviceStatus: String, expectedLocked: Boolean): Unit = {
     val scenarioDescription = s"Validate GET TGP record API response for adviceStatus '$adviceStatus'"
     Scenario(scenarioDescription) {
-      val urlParams = s"$ValidEori/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=1&size=7"
+      val urlParams = s"$ValidEori/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=0&size=7"
       val token     = givenGetToken(isValid = true, ValidEori)
       val response  = getMultipleTgpRecord(token, urlParams)
 
@@ -117,16 +117,16 @@ class TradersGoodProfileValidGetMultipleApiRecordsSpec extends BaseSpec with Com
       ),
       (
         "Scenario_Get_Multiple_Page&UpdatedLastDate_200",
-        s"$ValidEori/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=1"
+        s"$ValidEori/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=0"
       ),
       (
         "Scenario_Get_Multiple_Page&UpdatedLastDate&Size_200",
-        s"$ValidEori/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=1&size=5"
+        s"$ValidEori/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=0&size=5"
       ),
       ("Scenario_Get_Multiple_UpdatedLastDate_200", s"$ValidEori/records?lastUpdatedDate=2024-03-26T16:14:52Z"),
-      ("Scenario_Get_Multiple_Size_200", s"$ValidEori/records?size=7"),
-      ("Scenario_Get_Multiple_Page_200", s"$ValidEori/records?page=2"),
-      ("Scenario_Get_Multiple_Size&Page_200", s"$ValidEori/records?page=1&size=4")
+      ("Scenario_Get_Multiple_Size_200", s"$ValidEori/records?size=6"),
+      ("Scenario_Get_Multiple_Page_200", s"$ValidEori/records?page=1"),
+      ("Scenario_Get_Multiple_Size&Page_200", s"$ValidEori/records?page=0&size=4")
     )
 
     successfulScenarios.foreach { case (scenarioDescription, url) =>
@@ -146,7 +146,7 @@ class TradersGoodProfileValidGetMultipleApiRecordsSpec extends BaseSpec with Com
     }
 
     Scenario("Validate GET TGP record API response for toReview and reviewReason") {
-      val urlParams = s"$ValidEori/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=1&size=7"
+      val urlParams = s"$ValidEori/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=0&size=7"
       val token     = givenGetToken(isValid = true, ValidEori)
       val response  = getMultipleTgpRecord(token, urlParams)
 

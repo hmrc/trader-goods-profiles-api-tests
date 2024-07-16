@@ -23,7 +23,7 @@ import uk.gov.hmrc.tgp.tests.conf.TestConfiguration
 import scala.concurrent.Await
 import scala.concurrent.duration._
 
-class AuthService(filename: Any) extends HttpClient {
+class AuthService extends HttpClient {
 
   val host: String        = TestConfiguration.url("auth")
   val redirectUrl: String = TestConfiguration.getConfigValue("redirect-url")

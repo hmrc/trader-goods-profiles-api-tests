@@ -30,7 +30,7 @@ class TradersGoodProfileInvalidGetMultipleApiRecordsSpec extends BaseSpec with C
       extends Tag("uk.gov.hmrc.tgp.tests.specs.InvalidGetTradersGoodProfileGetMultipleApiRecordsSpec")
 
   private val FolderName       = "GetAPI"
-  private val baseUrlForErrors = "/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=1&size=5"
+  private val baseUrlForErrors = "/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=0&size=5"
   val ValidEori                = "GB123456789001"
   val InvalidEori              = "GB123456789002"
 
