@@ -136,9 +136,9 @@ class TradersGoodProfileValidGetMultipleApiRecordsSpec extends BaseSpec with Com
     val statusScenarios = List(
       ("Requested", true),
       ("In progress", true),
-      ("Information requested", true),
+      ("Information Requested", true),
       ("Not Requested", false),
-      ("Advice request withdrawn", false)
+      ("Withdrawn", false)
     )
 
     statusScenarios.foreach { case (adviceStatus, expectedLocked) =>
