@@ -50,8 +50,9 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
   def getTgpRecord(token: String, identifier: String): Response = {
     When(s"I get Get Tgp Records request without query params and receive a response")
     println(s"uri : " + url + s"$identifier/records/$recordId")
-    setHeadersWithoutContentType(requestSpecification)
+    requestSpecification
       .header("Authorization", token)
+      .header("Accept", "application/vnd.hmrc.1.0+json")
       .when()
       .get(url + s"$identifier/records/$recordId")
       .andReturn()
@@ -60,8 +61,9 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
   def getMultipleTgpRecord(token: String, uri: String): Response = {
     When(s"I get Get Tgp Records request without query params and receive a response")
     println(s"uri : " + url + uri)
-    setHeadersWithoutContentType(requestSpecification)
+    requestSpecification
       .header("Authorization", token)
+      .header("Accept", "application/vnd.hmrc.1.0+json")
       .when()
       .get(url + uri)
       .andReturn()
