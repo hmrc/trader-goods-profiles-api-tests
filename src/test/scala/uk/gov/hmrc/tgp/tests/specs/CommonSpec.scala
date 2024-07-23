@@ -99,6 +99,17 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .andReturn()
   }
 
+  def withdrawAdviceRecords(token: String, identifier: String, request: String, record: String): Response = {
+    When(s"I Withdraw Advice Tgp Records request without query params and receive a response")
+    println(s"uri : " + url + s"$identifier/records/$record/advice")
+    setHeaders(requestSpecification)
+      .header("Authorization", token)
+      .when()
+      .body(request)
+      .put(url + s"$identifier/records/$record/advice")
+      .andReturn()
+  }
+
   def requestAdvice(token: String, identifier: String, request: String): Response = {
     When(s"I Request Advice API Tgp Records and receive a response")
     println(s"uri : " + url + s"$identifier/records/$recordId/advice")
