@@ -35,10 +35,8 @@ class TradersGoodProfileValidGetSingleApiRecordsSpec extends BaseSpec with Commo
 
     Scenario(s"GET TGP SINGLE RECORD - $scenarioDescription") {
       val token      = givenGetToken(isValid = true, identifier)
-      println(token)
       val response   = getTgpRecord(token, identifier)
       val statusCode = response.getStatusCode
-      System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(expectedStatusCode)
       val actualResponse   = response.getBody.asString()
       val expectedResponse = getResponseJsonFileAsString(FolderName, expectedResponseFile)
@@ -48,10 +46,8 @@ class TradersGoodProfileValidGetSingleApiRecordsSpec extends BaseSpec with Commo
       s"GET TGP SINGLE RECORD - Validate that the GET TGP record API returns a 200 success response when queried with a 16-digit EORI number."
     ) {
       val token      = givenGetToken(isValid = true, "XI12345677801287")
-      println(token)
       val response   = getTgpRecord(token, "XI12345677801287")
       val statusCode = response.getStatusCode
-      System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(expectedStatusCode)
 
     }

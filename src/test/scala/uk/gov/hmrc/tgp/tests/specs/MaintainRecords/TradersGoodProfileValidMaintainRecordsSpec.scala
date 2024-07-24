@@ -51,10 +51,8 @@ class TradersGoodProfileValidMaintainRecordsSpec extends BaseSpec with CommonSpe
         val token      = givenGetToken(isValid = true, identifier)
         val response   = maintainRecord(token, identifier, getPayload(expectedResponseFile))
         val statusCode = response.getStatusCode
-        System.out.println("Status code: " + statusCode)
         statusCode.shouldBe(expectedStatusCode)
         val actualResponse   = response.getBody.asString()
-        System.out.println("Response: " + actualResponse)
         val expectedResponse = getResponseJsonFileAsString(FolderName, expectedResponseFile)
         assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
       }

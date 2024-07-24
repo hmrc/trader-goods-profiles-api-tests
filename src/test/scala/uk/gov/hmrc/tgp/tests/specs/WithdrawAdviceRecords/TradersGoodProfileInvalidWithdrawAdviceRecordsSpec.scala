@@ -45,7 +45,6 @@ class TradersGoodProfileInvalidWithdrawAdviceRecordsSpec extends BaseSpec with C
         val response   =
           withdrawAdviceRecords(token, identifier, payload, record = "c5e0cb9f-2292-480b-8a43-4222db5c9c85")
         val statusCode = response.getStatusCode
-        System.out.println("Status code: " + statusCode)
         statusCode.shouldBe(expectedStatusCode)
         val actualResponse   = response.getBody.asString()
         val expectedResponse = getResponseJsonFileAsString(FolderName, expectedResponseFile)

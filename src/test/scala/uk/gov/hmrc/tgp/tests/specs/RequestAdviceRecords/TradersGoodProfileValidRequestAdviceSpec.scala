@@ -35,8 +35,7 @@ class TradersGoodProfileValidRequestAdviceSpec extends BaseSpec with CommonSpec 
     val response   = requestAdvice(token, Identifier, payload)
     val statusCode = response.getStatusCode
     statusCode.shouldBe(ExpectedStatusCode)
-    val actualResponse = response.getBody.asString()
-    println(s"Response: $actualResponse")
+
   }
 
   private def executeMinIdentifierScenario(description: String, minIdentifier: String): Unit = {
@@ -45,8 +44,7 @@ class TradersGoodProfileValidRequestAdviceSpec extends BaseSpec with CommonSpec 
     val response   = requestAdvice(token, minIdentifier, payload)
     val statusCode = response.getStatusCode
     statusCode.shouldBe(ExpectedStatusCode)
-    val actualResponse = response.getBody.asString()
-    println(s"Response: $actualResponse")
+
   }
 
   Scenario(s"Request Advice API - Validate success response 201 for Valid Request Advice API call") {

@@ -39,7 +39,6 @@ class TradersGoodProfileValidCreateRecordsSpec extends BaseSpec with CommonSpec 
       val token      = givenGetToken(isValid = true, identifier)
       val response   = createTgpRecord(token, identifier, getPayload(payloadFile))
       val statusCode = response.getStatusCode
-      System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(201)
       val actualResponse   = response.getBody.asString()
       val expectedResponse = getResponseJsonFileAsString(FolderName, expectedResponseFile)

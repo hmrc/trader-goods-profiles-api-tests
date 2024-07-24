@@ -45,7 +45,6 @@ class TradersGoodProfileInvalidGetMultipleApiRecordsSpec extends BaseSpec with C
       val response = getMultipleTgpRecord(token, s"$identifier$baseUrlForErrors")
 
       val statusCode = response.getStatusCode
-      println(s"Status code for $scenarioDescription: $statusCode")
       statusCode.shouldBe(expectedStatusCode)
 
       val actualResponse   = response.getBody.asString()
@@ -71,14 +70,10 @@ class TradersGoodProfileInvalidGetMultipleApiRecordsSpec extends BaseSpec with C
       val response   = getMultipleTgpRecord(token, s"$ValidEori$baseUrlForErrors")
       val statusCode = response.getStatusCode
 
-      println(s"Status code for invalid token scenario: $statusCode")
       statusCode.shouldBe(401)
 
       val actualResponse   = response.getBody.asString()
       val expectedResponse = getResponseJsonFileAsString(FolderName, "Scenario_Get_401")
-
-      println(s"Actual response for invalid token scenario: $actualResponse")
-      println(s"Expected response for invalid token scenario: $expectedResponse")
 
       assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
     }
@@ -88,7 +83,6 @@ class TradersGoodProfileInvalidGetMultipleApiRecordsSpec extends BaseSpec with C
       val response   = getMultipleTgpRecord(token, s"$InvalidEori$baseUrlForErrors")
       val statusCode = response.getStatusCode
 
-      println(s"Status code for invalid EORI scenario: $statusCode")
       statusCode.shouldBe(403)
 
       val actualResponse   = response.getBody.asString()

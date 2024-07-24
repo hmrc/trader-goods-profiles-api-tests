@@ -28,14 +28,12 @@ class TradersGoodProfileValidGetMultipleApiRecordsSpec extends BaseSpec with Com
   object GetMultipleApiRecord
       extends Tag("uk.gov.hmrc.tgp.tests.specs.ValidGetTradersGoodProfileGetMultipleApiRecordsSpec")
 
-  // private val FolderName       = "GetAPI"
   private val baseUrlForErrors = "/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=0&size=5"
   val ValidEori                = "GB123456789001"
 
   private def runScenario(
     identifier: String,
     expectedStatusCode: Int,
-    expectedResponseFile: String,
     scenarioDescription: String
   ): Unit =
     Scenario(s"$scenarioDescription for URL $identifier$baseUrlForErrors") {
@@ -43,13 +41,8 @@ class TradersGoodProfileValidGetMultipleApiRecordsSpec extends BaseSpec with Com
       val response = getMultipleTgpRecord(token, s"$identifier$baseUrlForErrors")
 
       val statusCode = response.getStatusCode
-      println(s"Status code for $scenarioDescription: $statusCode")
       statusCode.shouldBe(expectedStatusCode)
 
-      // val actualResponse   = response.getBody.asString()
-      //  val expectedResponse = getResponseJsonFileAsString(FolderName, expectedResponseFile)
-
-      // assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
     }
 
   private def runSuccessfulScenario(scenarioDescription: String, url: String): Unit =
@@ -58,13 +51,8 @@ class TradersGoodProfileValidGetMultipleApiRecordsSpec extends BaseSpec with Com
       val response = getMultipleTgpRecord(token, url)
 
       val statusCode = response.getStatusCode
-      println(s"Status code for $scenarioDescription: $statusCode")
       statusCode.shouldBe(200)
 
-      // val actualResponse   = response.getBody.asString()
-      // val expectedResponse = getResponseJsonFileAsString(FolderName, scenarioDescription)
-
-      // assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
     }
 
   private def runStatusScenario(adviceStatus: String, expectedLocked: Boolean): Unit = {
@@ -75,21 +63,17 @@ class TradersGoodProfileValidGetMultipleApiRecordsSpec extends BaseSpec with Com
       val response  = getMultipleTgpRecord(token, urlParams)
 
       val statusCode = response.getStatusCode
-      println(s"Status code for $scenarioDescription: $statusCode")
       statusCode.shouldBe(200)
 
       val actualResponse = response.getBody.asString()
-      //  val expectedResponse = getResponseJsonFileAsString(FolderName, "Scenario_Get_Multiple_AdviceStatus&Review_200")
 
       val actualJson = Json.parse(actualResponse)
-      //  val expectedJson = Json.parse(expectedResponse)
 
       val records = (actualJson \ "records").as[List[JsObject]]
 
       val foundStatus = validateAdviceAndLockedStatus(records, adviceStatus, expectedLocked)
       foundStatus.shouldBe(true)
 
-      // assert(Json.toJson(actualJson) == expectedJson, "JSON response doesn't match the expected response.")
     }
   }
 
@@ -107,7 +91,7 @@ class TradersGoodProfileValidGetMultipleApiRecordsSpec extends BaseSpec with Com
     )
 
     scenarios.foreach { case (identifier, expectedStatusCode, expectedResponseFile, scenarioDescription) =>
-      runScenario(identifier, expectedStatusCode, expectedResponseFile, scenarioDescription)
+      runScenario(identifier, expectedStatusCode, scenarioDescription)
     }
 
     val successfulScenarios = List(
@@ -151,21 +135,18 @@ class TradersGoodProfileValidGetMultipleApiRecordsSpec extends BaseSpec with Com
       val response  = getMultipleTgpRecord(token, urlParams)
 
       val statusCode = response.getStatusCode
-      println(s"Status code for Validate toReview and reviewReason scenario: $statusCode")
+
       statusCode.shouldBe(200)
 
       val actualResponse = response.getBody.asString()
-      // val expectedResponse = getResponseJsonFileAsString(FolderName, "Scenario_Get_Multiple_AdviceStatus&Review_200")
 
       val actualJson = Json.parse(actualResponse)
-      //  val expectedJson = Json.parse(expectedResponse)
 
       val records = (actualJson \ "records").as[List[JsObject]]
 
       val foundReview = validateToReviewAndReviewReason(records)
       foundReview.shouldBe(true)
 
-      // assert(Json.toJson(actualJson) == expectedJson, "JSON response doesn't match the expected response.")
     }
 
   }
