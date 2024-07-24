@@ -19,7 +19,6 @@ package uk.gov.hmrc.tgp.tests.specs.RemoveRecords
 import org.scalatest.Tag
 import uk.gov.hmrc.tgp.tests.client.HttpClient
 import uk.gov.hmrc.tgp.tests.specs.{BaseSpec, CommonSpec}
-import uk.gov.hmrc.tgp.tests.utils.JsonUtils
 
 class TradersGoodProfileInvalidRemoveRecordsSpec extends BaseSpec with CommonSpec with HttpClient {
 
@@ -71,13 +70,12 @@ class TradersGoodProfileInvalidRemoveRecordsSpec extends BaseSpec with CommonSpe
       scenarioDescription: String,
       identifier: String,
       expectedStatusCode: Int,
-      expectedErrorMessage: String = ""
+      expectedErrorMessage: String
     ): Unit =
       Scenario(s"REMOVE TGP SINGLE RECORD - $scenarioDescription") {
         val token      = givenGetToken(isValid = true, identifier)
         val response   = removeTgpRecord(token, identifier)
         val statusCode = response.getStatusCode
-        System.out.println("Status code: " + statusCode)
         statusCode.shouldBe(expectedStatusCode)
         if (expectedErrorMessage.nonEmpty) {
           val actualResponse = response.getBody.asString()
@@ -92,7 +90,6 @@ class TradersGoodProfileInvalidRemoveRecordsSpec extends BaseSpec with CommonSpe
         InvalidEori
       )
       val statusCode = response.getStatusCode
-      System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(403)
     }
 

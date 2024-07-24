@@ -32,7 +32,6 @@ class TradersGoodProfileValidRemoveRecordsSpec extends BaseSpec with CommonSpec 
       val token      = givenGetToken(isValid = true, ValidEori)
       val response   = removeTgpRecord(token, ValidEori)
       val statusCode = response.getStatusCode
-      System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(204)
     }
 

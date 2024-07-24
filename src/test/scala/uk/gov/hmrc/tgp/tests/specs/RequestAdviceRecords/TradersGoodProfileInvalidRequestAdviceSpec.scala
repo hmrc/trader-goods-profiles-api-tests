@@ -47,10 +47,8 @@ class TradersGoodProfileInvalidRequestAdviceSpec extends BaseSpec with CommonSpe
       val token      = givenGetToken(isValid = true, validEORI)
       val response   = requestAdvice(token, validEORI, PayloadWithInvalidRequestorName)
       val statusCode = response.getStatusCode
-      System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(400)
       val actualResponse   = response.getBody.asString()
-      System.out.println("Status code: " + actualResponse)
       val expectedResponse = getResponseJsonFileAsString(FolderName, "Scenario_Create_400")
       assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
 
@@ -62,10 +60,8 @@ class TradersGoodProfileInvalidRequestAdviceSpec extends BaseSpec with CommonSpe
       val token      = givenGetToken(isValid = true, validEORI)
       val response   = requestAdvice(token, validEORI, PayloadWithMissingAndIncorrectFormat)
       val statusCode = response.getStatusCode
-      System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(400)
       val actualResponse   = response.getBody.asString()
-      System.out.println("Status code: " + actualResponse)
       val expectedResponse = getResponseJsonFileAsString(FolderName, "Scenario_Create_400_WithMultipleErrors")
       assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
 
@@ -75,7 +71,6 @@ class TradersGoodProfileInvalidRequestAdviceSpec extends BaseSpec with CommonSpe
       val token      = givenGetToken(isValid = true, validEORI)
       val response   = requestAdvice(token, invalidEORI, ValidPayload)
       val statusCode = response.getStatusCode
-      System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(403)
       val actualResponse = response.getBody.asString()
       assert(actualResponse.contains("EORI number is incorrect"))
@@ -85,7 +80,6 @@ class TradersGoodProfileInvalidRequestAdviceSpec extends BaseSpec with CommonSpe
       val token      = givenGetToken(isValid = true, inprogressEORI)
       val response   = requestAdvice(token, inprogressEORI, ValidPayload)
       val statusCode = response.getStatusCode
-      System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(409)
       val actualResponse = response.getBody.asString()
       assert(actualResponse.contains("There is an ongoing advice request and a new request cannot be requested"))

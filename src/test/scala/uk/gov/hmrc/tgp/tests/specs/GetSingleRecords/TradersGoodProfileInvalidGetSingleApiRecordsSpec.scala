@@ -43,7 +43,6 @@ class TradersGoodProfileInvalidGetSingleApiRecordsSpec extends BaseSpec with Com
       val token      = givenGetToken(isValid = true, identifier)
       val response   = getTgpRecord(token, identifier)
       val statusCode = response.getStatusCode
-      System.out.println("Status code: " + statusCode)
       statusCode.shouldBe(expectedStatusCode)
       val actualResponse   = response.getBody.asString()
       val expectedResponse = getPayload(expectedResponseFile)
@@ -68,7 +67,6 @@ class TradersGoodProfileInvalidGetSingleApiRecordsSpec extends BaseSpec with Com
     val token      = generateRandomBearerToken()
     val response   = getTgpRecord(token, ValidEori)
     val statusCode = response.getStatusCode
-    System.out.println("Status code: " + statusCode)
     statusCode.shouldBe(401)
     val actualResponse   = response.getBody.asString()
     val expectedResponse = getPayload("Scenario_Get_401")
@@ -79,7 +77,6 @@ class TradersGoodProfileInvalidGetSingleApiRecordsSpec extends BaseSpec with Com
     val token      = givenGetToken(isValid = true, ValidEori)
     val response   = getTgpRecord(token, InvalidEori)
     val statusCode = response.getStatusCode
-    System.out.println("Status code: " + statusCode)
     statusCode.shouldBe(403)
     val actualResponse   = response.getBody.asString()
     val expectedResponse = getPayload("Scenario_Get_403")

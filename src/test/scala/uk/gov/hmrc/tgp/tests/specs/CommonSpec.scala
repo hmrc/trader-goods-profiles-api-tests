@@ -49,7 +49,6 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
   def getTgpRecord(token: String, identifier: String): Response = {
     When(s"I get Get Tgp Records request without query params and receive a response")
-    println(s"uri : " + url + s"$identifier/records/$recordId")
     setHeadersWithoutContentType(requestSpecification)
       .header("Authorization", token)
       .when()
@@ -59,7 +58,6 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
   def getMultipleTgpRecord(token: String, uri: String): Response = {
     When(s"I get Get Tgp Records request without query params and receive a response")
-    println(s"uri : " + url + uri)
     setHeadersWithoutContentType(requestSpecification)
       .header("Authorization", token)
       .when()
@@ -69,7 +67,6 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
   def removeTgpRecord(token: String, identifier: String): Response = {
     When(s"I remove Tgp Records request and receive a response")
-    println(s"uri : " + url + s"$identifier/records/$recordId?actorId=$actorId")
     setHeadersWithoutContentType(requestSpecification)
       .header("Authorization", token)
       .when()
@@ -79,7 +76,6 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
   def createTgpRecord(token: String, identifier: String, request: String): Response = {
     When(s"I create Tgp Records request and receive a response")
-    println(s"uri : " + url + s"$identifier/records")
     setHeaders(requestSpecification)
       .header("Authorization", token)
       .when()
@@ -90,7 +86,6 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
   def updateTgpRecord(token: String, identifier: String, request: String): Response = {
     When(s"I Update Tgp Records request without query params and receive a response")
-    println(s"uri : " + url + s"$identifier/records/$recordId")
     setHeaders(requestSpecification)
       .header("Authorization", token)
       .when()
@@ -99,9 +94,18 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .andReturn()
   }
 
+  def withdrawAdviceRecords(token: String, identifier: String, request: String, record: String): Response = {
+    When(s"I Withdraw Advice Tgp Records request without query params and receive a response")
+    setHeaders(requestSpecification)
+      .header("Authorization", token)
+      .when()
+      .body(request)
+      .put(url + s"$identifier/records/$record/advice")
+      .andReturn()
+  }
+
   def requestAdvice(token: String, identifier: String, request: String): Response = {
     When(s"I Request Advice API Tgp Records and receive a response")
-    println(s"uri : " + url + s"$identifier/records/$recordId/advice")
     setHeaders(requestSpecification)
       .header("Authorization", token)
       .when()
@@ -112,7 +116,6 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
   def maintainRecord(token: String, identifier: String, request: String): Response = {
     When(s"I Maintain API Tgp Records and receive a response")
-    println(s"uri : " + url + s"$identifier")
     setHeaders(requestSpecification)
       .header("Authorization", token)
       .when()

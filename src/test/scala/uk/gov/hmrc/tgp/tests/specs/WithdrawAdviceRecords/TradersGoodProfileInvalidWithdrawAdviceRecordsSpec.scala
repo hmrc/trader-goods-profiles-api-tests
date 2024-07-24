@@ -14,42 +14,36 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.tgp.tests.specs.MaintainRecords
+package uk.gov.hmrc.tgp.tests.specs.WithdrawAdviceRecords
 
 import org.scalatest.Tag
 import uk.gov.hmrc.tgp.tests.client.HttpClient
 import uk.gov.hmrc.tgp.tests.specs.{BaseSpec, CommonSpec}
 import uk.gov.hmrc.tgp.tests.utils.JsonUtils.{getRequestJsonFileAsString, getResponseJsonFileAsString}
 
-class TradersGoodProfileValidMaintainRecordsSpec extends BaseSpec with CommonSpec with HttpClient {
+class TradersGoodProfileInvalidWithdrawAdviceRecordsSpec extends BaseSpec with CommonSpec with HttpClient {
 
-  object MaintainApiRecords extends Tag("uk.gov.hmrc.tgp.tests.specs.TradersGoodProfileValidMaintainRecordsSpec")
+  object UpdateApiRecord extends Tag("uk.gov.hmrc.tgp.tests.specs.TradersGoodProfileInvalidWithdrawAdviceRecordsSpec")
 
-  Feature("Traders Good Profile API functionality to Valid Maintain Records API call") {
+  Feature("Traders Good Profile API functionality for Invalid Withdraw Advice Record API call") {
+    val ValidEori = "GB123456789011"
 
-    val FolderName = "MaintainRecordAPI"
-
-    val scenarios = List(
-      ("GB123456789001", 200, "Scenario_Maintain_200", "Validate success response 200 for Maintain Records API call"),
-      (
-        "GB123456789001",
-        200,
-        "Scenario_Maintain_OnlyMandatoryFields_200",
-        "Validate success 200 for Maintain TGP record API with only Mandatory values"
-      )
+    val FolderName = "WithdrawAdviceAPI"
+    val payloads   = Map(
+      "PayLoadNoBodyContent" -> getRequestJsonFileAsString(FolderName, "Scenario_WithdrawAdvice_NoBodyContent_204")
     )
 
-    def getPayload(scenario: String): String = getRequestJsonFileAsString(FolderName, scenario)
-
-    def executeScenario(
+    def runScenario(
       identifier: String,
-      expectedStatusCode: Int,
       expectedResponseFile: String,
-      scenarioDescription: String
+      expectedStatusCode: Int,
+      payload: String,
+      description: String
     ): Unit =
-      Scenario(s"Maintain Records Api - $scenarioDescription") {
+      Scenario(s"WITHDRAW ADVICE TGP RECORD - $description") {
         val token      = givenGetToken(isValid = true, identifier)
-        val response   = maintainRecord(token, identifier, getPayload(expectedResponseFile))
+        val response   =
+          withdrawAdviceRecords(token, identifier, payload, record = "c5e0cb9f-2292-480b-8a43-4222db5c9c85")
         val statusCode = response.getStatusCode
         statusCode.shouldBe(expectedStatusCode)
         val actualResponse   = response.getBody.asString()
@@ -57,9 +51,13 @@ class TradersGoodProfileValidMaintainRecordsSpec extends BaseSpec with CommonSpe
         assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
       }
 
-    scenarios.foreach { case (identifier, expectedStatusCode, expectedResponseFile, scenarioDescription) =>
-      executeScenario(identifier, expectedStatusCode, expectedResponseFile, scenarioDescription)
-    }
+    runScenario(
+      ValidEori,
+      "Scenario_WithdrawAdvice_BadRequest_Trader_400",
+      400,
+      payloads("PayLoadNoBodyContent"),
+      "Validate error message 400 for Withdraw Advice TGP record API "
+    )
 
   }
 }

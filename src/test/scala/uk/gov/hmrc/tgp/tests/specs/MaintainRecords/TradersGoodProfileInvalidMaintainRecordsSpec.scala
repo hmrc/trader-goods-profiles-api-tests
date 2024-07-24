@@ -40,10 +40,8 @@ class TradersGoodProfileInvalidMaintainRecordsSpec extends BaseSpec with CommonS
       val token      = givenGetToken(isValid = true, identifier)
       val response   = maintainRecord(token, identifier, getRequestJsonFileAsString(FolderName, payloadFile))
       val statusCode = response.getStatusCode
-      println(s"Status code: $statusCode")
       statusCode.shouldBe(expectedStatusCode)
       val actualResponse   = response.getBody.asString()
-      println(s"Response: $actualResponse")
       val expectedResponse = getResponseJsonFileAsString(FolderName, expectedResponseFile)
       assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
     }
@@ -72,7 +70,6 @@ class TradersGoodProfileInvalidMaintainRecordsSpec extends BaseSpec with CommonS
   private def validateBadRequestScenario(token: String, eori: String, payloadFile: String): Unit = {
     val response   = maintainRecord(token, eori, getRequestJsonFileAsString(FolderName, payloadFile))
     val statusCode = response.getStatusCode
-    println(s"Status code: $statusCode")
     statusCode.shouldBe(400)
     val actualResponse   = response.getBody.asString()
     val expectedResponse = getResponseJsonFileAsString(FolderName, payloadFile)
@@ -102,7 +99,6 @@ class TradersGoodProfileInvalidMaintainRecordsSpec extends BaseSpec with CommonS
     val token      = givenGetToken(isValid = true, InvalidEori)
     val response   = maintainRecord(token, ValidEori, getRequestJsonFileAsString(FolderName, "Scenario_Maintain_200"))
     val statusCode = response.getStatusCode
-    println(s"Status code: $statusCode")
     statusCode.shouldBe(403)
     val actualResponse = response.getBody.asString()
     assert(actualResponse.contains("EORI number is incorrect"))

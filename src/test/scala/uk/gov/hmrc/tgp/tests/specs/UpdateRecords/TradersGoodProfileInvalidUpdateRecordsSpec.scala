@@ -71,7 +71,6 @@ class TradersGoodProfileInvalidUpdateRecordsSpec extends BaseSpec with CommonSpe
         val token      = givenGetToken(isValid = true, identifier)
         val response   = updateTgpRecord(token, identifier, payload)
         val statusCode = response.getStatusCode
-        System.out.println("Status code: " + statusCode)
         statusCode.shouldBe(expectedStatusCode)
         val actualResponse   = response.getBody.asString()
         val expectedResponse = getResponseJsonFileAsString(FolderName, expectedResponseFile)
