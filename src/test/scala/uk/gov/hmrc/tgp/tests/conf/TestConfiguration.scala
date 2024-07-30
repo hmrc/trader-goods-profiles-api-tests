@@ -17,6 +17,7 @@
 package uk.gov.hmrc.tgp.tests.conf
 
 import com.typesafe.config.{Config, ConfigFactory}
+import play.api.Configuration
 
 object TestConfiguration {
 
@@ -24,6 +25,8 @@ object TestConfiguration {
   val env: String           = config.getString("environment")
   val defaultConfig: Config = config.getConfig("local")
   val envConfig: Config     = config.getConfig(env).withFallback(defaultConfig)
+
+  val playConfig: Configuration = Configuration(config)
 
   def url(service: String): String = {
     val host = env match {
@@ -39,4 +42,9 @@ object TestConfiguration {
 
   def serviceRoute(serviceName: String): String = envConfig.getString(s"services.$serviceName.productionRoute")
   def getConfigValue(url: String): String       = envConfig.getString(url)
+
+  val isDrop1_1Enabled: Boolean = playConfig
+    .getOptional[Boolean]("features.drop_1_1_enabled")
+    .getOrElse(true)
+
 }
