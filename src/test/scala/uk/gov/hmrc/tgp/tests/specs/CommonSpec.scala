@@ -52,7 +52,9 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     request
       .header("Accept", "application/vnd.hmrc.1.0+json")
 
-  def setHeadersWithDrop_1_1_enabled(request: RequestSpecification): RequestSpecification =
+  def setHeadersWithDrop_1_1_enabled(request: RequestSpecification): RequestSpecification = {
+    clearQueryParam(requestSpecification)
+
     if (TestConfiguration.isDrop1_1Enabled) {
       request
         .header("Accept", "application/vnd.hmrc.1.0+json")
@@ -61,8 +63,8 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
         .header("X-Client-Id", "1234")
         .header("Accept", "application/vnd.hmrc.1.0+json")
     }
-
-  def getTgpRecord(token: String, identifier: String): Response = {
+  }
+  def getTgpRecord(token: String, identifier: String): Response                           = {
     When(s"I get Get Tgp Records request without query params and receive a response")
     setHeadersWithDrop_1_1_enabled(requestSpecification)
       .header("Authorization", token)
@@ -78,7 +80,6 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .header("Authorization", token)
       .when()
       .get(url + uri)
-
       .andReturn()
 
   }
