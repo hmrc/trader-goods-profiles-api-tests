@@ -20,6 +20,7 @@ import play.api.libs.json.{JsObject, Json}
 import io.restassured.response.Response
 import io.restassured.specification.RequestSpecification
 import uk.gov.hmrc.tgp.tests.client.{HttpClient, RestAssured}
+import uk.gov.hmrc.tgp.tests.conf.TestConfiguration
 
 trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
   val requestSpecification: RequestSpecification = getRequestSpec
@@ -47,22 +48,42 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .header("X-Client-Id", "1234")
       .header("Accept", "application/vnd.hmrc.1.0+json")
 
+  def setHeadersWithoutContentTypeAndClientId(request: RequestSpecification): RequestSpecification =
+    request
+      .header("Accept", "application/vnd.hmrc.1.0+json")
+
   def getTgpRecord(token: String, identifier: String): Response = {
     When(s"I get Get Tgp Records request without query params and receive a response")
-    setHeadersWithoutContentType(requestSpecification)
-      .header("Authorization", token)
-      .when()
-      .get(url + s"$identifier/records/$recordId")
-      .andReturn()
+    if (TestConfiguration.isDrop1_1Enabled) {
+      setHeadersWithoutContentTypeAndClientId(requestSpecification)
+        .header("Authorization", token)
+        .when()
+        .get(url + s"$identifier/records/$recordId")
+        .andReturn()
+    } else {
+      setHeadersWithoutContentType(requestSpecification)
+        .header("Authorization", token)
+        .when()
+        .get(url + s"$identifier/records/$recordId")
+        .andReturn()
+    }
   }
 
   def getMultipleTgpRecord(token: String, uri: String): Response = {
     When(s"I get Get Tgp Records request without query params and receive a response")
-    setHeadersWithoutContentType(requestSpecification)
-      .header("Authorization", token)
-      .when()
-      .get(url + uri)
-      .andReturn()
+    if (TestConfiguration.isDrop1_1Enabled) {
+      setHeadersWithoutContentTypeAndClientId(requestSpecification)
+        .header("Authorization", token)
+        .when()
+        .get(url + uri)
+        .andReturn()
+    } else {
+      setHeadersWithoutContentType(requestSpecification)
+        .header("Authorization", token)
+        .when()
+        .get(url + uri)
+        .andReturn()
+    }
   }
 
   def removeTgpRecord(token: String, identifier: String): Response = {
