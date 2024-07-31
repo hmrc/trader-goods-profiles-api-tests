@@ -30,83 +30,77 @@ class TradersGoodProfileInvalidGetMultipleApiRecordsSpec extends BaseSpec with C
 
   private val FolderName       = "GetAPI"
   private val baseUrlForErrors = "/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=0&size=5"
-  //private val baseUrlForMax    = "/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=0&size=501"
+  // private val baseUrlForMax    = "/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=0&size=501"
   val ValidEori                = "GB123456789001"
   val InvalidEori              = "GB123456789002"
 
-
-
-
   Scenario("Validate record not found response 405 for GET TGP record API") {
-      val token = givenGetToken(isValid = true, "GB123456789008")
-      val response = getMultipleTgpRecord(token, s"GB123456789008/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=0&size=5")
+    val token    = givenGetToken(isValid = true, "GB123456789008")
+    val response =
+      getMultipleTgpRecord(token, s"GB123456789008/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=0&size=5")
 
-      val statusCode = response.getStatusCode
+    val statusCode = response.getStatusCode
 
-      statusCode.shouldBe(405)
+    statusCode.shouldBe(405)
 
-      val actualResponse = response.getBody.asString()
-      val expectedResponse = getResponseJsonFileAsString(FolderName, "Scenario_Get_405")
-      assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
-    }
+    val actualResponse   = response.getBody.asString()
+    val expectedResponse = getResponseJsonFileAsString(FolderName, "Scenario_Get_405")
+    assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
+  }
 
-    Scenario("Validate record not found response 404 for GET TGP record API") {
-      val token = givenGetToken(isValid = true, "GB123456789007")
-      val response = getMultipleTgpRecord(token, s"GB123456789007/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=0&size=5")
+  Scenario("Validate record not found response 404 for GET TGP record API") {
+    val token    = givenGetToken(isValid = true, "GB123456789007")
+    val response =
+      getMultipleTgpRecord(token, s"GB123456789007/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=0&size=5")
 
-      val statusCode = response.getStatusCode
+    val statusCode = response.getStatusCode
 
-      statusCode.shouldBe(404)
+    statusCode.shouldBe(404)
 
-      val actualResponse = response.getBody.asString()
-      val expectedResponse = getResponseJsonFileAsString(FolderName, "Scenario_Get_404")
-      assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
-    }
+    val actualResponse   = response.getBody.asString()
+    val expectedResponse = getResponseJsonFileAsString(FolderName, "Scenario_Get_404")
+    assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
+  }
 
+  Scenario("Validate invalid token bearer response 401 for GET TGP record API") {
+    val token      = generateRandomBearerToken()
+    val response   = getMultipleTgpRecord(token, s"$ValidEori$baseUrlForErrors")
+    val statusCode = response.getStatusCode
 
+    statusCode.shouldBe(401)
 
-    Scenario("Validate invalid token bearer response 401 for GET TGP record API") {
-      val token      = generateRandomBearerToken()
-      val response   = getMultipleTgpRecord(token, s"$ValidEori$baseUrlForErrors")
-      val statusCode = response.getStatusCode
+    val actualResponse   = response.getBody.asString()
+    val expectedResponse = getResponseJsonFileAsString(FolderName, "Scenario_Get_401")
 
-      statusCode.shouldBe(401)
+    assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
+  }
 
-      val actualResponse   = response.getBody.asString()
-      val expectedResponse = getResponseJsonFileAsString(FolderName, "Scenario_Get_401")
+  Scenario("Validate invalid EORI no response 403 for GET TGP record API") {
+    val token      = givenGetToken(isValid = true, ValidEori)
+    val response   = getMultipleTgpRecord(token, s"$InvalidEori$baseUrlForErrors")
+    val statusCode = response.getStatusCode
 
-      assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
-    }
+    statusCode.shouldBe(403)
 
-    Scenario("Validate invalid EORI no response 403 for GET TGP record API") {
-      val token      = givenGetToken(isValid = true, ValidEori)
-      val response   = getMultipleTgpRecord(token, s"$InvalidEori$baseUrlForErrors")
-      val statusCode = response.getStatusCode
-
-      statusCode.shouldBe(403)
-
-      val actualResponse   = response.getBody.asString()
-      val expectedResponse = getResponseJsonFileAsString(FolderName, "Scenario_Get_403")
-      assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
-    }
-
+    val actualResponse   = response.getBody.asString()
+    val expectedResponse = getResponseJsonFileAsString(FolderName, "Scenario_Get_403")
+    assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
+  }
 
   Scenario("Validate message 'max allowed size is : 500' with error 400 for GET TGP record API") {
     val token = givenGetToken(isValid = true, "GB123456789003")
 
-    lazy val response =  getMultipleTgpRecord(token, s"GB123456789003/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=0&size=501")
+    lazy val response =
+      getMultipleTgpRecord(token, s"GB123456789003/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=0&size=501")
 
     val statusCode = response.getStatusCode
     print(statusCode)
 
     statusCode.shouldBe(400)
 
-    val actualResponse = response.getBody.asString()
+    val actualResponse   = response.getBody.asString()
     val expectedResponse = getResponseJsonFileAsString(FolderName, "Scenario_Get_Multiple_400")
     assert(compareJson(actualResponse, expectedResponse), "JSON response doesn't match the expected response.")
   }
-
-
-
 
 }
