@@ -1,0 +1,5 @@
+{
+  "correlationId": "fc85ccc9-c753-43df-8822-2e3f17779f82",
+  "code": "030",
+  "message": "Invalid query parameter size, max allowed size is : 500"
+}
