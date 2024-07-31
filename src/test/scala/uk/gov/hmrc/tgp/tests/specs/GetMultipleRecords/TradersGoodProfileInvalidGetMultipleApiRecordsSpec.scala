@@ -17,7 +17,6 @@
 package uk.gov.hmrc.tgp.tests.specs.GetMultipleRecords
 
 import org.scalatest.Tag
-import play.api.test.Helpers.await
 import uk.gov.hmrc.tgp.tests.client.HttpClient
 import uk.gov.hmrc.tgp.tests.specs.{BaseSpec, CommonSpec}
 import uk.gov.hmrc.tgp.tests.utils.JsonUtils.getResponseJsonFileAsString
@@ -96,7 +95,6 @@ class TradersGoodProfileInvalidGetMultipleApiRecordsSpec extends BaseSpec with C
       getMultipleTgpRecord(token, s"$ValidEori$baseUrlForMax")
 
     val statusCode = response.getStatusCode
-    print(statusCode)
 
     statusCode.shouldBe(400)
 
