@@ -52,38 +52,35 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     request
       .header("Accept", "application/vnd.hmrc.1.0+json")
 
-  def getTgpRecord(token: String, identifier: String): Response = {
-    When(s"I get Get Tgp Records request without query params and receive a response")
+  def setHeadersWithDrop_1_1_enabled(request: RequestSpecification): RequestSpecification = {
+    clearQueryParam(requestSpecification)
+
     if (TestConfiguration.isDrop1_1Enabled) {
-      setHeadersWithoutContentTypeAndClientId(requestSpecification)
-        .header("Authorization", token)
-        .when()
-        .get(url + s"$identifier/records/$recordId")
-        .andReturn()
+      request
+        .header("Accept", "application/vnd.hmrc.1.0+json")
     } else {
-      setHeadersWithoutContentType(requestSpecification)
-        .header("Authorization", token)
-        .when()
-        .get(url + s"$identifier/records/$recordId")
-        .andReturn()
+      request
+        .header("X-Client-Id", "1234")
+        .header("Accept", "application/vnd.hmrc.1.0+json")
     }
+  }
+  def getTgpRecord(token: String, identifier: String): Response                           = {
+    When(s"I get Get Tgp Records request without query params and receive a response")
+    setHeadersWithDrop_1_1_enabled(requestSpecification)
+      .header("Authorization", token)
+      .when()
+      .get(url + s"$identifier/records/$recordId")
+      .andReturn()
   }
 
   def getMultipleTgpRecord(token: String, uri: String): Response = {
-    When(s"I get Get Tgp Records request without query params and receive a response")
-    if (TestConfiguration.isDrop1_1Enabled) {
-      setHeadersWithoutContentTypeAndClientId(requestSpecification)
-        .header("Authorization", token)
-        .when()
-        .get(url + uri)
-        .andReturn()
-    } else {
-      setHeadersWithoutContentType(requestSpecification)
-        .header("Authorization", token)
-        .when()
-        .get(url + uri)
-        .andReturn()
-    }
+    When(s"I get Get Tgp Records request with query params and receive a response")
+    setHeadersWithDrop_1_1_enabled(requestSpecification)
+      .header("Authorization", token)
+      .when()
+      .get(url + uri)
+      .andReturn()
+
   }
 
   def removeTgpRecord(token: String, identifier: String): Response = {
