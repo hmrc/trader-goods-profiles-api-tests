@@ -30,14 +30,16 @@ class TradersGoodProfileInvalidGetMultipleApiRecordsSpec extends BaseSpec with C
 
   private val FolderName       = "GetAPI"
   private val baseUrlForErrors = "/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=0&size=5"
-  // private val baseUrlForMax    = "/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=0&size=501"
+  private val baseUrlForMax    = "/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=0&size=501"
   val ValidEori                = "GB123456789001"
   val InvalidEori              = "GB123456789002"
+  val EoriWith405              = "GB123456789008"
+  val EoriWith404              = "GB123456789007"
 
   Scenario("Validate record not found response 405 for GET TGP record API") {
-    val token    = givenGetToken(isValid = true, "GB123456789008")
+    val token    = givenGetToken(isValid = true, EoriWith405)
     val response =
-      getMultipleTgpRecord(token, s"GB123456789008/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=0&size=5")
+      getMultipleTgpRecord(token, s"$EoriWith405$baseUrlForErrors")
 
     val statusCode = response.getStatusCode
 
@@ -49,9 +51,9 @@ class TradersGoodProfileInvalidGetMultipleApiRecordsSpec extends BaseSpec with C
   }
 
   Scenario("Validate record not found response 404 for GET TGP record API") {
-    val token    = givenGetToken(isValid = true, "GB123456789007")
+    val token    = givenGetToken(isValid = true, EoriWith404)
     val response =
-      getMultipleTgpRecord(token, s"GB123456789007/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=0&size=5")
+      getMultipleTgpRecord(token, s"$EoriWith404$baseUrlForErrors")
 
     val statusCode = response.getStatusCode
 
@@ -88,10 +90,10 @@ class TradersGoodProfileInvalidGetMultipleApiRecordsSpec extends BaseSpec with C
   }
 
   Scenario("Validate message 'max allowed size is : 500' with error 400 for GET TGP record API") {
-    val token = givenGetToken(isValid = true, "GB123456789003")
+    val token = givenGetToken(isValid = true, ValidEori)
 
     lazy val response =
-      getMultipleTgpRecord(token, s"GB123456789003/records?lastUpdatedDate=2024-03-26T16:14:52Z&page=0&size=501")
+      getMultipleTgpRecord(token, s"$ValidEori$baseUrlForMax")
 
     val statusCode = response.getStatusCode
     print(statusCode)

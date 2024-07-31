@@ -75,7 +75,6 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
   def getMultipleTgpRecord(token: String, uri: String): Response = {
     When(s"I get Get Tgp Records request with query params and receive a response")
-    println(uri)
     setHeadersWithDrop_1_1_enabled(requestSpecification)
       .header("Authorization", token)
       .when()
