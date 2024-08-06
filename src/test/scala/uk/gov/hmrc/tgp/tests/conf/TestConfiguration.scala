@@ -43,8 +43,12 @@ object TestConfiguration {
   def serviceRoute(serviceName: String): String = envConfig.getString(s"services.$serviceName.productionRoute")
   def getConfigValue(url: String): String       = envConfig.getString(url)
 
-  val isDrop1_1Enabled: Boolean = playConfig
+  lazy val isDrop1_1Enabled: Boolean = playConfig
     .getOptional[Boolean]("features.drop_1_1_enabled")
+    .getOrElse(true)
+
+  lazy val isDrop2Enabled: Boolean = playConfig
+    .getOptional[Boolean]("features.drop2Enabled")
     .getOrElse(true)
 
 }
