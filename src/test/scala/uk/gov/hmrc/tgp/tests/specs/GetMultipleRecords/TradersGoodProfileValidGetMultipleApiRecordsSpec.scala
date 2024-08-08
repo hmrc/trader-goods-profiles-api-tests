@@ -123,7 +123,7 @@ class TradersGoodProfileValidGetMultipleApiRecordsSpec extends BaseSpec with Com
       ("In progress", true),
       ("Information Requested", true),
       ("Not Requested", false),
-      ("Withdrawn", false)
+      ("Advice request withdrawn", false)
     )
 
     statusScenarios.foreach { case (adviceStatus, expectedLocked) =>
