@@ -85,7 +85,15 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
   def removeTgpRecord(token: String, identifier: String): Response = {
     When(s"I remove Tgp Records request and receive a response")
-    setHeadersWithoutContentType(requestSpecification)
+
+    // TGP-2029
+    // todo: remove the isDrop2Enabled toggle for drop2 and
+    // remove setHeadersWithoutContentType(requestSpecification)
+    val request =
+      if (TestConfiguration.isDrop2Enabled) requestSpecification
+      else setHeadersWithoutContentType(requestSpecification)
+
+    request
       .header("Authorization", token)
       .when()
       .delete(url + s"$identifier/records/$recordId?actorId=$actorId")
