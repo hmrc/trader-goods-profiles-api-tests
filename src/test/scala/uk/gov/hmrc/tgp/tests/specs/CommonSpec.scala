@@ -43,10 +43,17 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .header("Content-Type", "application/json")
       .header("Accept", "application/vnd.hmrc.1.0+json")
 
-  def setHeadersWithoutContentType(request: RequestSpecification): RequestSpecification =
-    request
-      .header("X-Client-Id", "1234")
-      .header("Accept", "application/vnd.hmrc.1.0+json")
+  def setHeadersWithDrop2(request: RequestSpecification): RequestSpecification = {
+    clearQueryParam(request)
+
+    if (TestConfiguration.isDrop2Enabled) {
+      request // Don't pass any headers if drop2 flag is true
+    } else {
+      request
+        .header("X-Client-Id", "1234")
+        .header("Accept", "application/vnd.hmrc.1.0+json")
+    }
+  }
 
   def setHeadersWithoutContentTypeAndClientId(request: RequestSpecification): RequestSpecification =
     request
@@ -85,7 +92,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
   def removeTgpRecord(token: String, identifier: String): Response = {
     When(s"I remove Tgp Records request and receive a response")
-    setHeadersWithoutContentType(requestSpecification)
+    setHeadersWithDrop2(requestSpecification)
       .header("Authorization", token)
       .when()
       .delete(url + s"$identifier/records/$recordId?actorId=$actorId")
