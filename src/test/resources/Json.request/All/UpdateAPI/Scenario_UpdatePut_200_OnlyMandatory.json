@@ -1,0 +1,9 @@
+{
+  "actorId": "GB987654321098",
+  "traderRef": "SKU1234",
+  "comcode": "0810100000",
+  "goodsDescription": "Bananas",
+  "countryOfOrigin": "GB",
+  "category": 2,
+  "comcodeEffectiveFromDate": "2023-01-01T00:00:00Z"
+}

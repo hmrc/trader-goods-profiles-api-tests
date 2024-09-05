@@ -1,0 +1,21 @@
+{
+  "eori": "GB123456789001",
+  "actorId": "GB987654321098",
+  "recordId": "480fd5b8-b2c3-4f88-a7e9-0d88739550e2",
+  "traderRef": "SKU1234",
+  "comcode": "0810100000",
+  "adviceStatus": "Not Requested",
+  "goodsDescription": "Bananas",
+  "countryOfOrigin": "GB",
+  "category": 2,
+  "comcodeEffectiveFromDate": "2023-01-01T00:00:00Z",
+  "version": 6,
+  "active": true,
+  "toReview": false,
+  "declarable": "IMMI Ready",
+  "ukimsNumber": "XIUIM476993574000320231115081800",
+  "nirmsNumber": "RMS-GB-123456",
+  "niphlNumber": "SM61234",
+  "createdDateTime": "2024-09-05T10:18:47.848Z",
+  "updatedDateTime": "2024-09-05T10:44:00.986Z"
+}
