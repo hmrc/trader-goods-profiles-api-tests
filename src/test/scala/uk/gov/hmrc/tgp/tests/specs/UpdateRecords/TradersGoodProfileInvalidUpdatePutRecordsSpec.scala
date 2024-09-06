@@ -90,14 +90,14 @@ class TradersGoodProfileInvalidUpdatePutRecordsSpec extends BaseSpec with Common
     )
     runScenario(
       ValidEori,
-      "Scenario_Update_400_WithEmptyFields",
+      "Scenario_UpdatePut_400_WithEmptyFields",
       400,
       payloads("EmptyPayloadValidation"),
       "Validate error message 400 for Update PUT TGP record API with empty values"
     )
     runScenario(
       ValidEori,
-      "Scenario_Update_400_IncorrectFormatField_Mandatory&Optional",
+      "Scenario_UpdatePut_400_IncorrectFormatField_Mandatory&Optional",
       400,
       payloads("IncorrectFormatFieldPayload_MandatoryOptional"),
       "Validate error message 400 for Update PUT TGP record API with incorrect values"

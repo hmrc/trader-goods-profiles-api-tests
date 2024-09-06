@@ -56,7 +56,7 @@ class TradersGoodProfileValidUpdatePutRecordsSpec extends BaseSpec with CommonSp
 
     runScenario(
       ValidEori,
-      "Scenario_Update_200",
+      "Scenario_UpdatePut_200",
       200,
       payloads("ValidPayload"),
       "Validate success 200 for Update PUT TGP record API"
@@ -70,14 +70,14 @@ class TradersGoodProfileValidUpdatePutRecordsSpec extends BaseSpec with CommonSp
     )
     runScenario(
       ValidEori,
-      "Scenario_Update_200_WithAllMaxLength",
+      "Scenario_UpdatePut_200_WithAllMaxLength",
       200,
       payloads("PayloadWithMaxFieldValues"),
       "Validate success 200 for Update PUT TGP record API with all max values"
     )
     runScenario(
       ValidEori,
-      "Scenario_Update_200_WithAllMinLength",
+      "Scenario_UpdatePut_200_WithAllMinLength",
       200,
       payloads("PayloadWithMinFieldValues"),
       "Validate success 200 for Update PUT TGP record API with all min values"

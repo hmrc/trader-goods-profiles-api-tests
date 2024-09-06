@@ -1,14 +1,29 @@
 {
   "eori": "GB123456789001",
-  "actorId": "GB987654321098",
+  "actorId": "GB987654321097",
   "recordId": "b2fa315b-2d31-4629-90fc-a7b1a5119873",
-  "traderRef": "SKU1234",
-  "comcode": "0810100000",
+  "traderRef": "P",
+  "comcode": "123456",
   "adviceStatus": "Not Requested",
-  "goodsDescription": "Bananas",
+  "goodsDescription": "P",
   "countryOfOrigin": "GB",
   "category": 2,
+  "assessments": [
+    {
+      "assessmentId": "a",
+      "primaryCategory": 1000,
+      "condition": {
+        "type": "a",
+        "conditionId": "Y",
+        "conditionDescription": "P",
+        "conditionTraderText": "P"
+      }
+    }
+  ],
+  "supplementaryUnit": 2147483647,
+  "measurementUnit": "P",
   "comcodeEffectiveFromDate": "2023-01-01T00:00:00Z",
+  "comcodeEffectiveToDate": "2023-01-01T00:00:00Z",
   "version": 1,
   "active": true,
   "toReview": false,

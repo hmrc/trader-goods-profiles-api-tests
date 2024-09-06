@@ -56,28 +56,28 @@ class TradersGoodProfileValidUpdatePatchRecordsSpec extends BaseSpec with Common
 
     runScenario(
       ValidEori,
-      "Scenario_Update_200",
+      "Scenario_UpdatePatch_200",
       200,
       payloads("ValidPayload"),
       "Validate success 200 for Update PATCH TGP record API"
     )
     runScenario(
       ValidEori,
-      "Scenario_Update_200_OnlyMandatory",
+      "Scenario_UpdatePatch_200_OnlyMandatory",
       200,
       payloads("MandatoryPayload"),
       "Validate success 200 for Update PATCH TGP record API with only Mandatory values"
     )
     runScenario(
       ValidEori,
-      "Scenario_Update_200_WithAllMaxLength",
+      "Scenario_UpdatePatch_200_WithAllMaxLength",
       200,
       payloads("PayloadWithMaxFieldValues"),
       "Validate success 200 for Update PATCH TGP record API with all max values"
     )
     runScenario(
       ValidEori,
-      "Scenario_Update_200_WithAllMinLength",
+      "Scenario_UpdatePatch_200_WithAllMinLength",
       200,
       payloads("PayloadWithMinFieldValues"),
       "Validate success 200 for Update PATCH TGP record API with all min values"
