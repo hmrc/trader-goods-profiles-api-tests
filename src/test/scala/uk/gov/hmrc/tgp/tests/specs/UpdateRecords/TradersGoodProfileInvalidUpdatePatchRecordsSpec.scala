@@ -21,11 +21,11 @@ import uk.gov.hmrc.tgp.tests.client.HttpClient
 import uk.gov.hmrc.tgp.tests.specs.{BaseSpec, CommonSpec}
 import uk.gov.hmrc.tgp.tests.utils.JsonUtils.{getRequestJsonFileAsString, getResponseJsonFileAsString}
 
-class TradersGoodProfileInvalidUpdateRecordsSpec extends BaseSpec with CommonSpec with HttpClient {
+class TradersGoodProfileInvalidUpdatePatchRecordsSpec extends BaseSpec with CommonSpec with HttpClient {
 
-  object UpdateApiRecord extends Tag("uk.gov.hmrc.tgp.tests.specs.TradersGoodProfileInvalidUpdateRecordsSpec")
+  object UpdatePatchApiRecord extends Tag("uk.gov.hmrc.tgp.tests.specs.TradersGoodProfileInvalidUpdatePatchRecordsSpec")
 
-  Feature("Traders Good Profile API functionality for Invalid Update Record API call") {
+  Feature("Traders Good Profile API functionality for Invalid Update PATCH Record API call") {
     val ValidEori = "GB123456789001"
     val scenarios = List(
       (
@@ -69,7 +69,7 @@ class TradersGoodProfileInvalidUpdateRecordsSpec extends BaseSpec with CommonSpe
     ): Unit =
       Scenario(s"UPDATE TGP RECORD - $description") {
         val token      = givenGetToken(isValid = true, identifier)
-        val response   = updateTgpRecord(token, identifier, payload)
+        val response   = updatePatchTgpRecord(token, identifier, payload)
         val statusCode = response.getStatusCode
         statusCode.shouldBe(expectedStatusCode)
         val actualResponse   = response.getBody.asString()
@@ -86,21 +86,21 @@ class TradersGoodProfileInvalidUpdateRecordsSpec extends BaseSpec with CommonSpe
       "Scenario_Update_400_OptionalFields",
       400,
       payloads("OptionalPayloadValidation"),
-      "Validate error message 400 for Update TGP record API Optional values"
+      "Validate error message 400 for Update PATCH TGP record API Optional values"
     )
     runScenario(
       ValidEori,
-      "Scenario_Update_400_WithEmptyFields",
+      "Scenario_UpdatePatch_400_WithEmptyFields",
       400,
       payloads("EmptyPayloadValidation"),
-      "Validate error message 400 for Update TGP record API with empty values"
+      "Validate error message 400 for Update PATCH TGP record API with empty values"
     )
     runScenario(
       ValidEori,
-      "Scenario_Update_400_IncorrectFormatField_Mandatory&Optional",
+      "Scenario_UpdatePatch_400_IncorrectFormatField_Mandatory&Optional",
       400,
       payloads("IncorrectFormatFieldPayload_MandatoryOptional"),
-      "Validate error message 400 for Update TGP record API with incorrect values"
+      "Validate error message 400 for Update PATCH TGP record API with incorrect values"
     )
 
   }

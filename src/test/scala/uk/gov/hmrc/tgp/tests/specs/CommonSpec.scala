@@ -110,7 +110,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .andReturn()
   }
 
-  def updateTgpRecord(token: String, identifier: String, request: String): Response = {
+  def updatePatchTgpRecord(token: String, identifier: String, request: String): Response = {
     When(s"I Update Tgp Records request without query params and receive a response")
     setHeadersWithDrop_1_1_enabled(requestSpecification)
       .header("Authorization", token)
@@ -118,6 +118,17 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .when()
       .body(request)
       .patch(url + s"$identifier/records/$recordId")
+      .andReturn()
+  }
+
+  def updatePutTgpRecord(token: String, identifier: String, request: String): Response = {
+    When(s"I Update Tgp Records request without query params and receive a response")
+    setHeadersWithDrop_1_1_enabled(requestSpecification)
+      .header("Authorization", token)
+      .header("Content-Type", "application/json")
+      .when()
+      .body(request)
+      .put(url + s"$identifier/records/$recordId")
       .andReturn()
   }
 

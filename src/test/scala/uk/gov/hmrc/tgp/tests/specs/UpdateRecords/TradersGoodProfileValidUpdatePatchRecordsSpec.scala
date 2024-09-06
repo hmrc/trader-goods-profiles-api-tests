@@ -21,18 +21,18 @@ import uk.gov.hmrc.tgp.tests.client.HttpClient
 import uk.gov.hmrc.tgp.tests.specs.{BaseSpec, CommonSpec}
 import uk.gov.hmrc.tgp.tests.utils.JsonUtils.{getRequestJsonFileAsString, getResponseJsonFileAsString}
 
-class TradersGoodProfileValidUpdateRecordsSpec extends BaseSpec with CommonSpec with HttpClient {
+class TradersGoodProfileValidUpdatePatchRecordsSpec extends BaseSpec with CommonSpec with HttpClient {
 
-  object UpdateApiRecord extends Tag("uk.gov.hmrc.tgp.tests.specs.TradersGoodProfileValidUpdateRecordsSpec")
+  object UpdatePatchApiRecord extends Tag("uk.gov.hmrc.tgp.tests.specs.TradersGoodProfileValidUpdatePatchRecordsSpec")
 
-  Feature("Traders Good Profile API functionality for Valid Update Record API call") {
+  Feature("Traders Good Profile API functionality for Valid Update PATCH Record API call") {
 
     val FolderName = "UpdateAPI"
     val ValidEori  = "GB123456789001"
 
     val payloads = Map(
       "ValidPayload"              -> getRequestJsonFileAsString(FolderName, "Scenario_Update_200"),
-      "MandatoryPayload"          -> getRequestJsonFileAsString(FolderName, "Scenario_Update_200_OnlyMandatory"),
+      "MandatoryPayload"          -> getRequestJsonFileAsString(FolderName, "Scenario_UpdatePatch_200_OnlyMandatory"),
       "PayloadWithMaxFieldValues" -> getRequestJsonFileAsString(FolderName, "Scenario_Update_200_WithAllMaxLength"),
       "PayloadWithMinFieldValues" -> getRequestJsonFileAsString(FolderName, "Scenario_Update_200_WithAllMinLength")
     )
@@ -46,7 +46,7 @@ class TradersGoodProfileValidUpdateRecordsSpec extends BaseSpec with CommonSpec 
     ): Unit =
       Scenario(s"UPDATE TGP RECORD - $description") {
         val token      = givenGetToken(isValid = true, identifier)
-        val response   = updateTgpRecord(token, identifier, payload)
+        val response   = updatePatchTgpRecord(token, identifier, payload)
         val statusCode = response.getStatusCode
         statusCode.shouldBe(expectedStatusCode)
         val actualResponse   = response.getBody.asString()
@@ -56,31 +56,31 @@ class TradersGoodProfileValidUpdateRecordsSpec extends BaseSpec with CommonSpec 
 
     runScenario(
       ValidEori,
-      "Scenario_Update_200",
+      "Scenario_UpdatePatch_200",
       200,
       payloads("ValidPayload"),
-      "Validate success 200 for Update TGP record API"
+      "Validate success 200 for Update PATCH TGP record API"
     )
     runScenario(
       ValidEori,
-      "Scenario_Update_200_OnlyMandatory",
+      "Scenario_UpdatePatch_200_OnlyMandatory",
       200,
       payloads("MandatoryPayload"),
-      "Validate success 200 for Update TGP record API with only Mandatory values"
+      "Validate success 200 for Update PATCH TGP record API with only Mandatory values"
     )
     runScenario(
       ValidEori,
-      "Scenario_Update_200_WithAllMaxLength",
+      "Scenario_UpdatePatch_200_WithAllMaxLength",
       200,
       payloads("PayloadWithMaxFieldValues"),
-      "Validate success 200 for Update TGP record API with all max values"
+      "Validate success 200 for Update PATCH TGP record API with all max values"
     )
     runScenario(
       ValidEori,
-      "Scenario_Update_200_WithAllMinLength",
+      "Scenario_UpdatePatch_200_WithAllMinLength",
       200,
       payloads("PayloadWithMinFieldValues"),
-      "Validate success 200 for Update TGP record API with all min values"
+      "Validate success 200 for Update PATCH TGP record API with all min values"
     )
 
   }
