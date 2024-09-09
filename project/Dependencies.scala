@@ -13,9 +13,6 @@ object Dependencies {
     "io.circe"               %% "circe-core"              % "0.14.7" % Test,
     "io.circe"               %% "circe-parser"            % "0.14.7" % Test,
     // Other dependencies
-    "com.typesafe.play"      %% "play-ws"                 % "2.8.8"  % Test,
-    "io.rest-assured"         % "rest-assured"            % "4.4.0"  % Test,
-    "commons-codec"           % "commons-codec"           % "1.15"   % Test,
     "org.playframework"      %% "play-ws"                 % "3.0.2"  % Test,
     "io.rest-assured"         % "rest-assured"            % "5.4.0"  % Test,
     "commons-codec"           % "commons-codec"           % "1.17.0" % Test
