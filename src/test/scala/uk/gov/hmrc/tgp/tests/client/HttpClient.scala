@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.tgp.tests.client
 
-import akka.actor.ActorSystem
+import org.apache.pekko.actor.ActorSystem
 import play.api.libs.ws.DefaultBodyWritables._
 import play.api.libs.ws.StandaloneWSRequest
 import play.api.libs.ws.ahc.StandaloneAhcWSClient

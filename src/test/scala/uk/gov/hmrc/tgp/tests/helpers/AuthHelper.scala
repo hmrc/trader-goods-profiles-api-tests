@@ -22,7 +22,7 @@ import uk.gov.hmrc.tgp.tests.service.AuthService
 
 class AuthHelper {
 
-  val authAPI: AuthService = new AuthService
+  val authAPI: AuthService = new AuthService()
 
   def getAuthBearerToken(identifier: String): String = {
     val authServiceRequestResponse: StandaloneWSRequest#Response = authAPI.postLogin(identifier)

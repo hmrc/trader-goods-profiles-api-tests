@@ -7,7 +7,7 @@ lazy val root = (project in file("."))
     version := "0.1.0",
     scalaVersion := "2.13.12",
     libraryDependencies ++= Seq(
-      "com.typesafe.play" %% "play-json" % "2.9.3" // Add Play JSON dependency here
+      "org.playframework" %% "play-json" % "3.0.3" // Add Play JSON dependency here
     ) ++ Dependencies.test,
     (Compile / compile) := ((Compile / compile) dependsOn (Compile / scalafmtSbtCheck, Compile / scalafmtCheckAll)).value
   )
