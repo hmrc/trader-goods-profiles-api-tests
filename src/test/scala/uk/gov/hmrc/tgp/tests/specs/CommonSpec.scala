@@ -62,12 +62,12 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
   def setHeadersWithDrop_1_1_enabled(request: RequestSpecification): RequestSpecification = {
     clearQueryParam(requestSpecification)
 
-    if (TestConfiguration.isDrop1_1Enabled) {
+    if (TestConfiguration.sendClientId) {
       request
+        .header("X-Client-Id", "1234")
         .header("Accept", "application/vnd.hmrc.1.0+json")
     } else {
       request
-        .header("X-Client-Id", "1234")
         .header("Accept", "application/vnd.hmrc.1.0+json")
     }
   }
