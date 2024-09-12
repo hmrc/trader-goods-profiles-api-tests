@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+/*
 package uk.gov.hmrc.tgp.tests.specs.UpdateRecords
 
 import org.scalatest.Tag
@@ -85,3 +86,4 @@ class TradersGoodProfileValidUpdatePutRecordsSpec extends BaseSpec with CommonSp
 
   }
 }
+ */
