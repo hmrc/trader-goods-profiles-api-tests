@@ -46,12 +46,22 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
   def setHeadersWithDrop2(request: RequestSpecification): RequestSpecification = {
     clearQueryParam(request)
 
-    if (TestConfiguration.isDrop2Enabled) {
-      request // Don't pass any headers if drop2 flag is true
-    } else {
+    // Conditionally add headers based on the flags
+    if (TestConfiguration.sendClientId && TestConfiguration.sendAcceptHeader) {
+      // Both Client-Id and Accept headers are enabled
       request
         .header("X-Client-Id", "1234")
         .header("Accept", "application/vnd.hmrc.1.0+json")
+    } else if (TestConfiguration.sendClientId) {
+      // Only Client-Id is enabled
+      request
+        .header("X-Client-Id", "1234")
+    } else if (TestConfiguration.sendAcceptHeader) {
+      // Only Accept header is enabled
+      request
+        .header("Accept", "application/vnd.hmrc.1.0+json")
+    } else {
+      request // No headers added
     }
   }
 
