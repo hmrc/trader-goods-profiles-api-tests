@@ -47,7 +47,7 @@ object TestConfiguration {
     .getOptional[Boolean]("features.sendClientId")
     .getOrElse(true)
 
-  lazy val isDrop2Enabled: Boolean = playConfig
+  lazy val sendAcceptHeader: Boolean = playConfig
     .getOptional[Boolean]("features.drop2Enabled")
     .getOrElse(true)
 
