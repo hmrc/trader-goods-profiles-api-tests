@@ -43,7 +43,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .header("Content-Type", "application/json")
       .header("Accept", "application/vnd.hmrc.1.0+json")
 
-  def setHeadersWithDrop2(request: RequestSpecification): RequestSpecification = {
+  def setHeadersBasedOnFeatureFlags(request: RequestSpecification): RequestSpecification = {
     clearQueryParam(request)
 
     // Conditionally add headers based on the flags
@@ -69,7 +69,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     request
       .header("Accept", "application/vnd.hmrc.1.0+json")
 
-  def setHeadersWithDrop_1_1_enabled(request: RequestSpecification): RequestSpecification = {
+  def setHeadersBasedOnSendClientId(request: RequestSpecification): RequestSpecification = {
     clearQueryParam(requestSpecification)
 
     if (TestConfiguration.sendClientId) {
@@ -81,9 +81,9 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
         .header("Accept", "application/vnd.hmrc.1.0+json")
     }
   }
-  def getTgpRecord(token: String, identifier: String): Response                           = {
+  def getTgpRecord(token: String, identifier: String): Response                          = {
     When(s"I get Get Tgp Records request without query params and receive a response")
-    setHeadersWithDrop_1_1_enabled(requestSpecification)
+    setHeadersBasedOnSendClientId(requestSpecification)
       .header("Authorization", token)
       .when()
       .get(url + s"$identifier/records/$recordId")
@@ -92,7 +92,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
   def getMultipleTgpRecord(token: String, uri: String): Response = {
     When(s"I get Get Tgp Records request with query params and receive a response")
-    setHeadersWithDrop_1_1_enabled(requestSpecification)
+    setHeadersBasedOnSendClientId(requestSpecification)
       .header("Authorization", token)
       .when()
       .get(url + uri)
@@ -102,7 +102,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
   def removeTgpRecord(token: String, identifier: String): Response = {
     When(s"I remove Tgp Records request and receive a response")
-    setHeadersWithDrop2(requestSpecification)
+    setHeadersBasedOnFeatureFlags(requestSpecification)
       .header("Authorization", token)
       .when()
       .delete(url + s"$identifier/records/$recordId?actorId=$actorId")
@@ -111,7 +111,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
   def createTgpRecord(token: String, identifier: String, request: String): Response = {
     When(s"I create Tgp Records request and receive a response")
-    setHeadersWithDrop_1_1_enabled(requestSpecification)
+    setHeadersBasedOnSendClientId(requestSpecification)
       .header("Authorization", token)
       .header("Content-Type", "application/json")
       .when()
@@ -122,7 +122,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
   def updatePatchTgpRecord(token: String, identifier: String, request: String): Response = {
     When(s"I Update Tgp Records request without query params and receive a response")
-    setHeadersWithDrop_1_1_enabled(requestSpecification)
+    setHeadersBasedOnSendClientId(requestSpecification)
       .header("Authorization", token)
       .header("Content-Type", "application/json")
       .when()
@@ -133,7 +133,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
   def updatePutTgpRecord(token: String, identifier: String, request: String): Response = {
     When(s"I Update Tgp Records request without query params and receive a response")
-    setHeadersWithDrop_1_1_enabled(requestSpecification)
+    setHeadersBasedOnSendClientId(requestSpecification)
       .header("Authorization", token)
       .header("Content-Type", "application/json")
       .when()
@@ -164,7 +164,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
   def maintainRecord(token: String, identifier: String, request: String): Response = {
     When(s"I Maintain API Tgp Records and receive a response")
-    setHeadersWithDrop_1_1_enabled(requestSpecification)
+    setHeadersBasedOnSendClientId(requestSpecification)
       .header("Authorization", token)
       .header("Content-Type", "application/json")
       .when()
