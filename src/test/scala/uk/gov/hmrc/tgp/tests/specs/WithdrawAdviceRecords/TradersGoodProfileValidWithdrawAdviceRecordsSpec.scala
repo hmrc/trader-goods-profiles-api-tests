@@ -33,7 +33,8 @@ class TradersGoodProfileValidWithdrawAdviceRecordsSpec extends BaseSpec with Com
     val payloads = Map(
       "PayLoadNoBodyContent"      -> getRequestJsonFileAsString(FolderName, "Scenario_WithdrawAdvice_NoBodyContent_204"),
       "PayloadWithMaxFieldValues" -> getRequestJsonFileAsString(FolderName, "Scenario_WithdrawAdvice_MaxLength_204"),
-      "PayloadWithMinFieldValues" -> getRequestJsonFileAsString(FolderName, "Scenario_WithdrawAdvice_MinLength_204")
+      "PayloadWithMinFieldValues" -> getRequestJsonFileAsString(FolderName, "Scenario_WithdrawAdvice_MinLength_204"),
+      "PayloadWithEmptyString"    -> getRequestJsonFileAsString(FolderName, "Scenario_WithdrawAdvice_EmptyString_204")
     )
 
     def runScenario(
@@ -67,6 +68,12 @@ class TradersGoodProfileValidWithdrawAdviceRecordsSpec extends BaseSpec with Com
       204,
       payloads("PayloadWithMinFieldValues"),
       "Validate success 204 for Withdraw Advice TGP record API with all min values"
+    )
+    runScenario(
+      ValidEori,
+      204,
+      payloads("PayloadWithEmptyString"),
+      "Validate success 204 for Withdraw Advice TGP record API with empty value"
     )
 
   }
