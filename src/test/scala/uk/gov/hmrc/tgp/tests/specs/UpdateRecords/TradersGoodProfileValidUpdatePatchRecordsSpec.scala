@@ -30,6 +30,8 @@ class TradersGoodProfileValidUpdatePatchRecordsSpec extends BaseSpec with Common
     val FolderName = "UpdateAPI"
     val ValidEori  = "GB123456789001"
 
+    val stubbedOnlyMandatoryResponseEori = "GB987789562345"
+
     val payloads = Map(
       "ValidPayload"              -> getRequestJsonFileAsString(FolderName, "Scenario_Update_200"),
       "MandatoryPayload"          -> getRequestJsonFileAsString(FolderName, "Scenario_UpdatePatch_200_OnlyMandatory"),
@@ -62,7 +64,7 @@ class TradersGoodProfileValidUpdatePatchRecordsSpec extends BaseSpec with Common
       "Validate success 200 for Update PATCH TGP record API"
     )
     runScenario(
-      ValidEori,
+      stubbedOnlyMandatoryResponseEori,
       "Scenario_UpdatePatch_200_OnlyMandatory",
       200,
       payloads("MandatoryPayload"),
