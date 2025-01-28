@@ -33,7 +33,6 @@ class TradersGoodProfileInvalidCreateRecordsSpec extends BaseSpec with CommonSpe
     identifier: String,
     expectedStatusCode: Int,
     payloadFile: String,
-    expectedResponseFile: String,
     expectedErrorMessage: String,
     scenarioDescription: String
   ): Unit =
@@ -83,7 +82,6 @@ class TradersGoodProfileInvalidCreateRecordsSpec extends BaseSpec with CommonSpe
       identifier,
       expectedStatusCode,
       ValidPayload,
-      "Scenario_Create_201",
       expectedErrorMessage,
       scenarioDescription
     )

@@ -16,7 +16,8 @@
 
 package uk.gov.hmrc.tgp.tests.client
 
-import io.restassured.RestAssured.{`given`, config}
+import io.restassured.RestAssured
+import io.restassured.RestAssured.config
 import io.restassured.config.HeaderConfig.headerConfig
 import io.restassured.http.ContentType
 import io.restassured.specification.{FilterableRequestSpecification, ProxySpecification, RequestSpecification}
@@ -35,7 +36,8 @@ trait RestAssured {
     }
 
   def getRequestSpec: RequestSpecification = {
-    val requestSpec = given()
+    val requestSpec = RestAssured
+      .`given`()
       .config(config().headerConfig(headerConfig().overwriteHeadersWithName("Authorization", "Content-Type")))
       .contentType(ContentType.XML)
       .baseUri(url)
