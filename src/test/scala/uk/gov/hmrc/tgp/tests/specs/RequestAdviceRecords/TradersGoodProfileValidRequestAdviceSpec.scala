@@ -29,7 +29,7 @@ class TradersGoodProfileValidRequestAdviceSpec extends BaseSpec with CommonSpec 
   private val Identifier         = "GB123456789011787"
   private val ExpectedStatusCode = 201
 
-  private def executeScenario(description: String, payloadFile: String): Unit = {
+  private def executeScenario(payloadFile: String): Unit = {
     val payload    = getRequestJsonFileAsString(FolderName, payloadFile)
     val token      = givenGetToken(isValid = true, Identifier)
     val response   = requestAdvice(token, Identifier, payload)
@@ -38,7 +38,7 @@ class TradersGoodProfileValidRequestAdviceSpec extends BaseSpec with CommonSpec 
 
   }
 
-  private def executeMinIdentifierScenario(description: String, minIdentifier: String): Unit = {
+  private def executeMinIdentifierScenario(minIdentifier: String): Unit = {
     val payload    = getRequestJsonFileAsString(FolderName, "Scenario_Create_201")
     val token      = givenGetToken(isValid = true, minIdentifier)
     val response   = requestAdvice(token, minIdentifier, payload)
@@ -48,19 +48,19 @@ class TradersGoodProfileValidRequestAdviceSpec extends BaseSpec with CommonSpec 
   }
 
   Scenario(s"Request Advice API - Validate success response 201 for Valid Request Advice API call") {
-    executeScenario("Validate success response 201 for Valid Request Advice API call", "Scenario_Create_201")
+    executeScenario("Scenario_Create_201")
   }
 
   Scenario(s"Request Advice API - Validate 201 Success Response with max values") {
-    executeScenario("Validate 201 Success Response with max values", "Scenario_Create_201_MaxLength")
+    executeScenario("Scenario_Create_201_MaxLength")
   }
 
   Scenario(s"Request Advice API - Validate 201 Success Response with min values") {
-    executeScenario("Validate 201 Success Response with min values", "Scenario_Create_201_MinLength")
+    executeScenario("Scenario_Create_201_MinLength")
   }
 
   Scenario(s"Request Advice API - Validate 201 Success Response with minimum identifier value") {
     val minIdentifier = "GB123456778012"
-    executeMinIdentifierScenario("Validate 201 Success Response with minimum identifier value", minIdentifier)
+    executeMinIdentifierScenario(minIdentifier)
   }
 }

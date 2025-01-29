@@ -16,12 +16,12 @@
 
 package uk.gov.hmrc.tgp.tests.service
 
-import play.api.libs.ws.StandaloneWSRequest
+import play.api.libs.ws.StandaloneWSResponse
 import uk.gov.hmrc.tgp.tests.client.HttpClient
 import uk.gov.hmrc.tgp.tests.conf.TestConfiguration
 
 import scala.concurrent.Await
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 class AuthService extends HttpClient {
 
@@ -57,7 +57,7 @@ class AuthService extends HttpClient {
        |}
     """.stripMargin
 
-  def postLogin(identifier: String): StandaloneWSRequest#Self#Response = {
+  def postLogin(identifier: String): StandaloneWSResponse = {
     val url = s"$host" + TestConfiguration.getConfigValue("auth-login-stub_uri")
     Await.result(post(url, authPayload(identifier), ("Content-Type", "application/json")), 10.seconds)
   }
