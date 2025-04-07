@@ -1,4 +1,5 @@
 {"correlationId": "5dc26c2c-d7d2-4339-86f0-d74621b86fb9",
   "code": "UNAUTHORIZED",
-  "message": "The details signed in do not have a Trader Goods Profile"
+  "message": "The details signed in do not have a Trader Goods Profile",
+  "errorNumber": "101"
 }
