@@ -46,23 +46,8 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
   def setHeadersBasedOnFeatureFlags(request: RequestSpecification): RequestSpecification = {
     clearQueryParam(request)
 
-    // Conditionally add headers based on the flags
-    if (TestConfiguration.sendClientId && TestConfiguration.sendAcceptHeader) {
-      // Both Client-Id and Accept headers are enabled
-      request
-        .header("X-Client-Id", "1234")
-        .header("Accept", "application/vnd.hmrc.1.0+json")
-    } else if (TestConfiguration.sendClientId) {
-      // Only Client-Id is enabled
-      request
-        .header("X-Client-Id", "1234")
-    } else if (TestConfiguration.sendAcceptHeader) {
-      // Only Accept header is enabled
-      request
-        .header("Accept", "application/vnd.hmrc.1.0+json")
-    } else {
-      request // No headers added
-    }
+    request
+      .header("X-Client-Id", "1234")
   }
 
   def setHeadersWithoutContentTypeAndClientId(request: RequestSpecification): RequestSpecification =
@@ -72,16 +57,12 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
   def setHeadersBasedOnSendClientId(request: RequestSpecification): RequestSpecification = {
     clearQueryParam(requestSpecification)
 
-    if (TestConfiguration.sendClientId) {
-      request
-        .header("X-Client-Id", "1234")
-        .header("Accept", "application/vnd.hmrc.1.0+json")
-    } else {
-      request
-        .header("Accept", "application/vnd.hmrc.1.0+json")
-    }
+    request
+      .header("X-Client-Id", "1234")
+      .header("Accept", "application/vnd.hmrc.1.0+json")
+
   }
-  def getTgpRecord(token: String, identifier: String): Response                          = {
+  def getTgpRecord(token: String, identifier: String): Response = {
     When(s"I get Get Tgp Records request without query params and receive a response")
     setHeadersBasedOnSendClientId(requestSpecification)
       .header("Authorization", token)
